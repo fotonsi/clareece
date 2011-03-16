@@ -1,0 +1,13 @@
+<%= render :partial => 'active_scaffold/update_form' %>
+<div style="z-index:0;padding:5px;">
+<%= render :active_scaffold => 'experiencia_profesionales', :constraints => {:empleado_id => @record.id} %>
+</div>
+<div style="z-index:0;padding:5px;">
+<%= render :active_scaffold => 'formacion_academicas', :constraints => {:empleado_id => @record.id} %>
+</div>
+<div style="z-index:0;padding:5px;">
+<%= render :active_scaffold => 'formacion_especificas', :constraints => {:empleado_id => @record.id} %>
+</div>
+<div style="z-index:0;padding:5px;">
+<%= render :active_scaffold => 'accidente_laborales', :constraints => {:empleado_id => @record.id} %>
+</div>

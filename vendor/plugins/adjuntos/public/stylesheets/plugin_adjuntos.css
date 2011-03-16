@@ -1,0 +1,67 @@
+/* Window
+============ */
+div .window {
+  position: absolute; 
+  left: 15%; 
+  right: 15%; 
+  top:20%; 
+  border: 1px solid #C7C7C7; 
+  background-color: white; 
+  font-size: 10pt;
+  z-index: 2;
+}
+
+div .window .title {
+  background-color: #EEE;
+  padding: 3px;
+  border-bottom: 1px solid #C7C7C7;
+  margin-bottom: 2px;
+}
+
+div .window .title .title-text {
+  float: left;
+  color: #333333;
+}
+
+div .window .title .close-button {
+  text-align: right;
+}
+
+div .window .content {
+  height: 280;
+  overflow: auto;
+  padding: 3px;
+}
+
+
+/* Form
+============ */
+div .adjuntos-form .list {
+  border-right: 1px solid #DDD;
+  border-bottom: 1px solid #DDD;
+  border-left: 1px solid #DDD;
+  margin-bottom: 4px;
+}
+
+div .adjuntos-form .column-head {
+  float: left;  
+  background-color: #EEE;
+  color: 333333;
+  border-top: 1px solid #DDD;
+  font-size: 9pt;
+  height: 20px;
+}
+
+div .adjuntos-form .column-row {
+  float: left;
+  border-right: 1px solid #DDD;
+  color: 333333;
+}
+
+div .adjuntos-form .column-action {
+  float: left;
+}
+
+div .adjuntos-form .actions {
+  text-align: center;
+}

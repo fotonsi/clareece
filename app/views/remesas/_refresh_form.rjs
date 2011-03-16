@@ -1,0 +1,11 @@
+form_partial = @record.general? ? 'update_form' : 'active_scaffold_overrides/update_form'
+if controller.send(:successful?)
+  success_message ||= "Acción realizada correctamente"
+  flash[:notice] = success_message 
+else
+  flash[:error] = "No se pudo realizar la acción solicitada" if @record.errors.empty?
+  page << "$('wait_message').toggle();"
+end
+page.replace element_form_id(:action => :update), :partial => form_partial
+page.replace(recibos_list_id(@record), :partial => 'recibos', :locals => {:label => 'Recibos individuales'}) if @record.individual?
+page.replace flash_messages_id, :partial => 'application/flash_messages'

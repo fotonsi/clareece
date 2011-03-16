@@ -1,0 +1,9 @@
+<!--
+  Se lista todos los alumnos que están en lista de espera.
+  Se crean con estado pasado por parámetro, en este caso 'espera'
+-->
+<%= render  :active_scaffold => 'formaciones',
+            :constraints => {:curso_id => @record.id},
+            :conditions => ["estado = ?", :espera.to_s],
+            :params => {:embedded => 'cursos', :list => "lista_espera", :defaults => {:estado => "espera"}},
+            :label => 'Lista de espera' %>

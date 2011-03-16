@@ -1,0 +1,20 @@
+es:
+  activerecord:
+    attributes:
+      formacion:
+        created_at: Fecha
+        forma_pago: Forma de pago/cobro
+  view:
+    formacion:
+      estado:
+        matriculado: Matriculado
+        espera: En lista de espera
+        baja: Baja
+        cancelado: Curso cancelado
+      group:
+  active_scaffold:
+    formaciones:
+      label: Alumnos
+      matricular_confirm: "¿Confirma la realización de la matrícula de este alumno?"
+      baja_matricula_confirm: "Se cancelará la matrícula y se anulará el devengo, ¿está seguro?"
+      devolver_matricula_confirm: "Se devolverá el pago y se anulará el devengo de esta matrícula, ¿está seguro?"

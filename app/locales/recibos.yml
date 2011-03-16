@@ -1,0 +1,19 @@
+es:
+  activerecord:
+    attributes:
+      recibo:
+        id: Nº
+        created_at: Fecha
+        importe_total: Importe
+  view:
+    recibo:
+      estado:
+        sin_generar: Sin generar
+        generado: Generado
+        anulado: Anulado
+        devuelto: Devuelto
+      group:
+        conceptos: Conceptos incluidos
+  active_scaffold:
+    recibos:
+      label: Recibos

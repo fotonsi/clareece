@@ -1,0 +1,110 @@
+/*
+
+Example CSS file for creating tabs using tabs.js.
+Created by Rob Allen (rob at akrabat dot com)
+Based on the CSS code from Silverorange Labs at :
+http://labs.silverorange.com/archives/2003/september/simplecsstabs
+
+*/
+
+.active-scaffold .tab-container {
+  margin: 2em 0px;
+}
+
+.tab-container .tab-content {
+  border: 1px solid #aaa;
+  background: white; /*grey;*/ /*#FFF3B3;*/
+  padding: 8px 1em;
+  /*
+  -moz-border-radius: 7px;
+  -moz-border-radius-topleft: 0px;
+  */
+}
+
+.tab-container .tab-header {
+  position: relative;
+  width: 100%;
+  height: 2em;
+  width: 80em; /* a width is required for Opera, older Mozilla browsers, and Konqueror browsers */
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
+.tab-container .tab-header ul.tab-list {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  bottom: -1px;
+  width: 75em; /* a width is required for Opera, older Mozilla browsers, and Konqueror browsers */
+}
+
+.tab-container .tab-header ul.tab-list li  {
+  display: inline;
+  list-style: none;
+  margin: 0;
+  width: auto;
+}
+
+.tab-container .tab-header ul.tab-list a,
+.tab-container .tab-header ul.tab-list span,
+.tab-container .tab-header ul.tab-list a.tab-active {
+  /*width: 9em;*/
+  display: block;
+  float: left;
+  padding: 4px 22px;
+  margin: 1px 2px 0 0;
+  text-align: center;
+  font-family: tahoma, verdana, sans-serif;
+  font-size: 1.2em;
+  text-decoration: none;
+  color: black;
+}
+
+.tab-container .tab-header ul.tab-list span,
+.tab-container .tab-header ul.tab-list a.tab-active,
+.tab-container .tab-header ul.tab-list a.tab-active:hover {
+  border: 1px solid #aaa;
+  border-bottom: none;
+  background: white;
+  padding-bottom: 6px;
+  margin-top: 0;
+}
+
+
+/* a link in a background tab */
+.tab-container .tab-header ul.tab-list a {
+  background: white;
+  border: 1px solid #aaa;
+  color: black;
+  border-bottom: none;
+  white-space: nowrap;
+}
+
+/* hover on a background tab */
+.tab-container .tab-header ul.tab-list a:hover {
+  margin-top: 0;
+  border-color: #aaa;
+  background: #ccc;
+  padding-bottom: 5px;
+}
+
+/* tab unvisited */
+.tab-container .tab-header ul.tab-list li.li-unvisited a,
+.tab-container .tab-header ul.tab-list li.li-unvisited a:hover {
+  /*padding-right: 13px;*/
+  background-position: right;
+  background-repeat: no-repeat;
+}
+
+/*div#layout .active-scaffold h4 {*/
+/*  display: none;*/
+/*}*/
+
+.tab {
+  display: none;
+}
+
+/*.tab  [> the heading that became the li <]*/
+/*{*/
+  /*display: none;*/
+/*}*/

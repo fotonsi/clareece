@@ -1,0 +1,14 @@
+<% cols = columns.instance_variable_get("@columns") %>
+<%= 
+  active_scaffold_form_layout("") do
+    [row([ cols[:numero], cols[:cliente], cols[:fecha] ])
+    ]
+  end
+%>
+<%= 
+  active_scaffold_form_layout("") do
+    [row([ cols[:factura_detalles] ])
+    ]
+  end
+%>
+

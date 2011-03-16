@@ -1,0 +1,8 @@
+es:
+  jquery:
+    date:
+      formats:
+        default: 'dd/mm/yy'
+    number:
+      formats:
+        default: '#,###.00'

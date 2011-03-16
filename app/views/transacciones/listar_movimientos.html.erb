@@ -1,0 +1,3 @@
+<%= render :active_scaffold => 'movimientos', 
+           :constraints => {:origen_id => @record.id, :origen_type => 'Transaccion'},
+           :params => {:embedded => params[:controller]} %>

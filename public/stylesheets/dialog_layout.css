@@ -1,0 +1,101 @@
+/********************************/
+/* Estilos del layout dialog    */
+/********************************/
+
+body.dialog {
+    font:normal 10px verdana, arial, helvetica, sans-serif;
+    color: #000000;
+    margin: 0px;
+}
+
+div#layout {
+  /*padding: 10px;*/
+  background-color: #6B7D9D; /*#555;*/
+  padding-top: 5px;
+}
+
+div#layout div#actions {
+  float: left;
+  font-size: 15px;
+  margin-left: 5px;
+}
+
+div#layout div#actions div.action-active,
+div#layout div#actions div.action {
+  float: left;
+  border: 1px solid black;
+  padding: 2px;
+  margin-right: 3px;
+  -moz-border-radius: 3px;
+  font-size: 12px;
+  font-style: sans-serif;
+  color: black;
+}
+
+div#layout div#actions div.action {
+  background-color: #bbb;
+}
+
+div#layout div#actions div.action-active {
+  background-color: #c8ccff;
+}
+
+div#layout div#actions div.action-active a, 
+div#layout div#actions div.action a {
+  text-decoration: none;
+  color: #222;
+}
+
+div#layout div#actions div.action-active img, 
+div#layout div#actions div.action a img {
+  vertical-align: top;
+}
+
+body.dialog div#layout div#title {
+  text-align: right;
+  color: white;
+  margin-top: 5px;
+  margin-right: 15px;
+  font-size: 14px;
+}
+
+div#layout div#main {
+  /*
+  height: 90%;
+  overflow: auto;
+  */
+  margin-top: 12px;
+  border: 1px solid #aaa; 
+  background-color: #eee;
+  padding: 5px 18px;
+}
+
+div#layout div#main div.warning {
+  display: inline-block;
+  width: 45%;
+  border: 1px solid red;
+  background-color: #ffbdbd;
+  padding: 4px;
+}
+
+div#layout div#main div.warning img {
+  float: left;
+  margin-right: 20px;
+}
+
+
+/*Adaptaciones de AS*/
+div#layout .active-scaffold .view{
+  border: none;
+  background-color: #eee;
+}
+
+div#layout .active-scaffold form.create, 
+div#layout .active-scaffold form.update {
+  background-color: #eee;
+}
+
+div#layout .active-scaffold h4, 
+div#layout .active-scaffold h5 {
+  color: #555;
+}

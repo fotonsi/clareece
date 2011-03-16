@@ -1,0 +1,44 @@
+ValidateSpanishVat
+==================
+
+This plugin validates spanish VAT in a model. To use, simply put
+
+	validates_spanish_vat (fields) in your model.
+
+Example:
+
+	# In app/models/company.rb
+	class Company < ActiveRecord::Base
+	  validates_presence_of :name, :address
+	  validates_spanish_vat :vat
+	end
+
+
+If the validation fails, it appends an error "is invalid", feel free to modify that!
+
+Additionally, you can use CustomValidator::SpanishVAT.validate(some_vat) elsewere in your models/controllers, returning true or false in case.
+
+Enjoy,
+
+RailsLab.net Team
+--------------
+
+Este plugin valida una identificador fiscal Español en un modelo (NIF/CIF/NIE). Para utilizarlo, simplemente pon
+  
+  validates_spanish_vat (campos) en tu modelo.
+  
+Ejemplo:
+
+  # En app/models/empresa.rb
+  class Empresa < ActiveRecord::Base
+    validates_presence_of :nombre, :direccion
+    validates_spanish_vat :cif
+  end
+
+Si la validación falla, añade el error "is invalid" a cada campo invalido, modifícalo si quieres!
+
+Adicionalmente, puedes utilizar CustomValidator::SpanishVAT.validate(cualquier_nif_cif_o_nie) en qualquier lugar en tus modelos/controladores, devolviendo verdadero o falso según el caso.
+
+Disfrútalo,
+
+El equipo RailsLab.net

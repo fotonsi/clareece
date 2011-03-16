@@ -1,0 +1,34 @@
+<% url_options = params_for(:action => 'crear_existente') %>
+
+<h4>Añadir documento existente</h4><br />
+
+<div id="<%= element_messages_id(:action => :crear_existente) %>" class="messages-container"><%= error_messages_for :table %></div>
+
+<div class="view-item">
+  <%= form_remote_tag :url => url_options, 
+                      :after => "$('#{loading_indicator_id(:action => :crear_existente)}').style.visibility = 'visible'; Form.disable('#{element_form_id(:action => :crear_existente)}');",
+                      :complete => "$('#{loading_indicator_id(:action => :crear_existente)}').style.visibility = 'hidden'; Form.enable('#{element_form_id(:action => :crear_existente)}');",
+                      :failure => "ActiveScaffold.report_500_response('#{active_scaffold_id}')",
+                      :html => {
+                        :href => url_for(url_options),
+                        :onsubmit => onsubmit,
+                        :id => element_form_id(:action => :crear_existente),
+                        :class => 'create',
+                        :method => :post
+                      }
+  %>
+
+  <table class="no-hover">
+    <tr>
+      <td><label>Documento:</label></td>
+      <td><%= nice_smart_auto_field(:record, :gestion_documental_id, (record.gestion_documental_id.to_label rescue nil), {:query_url => url_for(:action => 'gestion_documental_autocomplete_results'), :param_name => 'gestion_documental_id', :class => 'autocomplete text-input', :size => 50}) %></td>
+    </tr>
+  </table>
+
+  <div style="clear: both; margin-top: 10px;">
+    <%= submit_tag as_(:create), :class => "submit" %>
+    <a href="" class="cancel" onclick="f = this.up('form'); f.reset();"><%= as_(:close) -%></a>
+    <%= loading_indicator_tag(:action => :crear_existente) %>
+  </div>
+</form>
+</div>

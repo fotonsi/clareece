@@ -1,0 +1,5 @@
+<p class="form-footer">
+  <%= submit_tag as_(:update), :class => "submit" %>
+  <%= link_to as_(:cancel), params_for(:controller => 'cursos', :action => 'listar_alumnos', :id => (@record.curso.id if @record.curso)), :class => 'cancel' %>
+  <%= loading_indicator_tag(:action => :update, :id => params[:id]) %>
+</p>

@@ -1,0 +1,4 @@
+<%= render :active_scaffold => 'formaciones', 
+           :constraints => {:alumno_id => @record.id, :alumno_type => @record.class.name}, 
+           :params => {:embedded => 'colegiados', :list => 'cursos', :defaults => {:estado => 'matriculado'}}, 
+           :label => 'Cursos' %>

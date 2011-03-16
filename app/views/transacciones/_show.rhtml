@@ -1,0 +1,17 @@
+<label>Transacción generada el día <%= @record.fecha_generacion %></label>
+
+<div style="margin-top: 30px; margin-bottom: 20px;">
+  <%= render :partial => 'form' -%>
+</div>
+
+<p class="form-footer">
+  <%= link_to as_(:close), params_for(:controller => params[:parent_controller] ? params[:parent_controller] : params[:controller], :action => 'list'), :class => 'cancel' %>
+  <%= loading_indicator_tag(:action => :create, :id => params[:id]) %>
+</p>
+
+<!-- Se muestra los campos deshabilitados -->
+<script type="text/javascript">
+  $$('input,select,textarea').each(function(field) { 
+    setFieldMode(field, 'disabled');
+  });
+</script>

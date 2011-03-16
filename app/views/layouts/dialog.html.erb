@@ -1,0 +1,18 @@
+<body class="dialog">
+  <div id="layout">
+    
+    <div id="actions">
+      <%= respond_to?(:layout_actions) ? layout_actions(@record) : "" if @record %>
+    </div>
+    
+    <div id="title">
+      <%= respond_to?(:layout_title) ? layout_title(@record) : @record.to_label if @record %>
+    </div>
+
+    <div id="main">
+      <% respond_to?(:load_warning) ? load_warning(@record) : "" if @record %>
+      <%= show_flash %>
+      <%= yield %>
+    </div>
+  </div>
+</body>

@@ -1,0 +1,12 @@
+<p class="form-footer">
+  <%= submit_tag "Crear N&ordm; registro", :class => "submit" %>
+  <% 
+    if parent_url = controller.active_scaffold_session_storage[:parent_url]
+      url = parent_url.merge(:eid => parent_url[:controller])
+    else
+      url = params_for({:controller => params[:controller], :action => 'list', :eid => params[:eid]})
+    end
+  %>
+  <%= link_to as_(:cancel), url, :class => 'cancel' %>
+  <%= loading_indicator_tag(:action => :create, :id => params[:id]) %>
+</p>

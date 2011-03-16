@@ -1,0 +1,9 @@
+<!-- 
+  Se lista todos los alumnos que no estén en espera.
+  Se crean con el estado pasado por parámetro, en este caso 'matriculado'.
+-->
+<%= render :active_scaffold => 'formaciones', 
+           :constraints => {:curso_id => @record.id}, 
+           :conditions => ["estado = ?", :matriculado.to_s], 
+           :params => {:embedded => 'cursos', :list => 'alumnos', :defaults => {:estado => "matriculado"}},
+           :label => "Alumnos del curso" %>

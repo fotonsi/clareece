@@ -1,0 +1,7 @@
+<%= render :partial => "active_scaffold/update_form" %>
+
+<%= render :active_scaffold => 'gestiones_documentales', 
+           :conditions => ["gestiones_documentales.id in (?)", @record.gestion_documental_ids],
+           :params => {:embedded => 'expedientes', :expediente_id => @record.id}, 
+           :label => 'Documentos asociados' %>
+<div style="height: 10%;"></div>

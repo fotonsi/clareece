@@ -1,0 +1,31 @@
+Adjuntos
+================
+
+Permite asociar N ficheros adjutos a cualquier objeto ActiveRecord. 
+Dispone de una interfaz en popup para gestionar los ficheros adjuntos. 
+Depende del plugins attachment_fu para guardar los ficheros y responds_to_parent para simular un formulario AJAX con adjuntos. 
+
+
+
+Uso
+================
+
+En app/helpers/application_helper.rb:
+
+module ApplicationHelper
+  include AdjuntosHelper
+  ...
+end
+
+
+En el modelo:
+
+class MyModel < ActiveRecord::Base
+  has_many :adjuntos, :as => :parent
+  ...
+end
+
+
+En la vista:
+
+<%= adjuntos @record %>

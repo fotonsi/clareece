@@ -1,0 +1,41 @@
+<p class="form-footer">
+  <% if @record.authorized_for_edit? %>
+    <%= submit_tag as_(:update), :class => "submit" %>
+  <% end %>
+  <% if @record.authorized_for_generar? %>
+    <%= link_to_remote 'Generar', 
+        :url => params_for(:action => 'generar'),
+        :submit => element_form_id(:action => 'update'),
+        :method => :post,
+        :class => 'submit',
+        :confirm => "Usted va a GENERAR el recibo. ¿Confirma que desea generar los movimientos de este recibo?",
+        :after => "$('#{loading_indicator_id(:action => :update, :id => params[:id])}').style.visibility = 'visible';",
+        :complete => "$('#{loading_indicator_id(:action => :update, :id => params[:id])}').style.visibility = 'hidden';",
+        :failure => "ActiveScaffold.report_500_response('#{active_scaffold_id}')"
+    %>
+  <% end %>
+  <% if @record.authorized_for_anular? %>
+    <%= link_to_remote 'Anular', 
+        :url => params_for(:action => 'anular'),
+        :method => :post,
+        :class => 'submit',
+        :confirm => "Usted va a ANULAR el recibo. ¿Confirma que desea generar los movimientos de anulación de este recibo?",
+        :after => "$('#{loading_indicator_id(:action => :update, :id => params[:id])}').style.visibility = 'visible';",
+        :complete => "$('#{loading_indicator_id(:action => :update, :id => params[:id])}').style.visibility = 'hidden';",
+        :failure => "ActiveScaffold.report_500_response('#{active_scaffold_id}')"
+    %>
+  <% end %>
+  <% if @record.authorized_for_devolver? %>
+    <%= link_to_remote 'Devolver', 
+        :url => params_for(:action => 'devolver'),
+        :method => :post,
+        :class => 'submit',
+        :confirm => "Usted va a DEVOLVER el recibo. ¿Confirma que desea generar los movimientos de anulación y recargo bancario de este recibo?",
+        :after => "$('#{loading_indicator_id(:action => :update, :id => params[:id])}').style.visibility = 'visible';",
+        :complete => "$('#{loading_indicator_id(:action => :update, :id => params[:id])}').style.visibility = 'hidden';",
+        :failure => "ActiveScaffold.report_500_response('#{active_scaffold_id}')"
+    %>
+  <% end %>
+  <%= link_to as_(:cancel), params_for(:controller => params[:parent_controller] ? params[:parent_controller] : params[:controller], :action => 'list'), :class => 'cancel' %>
+  <%= loading_indicator_tag(:action => :update, :id => params[:id]) %>
+</p>

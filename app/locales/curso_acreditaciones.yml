@@ -1,0 +1,10 @@
+es:
+  activerecord:
+    attributes:
+      curso_acreditacion:
+        fecha_solicitud: Fecha solicitud
+        fecha_obtencion: Fecha obtención
+        entidad_acreditadora: Ent. acreditadora
+        creditos: Créditos
+        codigo: Código
+

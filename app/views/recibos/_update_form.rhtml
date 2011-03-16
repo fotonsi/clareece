@@ -1,0 +1,10 @@
+<%= render :partial => "active_scaffold_overrides/update_form" %>
+
+<% if not @record.authorized_for_edit? %>
+<!-- Se muestra los campos deshabilitados -->
+<script type="text/javascript">
+  $$('input,select,textarea').each(function(field) { 
+    setFieldMode(field, 'disabled');
+  });
+</script>
+<% end %>

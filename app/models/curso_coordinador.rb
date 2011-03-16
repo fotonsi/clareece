@@ -1,0 +1,4 @@
+class CursoCoordinador < ActiveRecord::Base
+  belongs_to :curso
+  belongs_to :coordinador
+end

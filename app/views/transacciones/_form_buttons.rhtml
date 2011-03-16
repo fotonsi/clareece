@@ -1,0 +1,26 @@
+<p id="form-footer" class="form-footer">
+<%= submit_tag as_(action), :class => "submit", :onclick => %|
+      var msg = "Va a programar una nueva transacción. Compruebe los datos: \\n\\n"
+        + "Concepto de: "   + $('record_concepto_de').options[$('record_concepto_de').selectedIndex].text  + "\\n"   
+        + "Concepto: "      + $('record_concepto').value + "\\n"
+        + "Importe: "       + $('record_importe').value + "\\n"
+        + "Destinatarios: " + $('record_destinatarios').options[$('record_destinatarios').selectedIndex].text + "\\n" 
+        + "Fecha cobro:"    + $('record_fecha_cobro').value + "\\n"
+        + "Fecha generación:"    + $('record_fecha_generacion').value + "\\n\\n"   
+        + "La transacción será generada en la fecha indicada como Fecha de generación.";
+      return confirm_disable_buttons(msg, 'form-footer', #{loading_indicator_id(:action => action, :id => params[:id])}')|
+%>
+  <% 
+    if parent_url = controller.active_scaffold_session_storage[:parent_url]
+      url = parent_url.merge(:eid => parent_url[:controller])
+    else
+      url = params_for({:controller => params[:controller], :action => 'list', :eid => params[:eid]})
+    end
+  %>
+  <% if @record.authorized_for_generar? && !@record.generacion_programada? %>
+    <%= link_to 'Generar', {:action => 'generar', :id => @record},
+        :onclick => "return confirm_disable_buttons('Se va a generar a mano la transacción, si ha hecho cambios guarde primero. ¿Desea seguir con la generación?', 'form-footer', '#{loading_indicator_id(:action => action, :id => params[:id])}')"  %>
+  <% end %>
+  <%= link_to as_(:cancel), url, :class => 'cancel' %>
+</p>
+<%= loading_indicator_tag(:action => action, :id => params[:id]) %>

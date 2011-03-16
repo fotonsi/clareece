@@ -1,0 +1,27 @@
+<% url_options = params_for(:action => 'crear_existente') %>
+
+<h4>Asociar expediente existente</h4><br />
+
+<div id="<%= element_messages_id(:action => :crear_existente) %>" class="messages-container"><%= error_messages_for :table %></div>
+
+<%= form_remote_tag :url => url_options, 
+                    :after => "$('#{loading_indicator_id(:action => :crear_existente)}').style.visibility = 'visible'; Form.disable('#{element_form_id(:action => :crear_existente)}');",
+                    :complete => "$('#{loading_indicator_id(:action => :crear_existente)}').style.visibility = 'hidden'; Form.enable('#{element_form_id(:action => :crear_existente)}');",
+                    :failure => "ActiveScaffold.report_500_response('#{active_scaffold_id}')",
+                    :html => {
+                      :href => url_for(url_options),
+                      :onsubmit => onsubmit,
+                      :id => element_form_id(:action => :crear_existente),
+                      :class => 'create',
+                      :method => :post
+                    }
+%>
+
+<%= nice_smart_auto_field(:record, :expediente_relacionado_id, (record.expediente_relacionado.to_label rescue nil), {:query_url => url_for(:action => 'expediente_autocomplete_results'), :class => 'autocomplete text-input', :size => 50, :param_name => "expediente_relacionado_id"}) %>
+
+  <div style="clear: both; margin-top: 10px;">
+    <%= submit_tag as_(:create), :class => "submit" %>
+    <a href="" class="cancel" onclick="f = this.up('form'); f.reset();"><%= as_(:close) -%></a>
+    <%= loading_indicator_tag(:action => :crear_existente) %>
+  </div>
+</form>

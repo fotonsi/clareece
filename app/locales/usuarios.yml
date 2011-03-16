@@ -1,0 +1,4 @@
+es:
+  view:
+    usuario:
+      not_registered: "El usuario {{login}} no se encuentra registrado. Consulte administración."

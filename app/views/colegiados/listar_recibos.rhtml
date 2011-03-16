@@ -1,0 +1,4 @@
+<%= link_to 'Remesas', :action => 'listar_remesas', :id => @record, :mode => 'dialog' %> |
+<%= link_to 'Saldar deuda', :action => '', :id => @record, :mode => 'dialog' %>
+
+<%= render :active_scaffold => 'recibos', :constraints => {:colegiado_id => @record.id} %>

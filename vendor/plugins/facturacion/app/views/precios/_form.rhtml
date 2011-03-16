@@ -1,0 +1,13 @@
+<% cols = columns.instance_variable_get("@columns") %>
+<%= 
+  active_scaffold_form_layout("") do
+    [row([ cols[:concepto_id], cols[:cliente_id], cols[:precio], cols[:impuesto_id] ] ),]
+  end
+%>
+<script type="text/javascript">
+jQuery(function($) {
+$("input[name=record[precio]]").blur(function(){
+    $(this).format({format:"#.###,00", locale:"es"});
+});
+});
+</script>

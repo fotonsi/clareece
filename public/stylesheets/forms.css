@@ -1,0 +1,105 @@
+/* Form :: Fields */
+.active-scaffold label {
+font: normal 12px verdana, sans-serif;
+color: #;
+}
+
+.active-scaffold li.form-element {
+padding-top: 5px;
+clear: both;
+text-align: center;
+}
+
+.active-scaffold li.form-element dl {
+margin-bottom: 10px;
+/*padding: 3px;*/
+float: left;
+}
+
+.active-scaffold dl DIV.borde_interno {
+border: 1px solid #CCC;
+display: inline-table;
+width: 85%;
+text-align: left;
+background-color: #EEEEFF;
+}
+
+.active-scaffold li.form-element dt {
+width: 8em;
+border: 0px;
+padding: 3px 0px;
+margin-right: 1em;
+margin-left: 1.5em;
+float: left;
+}
+
+.active-scaffold li.form-element dt.primer-elemento {
+width: 12em;
+padding: 3px 0px;
+margin: 0em;
+}
+
+.active-scaffold li.form-element dd {
+margin: 0em;
+/*float: left;*/
+clear: both;
+width: 100%;
+}
+
+.active-scaffold fieldset.form {
+  border: 1px solid #CCC;
+  padding-bottom: 5px;
+  margin: 10px 2px;
+  background-color: #DDDDDD;
+}
+
+.active-scaffold fieldset.form legend {
+  color: green;
+}
+
+.active-scaffold li.form-element dd SELECT {
+  width: 13em;
+}
+
+.active-scaffold DIV.borde_interno input,
+.active-scaffold DIV.borde_interno select,
+.active-scaffold DIV.borde_interno textarea {
+  border: none;
+  width: 100%;
+  color: black;
+}
+
+.active-scaffold DIV.borde_interno input.widget_date_box {
+  width: auto;
+}
+
+.active-scaffold DIV.borde_interno input[type="button"] {
+  width: auto;
+  border-left: 1px solid #EFEFEF;
+  border-top: 1px solid #EFEFEF;
+  border-right: 1px solid #888888;
+  border-bottom: 1px solid #888888;
+  background-color: #DFDFDF;
+}
+
+.active-scaffold DIV.borde_interno input:focus {
+  font-weight: bolder;
+}
+
+.help_text {
+  color: #999;
+}
+
+.active-scaffold .association-record a.destroy {
+font-weight: bold;
+display: block;
+height: 16px;
+padding: 0;
+width: 16px;
+text-indent: -4000px;
+background: url(../../../images/active_scaffold/default/cross.png) 0 0 no-repeat;
+}
+
+.active-scaffold DIV.borde_interno tr.association-record td {
+  padding-left: 5px;
+}

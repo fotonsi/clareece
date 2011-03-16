@@ -1,0 +1,2 @@
+module ColegiadoEspecialidadesHelper
+end

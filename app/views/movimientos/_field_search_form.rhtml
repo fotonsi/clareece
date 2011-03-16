@@ -1,0 +1,26 @@
+<table>
+  <% unless params[:embedded] == 'colegiados' %>
+  <tr>
+    <td><label>Titular</label></td>
+    <td colspan="3"><%= titular_search_column @record, "search[titular]" %>&nbsp;(Puede buscar por partes del nombre completo o del nif o por el número de colegiado precediéndolo de #)</td>
+  </tr>
+  <% end %>
+  <tr>
+    <td><label>Fecha</label></td>
+    <td><%= fecha_search_column @record, "search[fecha]" %></td>
+    <td><label>En concepto de</label></td>
+    <td><%= concepto_de_search_column @record, "search[concepto_de]" %> <%= concepto_search_column @record, "search[concepto]" %></td>
+  </tr>
+  <tr>
+    <td><label>Forma de pago</label></td>
+    <td><%= forma_pago_search_column @record, "search[forma_pago]" %></td>
+    <td><label>Importe</label></td>
+    <td><%= importe_search_column @record, "search[importe]" %></td>
+  </tr>
+  <tr>
+    <td><label>Estado</label></td>
+    <td><%= estado_search_column @record, "search[estado]" %></td>
+    <td><label>Tipo</label></td>
+    <td><%= tipo_search_column @record, "search[tipo]" %></td>
+  </tr>
+</table>

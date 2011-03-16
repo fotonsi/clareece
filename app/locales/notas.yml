@@ -1,0 +1,12 @@
+es:
+  activerecord:
+    attributes:
+      nota:
+        created_at: Fecha
+  view:
+    nota:
+  active_scaffold:
+    notas:
+      create_new: Nueva nota
+      create_label: Crear Nota
+      update_label: Actualizar Nota

@@ -1,0 +1,120 @@
+/********************************/
+/* Estilos del layout general   */
+/********************************/
+
+body.general {
+    overflow: hidden;
+    background-color: #6b7d9d;
+    font:normal 10px verdana, arial, helvetica, sans-serif;
+    color: #000000;
+    margin: 0px;
+}
+
+body.general div#title {
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    height: 30px;
+    font-size: 16pt;
+    margin-bottom: 5px;
+    padding-left: 5px;
+}
+
+body.general div#title img#logo {
+  float: left;
+  margin: 2px 0px 0px 0px;
+  padding: 0px;
+  border: 0px;
+}
+
+div#header {
+    height: 10px;
+}
+
+div#menu {
+}
+
+div#locator {
+    background-color: #555;
+    color: white;
+    font:normal 10px verdana, arial, helvetica; 
+    height: 16px;
+    padding-top: 2px;
+    font-size: 11px;
+}
+
+div#locator span.locator_block {
+  background-color: gray;
+  color: white;
+  font-size: 1.2em;
+  letter-spacing: 1.2px;
+  margin-left: 20px;
+  padding-bottom: 3px;
+  padding-left: 6px;
+  padding-right: 6px;
+  vertical-align: bottom;
+}
+
+body.general div#main {
+    background-color: #F6F6F6;
+    margin-top: 0px;
+    padding: 15px;
+    /*height: 79%;
+    overflow:auto;*/ 
+    border: 3px solid gray;
+}
+
+body.general div#form-content {
+  clear: both;
+  background-color: #555;
+  border-bottom: 1px solid gray;
+}
+
+body.general div#form-content div#lateral-menu {
+  float: left;
+  width: 4%;
+  padding-top: 25px;
+  background-color: #555;
+}
+
+body.general div#form-content div#lateral-menu div.action,
+body.general div#form-content div#lateral-menu div.action-active {
+  margin-bottom: 15px;
+}
+
+body.general div#form-content div#lateral-menu div.action-active a,
+body.general div#form-content div#lateral-menu div.action a {
+  text-decoration: none;
+}
+
+body.general div#form-content div#lateral-menu div.action a:hover {
+  color: #c8ccff;  
+}
+
+body.general div#form-content div#lateral-menu div.action-active img,
+body.general div#form-content div#lateral-menu div.action a img {
+  vertical-align: top;
+}
+
+body.general div#form-content div#lateral-menu div.action a {
+  color: white;  
+}
+
+body.general div#form-content div#lateral-menu div.action-active {
+  color: #c8ccff;  
+  background-color: gray;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+body.general div#form-content div#content {
+  float: left; 
+  width: 96%;
+}
+
+div#foot {
+    background-color: #6b7d9d;
+    color: white; 
+    font-size: 10px;
+    padding-left: 5px;
+}

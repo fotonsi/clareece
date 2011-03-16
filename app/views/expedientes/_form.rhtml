@@ -1,0 +1,25 @@
+<% if not @record.colegiado.nil? %> 
+<%# Enlace al colegiado del expediente %>
+<label style="font-size: 14px;">Expediente del colegiado 
+  <%= link_to(@record.colegiado.nombre_completo, {:controller => 'colegiados', :action => 'edit', :id => @record.colegiado},
+      :title => 'Acceder a la ficha del colegiado de este expediente') %>
+</label>
+<% end %>
+<div class="view-item" style="margin-top: 20px;">
+  <label>Tipo de expediente</label>
+  <%= select :record, :tipo, [[I18n.t("forms.bool.undef"), nil]]+Expediente::TIPOS.map {|t| [t.to_s, t.to_s]} %>
+  <%
+    view_group "view.expediente.group.datos" do |group|
+      table_layout do |layout|
+        layout.row do |row|
+          row.column(:colspan => 2) {as_field(:record, :titulo)}
+          row.column {as_field(:record, :fecha_apertura)}
+          row.column {as_field(:record, :fecha_cierre)}
+        end
+        layout.row do |row|
+          row.column {as_field(:record, :descripcion)}
+        end
+      end
+    end
+  %>
+</div>

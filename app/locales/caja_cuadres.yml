@@ -1,0 +1,33 @@
+es:
+  activerecord:
+    attributes:
+      caja_cuadre:
+        id: Nº
+        cent_1: 1 cént.
+        cent_2: 2 cénts.
+        cent_5: 5 cénts.
+        cent_10: 10 cénts.
+        cent_20: 20 cénts.
+        cent_50: 50 cénts.
+        eur_1: 1 euro
+        eur_2: 2 euros
+        eur_5: 5 euros
+        eur_10: 10 euros
+        eur_20: 20 euros
+        eur_50: 50 euros
+        eur_100: 100 euros
+        eur_200: 200 euros
+        eur_500: 500 euros
+        total_caja: Total suma caja
+        total_movimientos: Total movimientos
+        created_at: Fecha
+  active_scaffold:
+    caja_cuadres:
+      create_new: Nuevo cuadre
+      label: Cuadres de caja
+  view:
+    caja_cuadre:
+      group:
+        detalle: Detalle
+        arqueo_de_caja: Arqueo de caja
+        totales: Totales

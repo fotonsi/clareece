@@ -1,0 +1,13 @@
+if controller.send(:successful?)
+  success_message ||= "Acción realiza correctamente"
+  flash[:notice] = success_message 
+else
+  flash[:error] = "No se pudo realizar la acción solicitada"
+end
+cancel_selector = "##{element_form_id(:action => :update)} a.cancel".to_json
+page << "l = $$(#{cancel_selector}).first().link;"
+page.replace element_form_id(:action => :update), :partial => 'update_form'
+page << "l.register_cancel_hooks();"
+if @record.errors.empty?
+  page.replace_html element_messages_id(:action => :update), :partial => 'application/flash_messages'
+end

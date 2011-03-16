@@ -1,0 +1,35 @@
+es:
+  activerecord:
+    attributes:
+      movimiento:
+        id: Nº
+        importe: Importe €
+        saldo_inicial: Saldo inicial €
+        saldo_final: Saldo €
+        concepto_de: En concepto de
+        fecha: Fecha
+        forma_pago: Forma de Pago/Cobro
+  active_scaffold:
+    movimientos:
+      create_new: Nuevo movimiento
+      label: Movimientos
+      anular_confirm: "¿Seguro que quiere cambiar el estado de anulación de este movimiento?. Si lo anula no se tendrá en cuenta en el cálculo del saldo."
+      recibo_devuelto_confirm: "¿Seguro que quiere marcar este movimiento como devuelto por banco?. Si lo hace no se tendrá en cuenta en el cálculo del saldo."
+      devolver_confirm: "¿Seguro que quiere efectuar una devolución de este movimiento? Se creará el devengo de devolución y el pago correspondiente."
+  view:
+    movimiento:
+      tipo:
+        cargo: Cargo
+        abono: Abono
+      forma_pago:
+        efectivo: Efectivo
+        tarjeta: Tarjeta
+        domiciliacion: Domiciliación
+        transaccion: Transacción
+        paypal: Paypal
+        transferencia: Transf. bancaria
+        empty: "-"
+      concepto:
+        cuota_colegiacion: Cuotas colegiación
+        curso: Cursos
+        otro: Otros

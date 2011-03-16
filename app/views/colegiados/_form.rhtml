@@ -1,0 +1,137 @@
+<div class="view-item">
+  <%# Enlace al expediente del colegiado %>
+  <%= link_to(image_tag('actions/colegiados/expediente.png') + ' Expediente', 
+      {:controller => 'expedientes', :action => 'edit', :id => @record.expediente},
+      :title => 'Acceder al expediente del colegiado') if not @record.expediente.nil? %>
+<%
+tabbed_layout(:id => "colegiados_tab") do |t_layout|
+  t_layout.tab(:title => "Personales") do
+    #view_group "view.colegiado.group.personal" do |group|
+      table_layout do |layout|
+        layout.row do |row|
+          row.column {as_field(:record, :nombre)}
+          row.column {as_field(:record, :apellido1)}
+          row.column {as_field(:record, :apellido2)}
+        end
+        layout.row do |row|
+          row.column {as_field(:record, :tipo_doc_identidad)}
+          row.column {as_field(:record, :sexo)}
+          row.column {as_field(:record, :fecha_nacimiento)}
+        end
+        layout.row do |row|
+          row.column(:colspan => 2) {as_field(:record, :pais_id)}
+          row.column {as_field(:record, :sociedad_profesional)}
+        end
+        layout.row do |row|
+          row.column {as_field(:record, :direccion)}
+          row.column(:colspan => 2) {as_field(:record, :pais_residencia_id)}
+        end
+        layout.row do |row|
+          row.column {as_field(:record, :email)}
+          row.column {as_field(:record, :telefonos)}
+          row.column {as_field(:record, :fax)}
+        end
+      end
+    #end
+  end
+  t_layout.tab(:title => "Colegiación") do
+    #view_group("view.colegiado.group.colegiacion") do |group|
+      table_layout do |layout|
+        layout.row do |row|
+          row.column {as_field(:record, :situacion_colegial)}
+        end
+        layout.row do |row|
+          row.column {as_field(:record, :fecha_ingreso)}
+          row.column {as_field(:record, :motivo_ingreso_id)}
+          row.column {as_field(:record, :procedencia)}
+        end
+        layout.row do |row|
+          row.column {as_field(:record, :fecha_baja)}
+          row.column {as_field(:record, :motivo_baja_id)}
+          row.column {as_field(:record, :destino)}
+        end
+      end
+    #end 
+  end
+  t_layout.tab(:title => "Profesionales") do
+    #view_group "view.colegiado.group.profesional" do |group|
+      table_layout do |layout|
+        layout.row do |row|
+          row.column {as_field(:record, :grado_carrera)}
+          row.column {as_field(:record, :situacion_profesional)}
+          row.column {as_field(:record, :ejercicio_profesional)}
+        end
+        layout.row do |row|
+          row.column {as_field(:record, :centro_id)}
+          row.column {as_field(:record, :telefono_trabajo)}
+        end
+        layout.row do |row|
+          row.column(:class => "tl-column border") {as_field(:record, :colegiado_profesiones)}
+          row.column(:class => "tl-column border") {as_field(:record, :colegiado_especialidades)}
+        end
+      end
+    #end
+  end
+  t_layout.tab(:title => "Económicos") do |group|
+    #view_group("view.colegiado.group.bancario") do |group|
+      table_layout do |layout|
+        layout.row do |row|
+          row.column {as_field(:record, :banco_id)}
+          row.column {as_field(:record, :num_cuenta)}
+          row.column {as_field(:record, :exento_pago)}
+        end
+        layout.row do |row|
+          row.column {as_field(:record, :oficina)}
+          row.column {as_field(:record, :poblacion_banco)}
+        end
+        layout.row do |row|
+          row.column {as_field(:record, :domiciliar_pagos)}
+          row.column {as_field(:record, :cuota_ingreso_forma_pago)}
+          row.column(:colspan => 2) {as_field(:record, :titular_cuenta)}
+        end
+        layout.row(:style => (@record.titular_cuenta ? 'display: none' : 'display: table-row')) do |row|
+          row.column {as_field(:record, :nombre_titular_cuenta)}
+          row.column {as_field(:record, :domicilio_titular_cuenta)}
+          row.column {as_field(:record, :plaza_domicilio_titular_cuenta)}
+          row.column {as_field(:record, :cp_titular_cuenta)}
+        end
+        layout.row do |row|
+          (row.column {as_field(:record, :saldar_deuda)} unless @record.new_record?)
+          (row.column {as_field(:record, :importe_deuda)} unless @record.new_record?)
+          (row.column {as_field(:record, :deuda_a_saldar)} unless @record.new_record?)
+        end
+        layout.row do |row|
+          row.column(:colspan => 4) {'* En caso de domiciliación o transacción el pago de la cuota de ingreso se adeudará junto a las 3 primeras cuotas emitidas.'}
+        end
+      end
+    #end
+  end
+  t_layout.tab(:title => "Observaciones") do
+    #view_group "view.colegiado.group.observaciones" do |group|
+      table_layout do |layout|
+        layout.row do |row|
+          row.column {as_field(:record, :observaciones)}
+        end
+      end
+    #end
+  end
+end
+%>
+
+<% if !@record.new_record? && Colegiado.find(@record.id).situacion_colegial == 'baja_colegial' %>
+  <!-- Se muestra los campos deshabilitados -->
+  <script type="text/javascript">
+    $$('input,select,textarea').each(function(field) {
+      setFieldMode(field, 'disabled');
+    });
+    setFieldMode('record_situacion_colegial', 'enabled');
+    setFieldMode('record_situacion_colegial_orig', 'enabled');
+    if ($('record_situacion_colegial').value != 'baja_colegial') {
+      setFieldMode('record_fecha_ingreso', 'enabled');
+      setFieldMode('record_motivo_ingreso_id', 'enabled');
+    }
+  </script>
+<% end %>
+<script type="text/javascript">
+    setFieldMode('record_observaciones', 'disabled');
+</script>

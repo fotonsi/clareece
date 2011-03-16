@@ -1,0 +1,132 @@
+
+table.tabled-layout {
+    width: 100%;
+    table-layout: fixed;
+}
+
+table.tabled-layout td.label-field {
+    width: 25%;
+}
+
+table.tabled-layout td.value-field {
+    width: 70%;
+}
+
+.active-scaffold .show-view dt,
+.active-scaffold dt label,
+table.tabled-layout td.label-field label,
+table.tabled-layout label.main-label {
+/*
+    color: #764893;
+    font-weight: bold;
+*/
+}
+
+table.tabled-layout div.sub-form td label {
+  display: none;
+}
+
+table.tabled-layout div.label-field label {
+  color: black;
+}
+
+table.tabled-layout td.label-field,
+table.tabled-layout td.tl-column {
+    vertical-align: top;
+}
+
+table.tabled-layout tr.tl-row td div.value-field {
+  margin-bottom: 10px;
+}
+
+table.tabled-layout div.value-field input[type="text"].datetime-input {
+  text-align: center;
+  width: 10em;
+}
+
+table.tabled-layout div.value-field input[type="text"].date-input {
+  text-align: center;
+  width: 7em;
+}
+
+table.tabled-layout div.value-field input[readonly],
+table.tabled-layout div.value-field textarea[readonly] {
+  background-color: #DDDDDD;
+}
+
+
+table.tabled-layout td.tl-column {
+}
+
+table.tabled-layout td.border {
+  border: 1px solid #ccc;
+  -moz-border-radius: 5px;
+}
+
+table.tabled-layout td.value-field textarea,
+table.tabled-layout td.value-field input[type="text"] {
+    width: 90%;
+}
+
+table.tabled-layout .vertical-actions {
+    -moz-box-orient: vertical;
+    display: -moz-box;
+    padding-top: 10px;
+}
+
+table.tabled-layout .vertical-actions a.action {
+    margin-top: 10px;
+    text-align: center;
+    display: -moz-box;
+}
+
+table.tabled-layout textarea.standalone {
+    margin: 3%;
+    width: 94%;
+}
+
+
+div.manage-box {
+    border: 1px solid #764893;
+    margin-top: 20px;
+    padding: 0;
+    background: white;
+}
+
+
+div.embedded-window {
+    position: fixed;
+    border: 1px solid black;
+    background: white;
+    padding: 0;
+    left: 20%;
+    top: 15%;
+    width: 60%;
+}
+
+div.embedded-window h1 {
+    margin: 0;
+    padding: 10px;
+    background: #555;
+    font-size: 15pt;
+    color: white;
+    font-weight: normal;
+}
+
+div.embedded-window div.body {
+    padding: 15px;
+}
+
+div.embedded-window div.button-bar {
+    margin-top: 15px;
+    padding: 10px;
+    border-top: #764893 dotted 1px;
+}
+
+.sub-form table th {
+    text-align: center;
+}
+
+table.tabled-layout tr.tl-row td.tl-column span.subsection {
+    font-size: 2em;
+}

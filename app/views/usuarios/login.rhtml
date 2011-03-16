@@ -1,0 +1,21 @@
+<body class = "general">
+  <%= start_form_tag :action => 'login' %>
+        <table style="background-color: #DDDDFF;">
+          <tr>
+            <td width="10%" >Usuario:</td><td><%= text_field_tag 'login', @login %></td>
+            <td rowspan="2"><%= (image_tag @captcha_url) if @captcha_url %></td>
+          </tr>
+          <tr>
+            <td>Contraseña:</td><td><%= password_field_tag 'password' %></td>
+          </tr>
+          <tr>
+              <td colspan="2"><%= submit_tag 'Aceptar', :class => 'boton' %></td>
+              <td><% if @captcha_url %>
+                    <%= text_field_tag('captcha_answer') %>
+                    <%= hidden_field_tag('captcha_token', @captcha_token) %>
+                  <% end %>
+              </td>
+          </tr>
+        </table>
+  </form>
+</body>

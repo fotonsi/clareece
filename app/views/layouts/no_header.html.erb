@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+    <title> Gestión del <%= NOMBRE_COLEGIO %> </title>
+    <%= javascript_include_tag 'prototype', 'effects', 'dragdrop', 'controls', 'jquery' %>
+    <script type="text/javascript">jQuery.noConflict();</script>
+    <%= active_scaffold_includes %>
+    <%= javascript_include_tag 'active_scaffold_overrides' %>
+    <%= javascript_include_tag 'jquery.FormNavigate' %>
+    <%= stylesheet_link_tag 'active_scaffold_overrides' %>
+    <%= stylesheet_link_tag 'view' %>
+    <%= stylesheet_link_tag 'application' %>
+  </head>
+  <body class="general">
+    <div id="content">
+      <div id="main">
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>

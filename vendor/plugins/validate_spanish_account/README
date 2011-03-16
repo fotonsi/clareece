@@ -1,0 +1,44 @@
+ValidateSpanishAccount
+======================
+
+This plugin validates spanish Bank Account Number in a model. To use, simply put
+
+	validates_spanish_account (fields) in your model.
+
+Example:
+
+	# In app/models/company.rb
+	class Company < ActiveRecord::Base
+	  validates_presence_of :name, :address
+	  validates_spanish_account :bank_account
+	end
+
+
+If the validation fails, it appends an error "is invalid" to each invalid field, feel free to modify that!
+
+Additionally, you can use CustomValidator::SpanishAccount.validate(some_account) elsewere in your models/controllers, returning true or false in case.
+
+Enjoy,
+
+RailsLab.net Team
+--------------
+
+Este plugin valida una cuenta Bancaria Española en un modelo. Para utilizarlo, simplemente pon
+  
+  validates_spanish_account (campos) en tu modelo.
+  
+Ejemplo:
+
+  # En app/models/empresa.rb
+  class Empresa < ActiveRecord::Base
+    validates_presence_of :nombre, :direccion
+    validates_spanish_account :cuenta_bancaria
+  end
+
+Si la validación falla, añade el error "is invalid" a cada campo invalido, modifícalo si quieres!
+
+Adicionalmente, puedes utilizar CustomValidator::SpanishAccount.validate(cualquier_cuenta) en qualquier lugar en tus modelos/controladores, devolviendo verdadero o falso según el caso.
+
+Disfrútalo,
+
+El equipo RailsLab.net

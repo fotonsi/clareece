@@ -1,0 +1,13 @@
+<%= render :partial => "update_form_#{@record.tipo}" %>
+
+<% if not @record.authorized_for_edit? %>
+<!-- Se muestra los campos deshabilitados -->
+<script type="text/javascript">
+  $$('input,select,textarea').each(function(field) { 
+    if (field.type != 'submit') setFieldMode(field, 'disabled');
+  });
+  setFieldMode($('record_fecha_generacion'), 'enabled');
+  setFieldMode($('record_fecha_entrega'), 'enabled');
+  setFieldMode($('record_fecha_anulacion'), 'enabled');
+</script>
+<% end %>

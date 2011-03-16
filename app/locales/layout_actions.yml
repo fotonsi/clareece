@@ -1,0 +1,18 @@
+es:
+  layout_action:
+    colegiados: Coleg
+    movimientos: Movim
+    cursos: Cursos
+    expedientes: Exped
+    notas: Notas
+    expedientes_asociados: Relac 
+    asistencias: Asist
+    alumnos: Alumn
+    lista_espera: Espera
+    profesores: Prof
+    coordinadores: Coord
+    transacciones: Trans
+    formacion: Form
+    editar_remesa: Remesa
+    listar_recibos: Recibos
+    informes: Inform

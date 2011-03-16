@@ -1,0 +1,51 @@
+<div class="view-item">
+<%
+  view_group "view.colegio.group.datos" do |group|
+    table_layout do |layout|
+      layout.row do |row|
+        row.column {as_field(:record, :codigo)}
+        row.column(:colspan => 2) {as_field(:record, :nombre)}
+      end
+      layout.row do |row|
+        row.column {as_field(:record, :localidad_id)}
+        row.column(:colspan => 2) {as_field(:record, :direccion)}
+      end
+      layout.row do |row|
+        row.column {as_field(:record, :telefono)}
+        row.column {as_field(:record, :fax)}
+        row.column {as_field(:record, :email)}
+      end
+      layout.row do |row|
+        row.column {as_field(:record, :contabilidad_email)}
+        row.column {as_field(:record, :propio)}
+      end
+      layout.row do |row|
+        row.column {as_field(:record, :presidencia)}
+        row.column {as_field(:record, :vicepresidencia)}
+      end
+      layout.row do |row|
+        row.column {as_field(:record, :secretaria)}
+        row.column {as_field(:record, :tesoreria)}
+      end
+      layout.row do |row|
+        row.column(:colspan => 2) {as_field(:record, :cif)}
+        row.column(:colspan => 4) {as_field(:record, :entidad)}
+      end
+    end
+  end
+%>
+<%
+  view_group "view.colegio.group.configuracion" do |group|
+    table_layout do |layout|
+      layout.row do |row|
+        row.column {as_field(:record, :cuota_colegiacion)}
+        row.column {as_field(:record, :cuota_colegiacion_num_plazos)}
+      end
+      layout.row do |row|
+        row.column {as_field(:record, :recargo_bancario)}
+        row.column {as_field(:record, :dia_trans_deuda)}
+      end
+    end
+  end
+%>
+</div>

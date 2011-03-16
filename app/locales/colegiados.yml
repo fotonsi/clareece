@@ -1,0 +1,51 @@
+es:
+  activerecord:
+    attributes:
+      colegiado:
+        fecha_nacimiento: F. nacimiento
+        fecha_ingreso: F. ingreso
+        fecha_baja: F. baja
+        ref_historial: Ref. historial
+        telefonos: Teléfonos (separados por ',')
+        telefono_trabajo: Teléfono trabajo
+        apellido1: P. apellido
+        apellido2: S. apellido
+        direccion: Dirección
+        email: C. electrónico
+        num_cuenta: Núm. cuenta
+        nombre_titular_cuenta: Titular cuenta (sólo si no es el mismo colegiado)
+        titular_cuenta: ¿Es titular de la cuenta?
+        colegiado_profesiones: Titulaciones
+        colegiado_especialidades: Especialidades
+        colegiado_destinos: Procedencia
+        saldar_deuda: ¿Activar saldar deuda?
+        importe_deuda: Importe a saldar en cada remesa (€)
+        situacion_colegial: Situación colegial
+        num_colegiado: "Col. #"
+        sociedad_profesional: Soc. profesional
+        tipo_doc_identidad: Doc. identidad
+        pais_residencia_id: Residencia (País, localidad y cód. postal)
+        pais_id: Nacionalidad (Pais) y localidad de nacimiento
+        grado_carrera: Grado de carrera profesional
+        cuota_ingreso_forma_pago: Forma de pago de la cuota de ingreso (*)
+        exento_pago: Periodo de exención de pagos
+        poblacion_banco: Población
+  view:
+    colegiado:
+      group:
+        personal: Datos personales
+        residencia: Datos residencia
+        profesional: Datos profesionales
+        colegiacion: Datos colegiación
+        bancario: Datos bancarios
+        observaciones: Observaciones
+        procedencia: Datos procedencia
+      situacion_colegial:
+        precolegiado: Precolegiado
+        colegiado: Colegiado
+        baja_colegial: Baja colegial
+        colegiado_no_ejerciente: Col. no ejerciente
+  active_scaffold:
+    colegiados:
+      label: Colegiados
+      create_file: Crear expediente

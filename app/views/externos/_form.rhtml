@@ -1,0 +1,6 @@
+<% cols = columns.instance_variable_get("@columns") %>
+<%=
+  active_scaffold_form_layout("Datos personales") do
+    [row([ cols[:nombre], cols[:apellido1], cols[:apellido2], cols[:nif] ]), ]
+  end
+%>

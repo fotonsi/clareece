@@ -1,0 +1,6 @@
+<% cols = columns.instance_variable_get("@columns") %>
+<%= 
+  active_scaffold_form_layout("") do
+    [row([ cols[:codigo], cols[:descripcion] ]),]
+  end
+%>

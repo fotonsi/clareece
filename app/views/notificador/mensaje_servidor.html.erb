@@ -1,0 +1,8 @@
+<%= @mensaje %>
+<br/>
+<%= if not @fallos_emails.empty?
+        "Las siguientes direcciones de correo fallaron: #{@fallos_emails.join(', ')}"
+    end %>
+</p>
+
+<%= t("notificador.firma") %>

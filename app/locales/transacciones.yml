@@ -1,0 +1,21 @@
+es:
+  activerecord:
+    attributes:
+      transaccion:
+        id: Nº
+        importe: Importe €
+        concepto_de: En concepto de
+        created_at: Fecha
+  active_scaffold:
+    transacciones:
+      label: Transacciones 
+      create_new: Nueva transacción
+      generar_remesa_confirm: ¿Generar el fichero de remesa de esta transacción?
+  view:
+    transaccion:
+      group:
+        datos: Transacción
+      destinatarios:
+        todos: Todos los colegiados
+        colegiados_domiciliaciones: Colegiados con domiciliaciones
+        colegiados_caja: Colegiados con pago en caja

@@ -1,0 +1,118 @@
+<h2>Recibo</h2>
+
+<table class="no-hover">
+  <tr>
+    <td><label style="font-weight: bold;">Titular</label></td>
+    <td colspan="4"><%= colegiado_id_form_column(@record, "record[colegiado_id]") %></td>
+  </tr>
+  <tr>
+    <td><label style="font-weight: bold;">Registro principal:</label></td>
+    <td><label>En concepto de</label></td>
+    <td>
+      <%= concepto_de_form_column(@record, "record[concepto_de]") %>
+      <%= concepto_form_column(@record, "record[concepto]") %>
+    </td>
+    <td><label>Importe</label></td>
+    <td><%= importe_form_column(@record, "record[importe]") %></td>
+  </tr>
+  <tr>
+    <td><label style="font-weight: bold;">Registro 1:</label></td>
+    <td><label>En concepto de</label></td>
+    <td>
+      <%= concepto_de1_form_column(@record, "record[concepto_de1]") %>
+      <%= concepto1_form_column(@record, "record[concepto1]") %>
+    </td>
+    <td><label>Importe</label></td>
+    <td><%= importe1_form_column(@record, "record[importe1]") %></td>
+  </tr>
+  <tr>
+    <td><label style="font-weight: bold;">Registro 2:</label></td>
+    <td><label>En concepto de</label></td>
+    <td>
+      <%= concepto_de2_form_column(@record, "record[concepto_de2]") %>
+      <%= concepto2_form_column(@record, "record[concepto2]") %>
+    </td>
+    <td><label>Importe</label></td>
+    <td><%= importe2_form_column(@record, "record[importe2]") %></td>
+  </tr>
+  <tr>
+    <td><label style="font-weight: bold;">Registro 3:</label></td>
+    <td><label>En concepto de</label></td>
+    <td>
+      <%= concepto_de3_form_column(@record, "record[concepto_de3]") %>
+      <%= concepto3_form_column(@record, "record[concepto3]") %>
+    </td>
+    <td><label>Importe</label></td>
+    <td><%= importe3_form_column(@record, "record[importe3]") %></td>
+  </tr>
+  <tr>
+    <td><label style="font-weight: bold;">Registro 4:</label></td>
+    <td><label>En concepto de</label></td>
+    <td>
+      <%= concepto_de4_form_column(@record, "record[concepto_de4]") %>
+      <%= concepto4_form_column(@record, "record[concepto4]") %>
+    </td>
+    <td><label>Importe</label></td>
+    <td><%= importe4_form_column(@record, "record[importe4]") %></td>
+  </tr>
+  <tr>
+    <td><label style="font-weight: bold;">Registro 5:</label></td>
+    <td><label>En concepto de</label></td>
+    <td>
+      <%= concepto_de5_form_column(@record, "record[concepto_de5]") %>
+      <%= concepto5_form_column(@record, "record[concepto5]") %>
+    </td>
+    <td><label>Importe</label></td>
+    <td><%= importe5_form_column(@record, "record[importe5]") %></td>
+  </tr>
+  <tr>
+    <td colspan="3">&nbsp;</td>
+    <td><label>Total</label></td>
+    <td><%= importe_total_form_column(@record, "record[importe_total]") %></td>
+  </tr>
+</table>
+
+<script>
+  (function($){
+    // call setMask function on the document.ready event
+    $('input:text').each(function() {
+      if (/decimal/.test(this.alt)) {
+        var mirror = document.createElement("input");
+        // Basic attributes
+        mirror.className = this.className;
+        //mirror.style = this.style;
+        mirror.size = this.size;
+        mirror.id = this.id;
+        mirror.alt = this.alt;
+        mirror.value = this.value;
+        mirror.onchange = this.onchange;
+        this.onchange = null;
+        this.id = "";
+        this.parentNode.insertBefore(mirror, this);
+        this.type = "hidden";
+        this.alt = null;
+
+        $(mirror).setMask();
+
+        var source = this;
+        $(mirror).change(function() {
+            source.value = this.value.gsub('.', '').gsub(',', '.');
+        });
+      } else {
+        $(this).setMask();
+      }
+    })
+  })(jQuery);
+
+  <%= "window.actualizar_importe_total_recibo#{@record.id}" %> = function(){
+    val = parseFloat($('<%= form_column_id(@record, :importe) %>').value.gsub('.', '').gsub(',', '.') || 0.0) +
+          parseFloat($('<%= form_column_id(@record, :importe1) %>').value.gsub('.', '').gsub(',', '.') || 0.0) +
+          parseFloat($('<%= form_column_id(@record, :importe2) %>').value.gsub('.', '').gsub(',', '.') || 0.0) +
+          parseFloat($('<%= form_column_id(@record, :importe3) %>').value.gsub('.', '').gsub(',', '.') || 0.0) +
+          parseFloat($('<%= form_column_id(@record, :importe4) %>').value.gsub('.', '').gsub(',', '.') || 0.0) +
+          parseFloat($('<%= form_column_id(@record, :importe5) %>').value.gsub('.', '').gsub(',', '.') || 0.0);
+    $('<%= form_column_id(@record, :importe_total) %>').value = val.toFixed(2);
+    jQuery('#<%= form_column_id(@record, :importe_total) %>').setMask();
+    jQuery('#<%= form_column_id(@record, :importe_total) %>').change();
+  }
+</script>

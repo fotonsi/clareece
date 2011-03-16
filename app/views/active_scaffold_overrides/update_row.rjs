@@ -1,0 +1,6 @@
+row = element_row_id(:action => 'list')
+if controller.send(:successful?)
+  page.replace row, :partial => 'list_record', :locals => {:record => @record}
+else
+  page.alert as_(:process_error)
+end

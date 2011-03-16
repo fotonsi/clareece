@@ -1,0 +1,16 @@
+es:
+  activerecord:
+    attributes:
+      colegiado_curso:
+        created_at: Fecha
+  view:
+    colegiado_curso:
+      estado:
+        matriculado: Matriculado
+        espera: En lista de espera
+        baja: Baja
+        cancelado: Curso cancelado
+      group:
+  active_scaffold:
+    colegiado_cursos:
+      label: Alumnos

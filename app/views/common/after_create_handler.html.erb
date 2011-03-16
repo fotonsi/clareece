@@ -1,0 +1,8 @@
+<script type="text/javascript">
+    window.opener["<%= escape_javascript params[:after_create_handler] %>"](<%=
+        active_scaffold_config.model.all.map do |record|
+            { :value => record.id, :label => record.to_label, :selected => @record == record }
+        end.to_json
+    %>);
+    window.close();
+</script>

@@ -1,0 +1,94 @@
+<h2>Remesa General</h2>
+
+<table style="width: 85%;">
+  <tr>
+    <td colspan="5">&nbsp;</td>
+    <label>Fecha cobro</label>&nbsp;<%= fecha_cobro_form_column(@record, "record[fecha_cobro]") %>
+    &nbsp;
+    <% if @record.sin_generar? %>
+      <label>Fecha generaci&oacute;n</label>&nbsp;<%= fecha_generacion_form_column(@record, "record[fecha_generacion]") %></td>
+    <% elsif @record.generado? %>
+      <label>Fecha entrega</label>&nbsp;<%= fecha_entrega_form_column(@record, "record[fecha_entrega]") %></td>
+    <% elsif @record.entregado? %>
+      <label>Fecha anulación</label>&nbsp;<%= fecha_anulacion_form_column(@record, "record[fecha_anulacion]") %></td>
+    <% end %>
+  </tr>
+  <tr>
+    <td><label style="font-weight: bold;">Registro principal:</label></td>
+    <td><label>En concepto de</label></td>
+    <td>
+      <%= concepto_de_form_column(@record, "record[concepto_de]") %>
+      <%= concepto_form_column(@record, "record[concepto]") %>
+    </td>
+    <td><label>Importe</label></td>
+    <td><%= importe_form_column(@record, "record[importe]") %></td>
+  </tr>
+  <tr>
+    <td><label style="font-weight: bold;">Registro 1:</label></td>
+    <td><label>En concepto de</label></td>
+    <td>
+      <%= concepto_de1_form_column(@record, "record[concepto_de1]") %>
+      <%= concepto1_form_column(@record, "record[concepto1]") %>
+    </td>
+    <td><label>Importe</label></td>
+    <td><%= importe1_form_column(@record, "record[importe1]") %></td>
+  </tr>
+  <tr>
+    <td><label style="font-weight: bold;">Registro 2:</label></td>
+    <td><label>En concepto de</label></td>
+    <td>
+      <%= concepto_de2_form_column(@record, "record[concepto_de2]") %>
+      <%= concepto2_form_column(@record, "record[concepto2]") %>
+    </td>
+    <td><label>Importe</label></td>
+    <td><%= importe2_form_column(@record, "record[importe2]") %></td>
+  </tr>
+  <tr>
+    <td><label style="font-weight: bold;">Registro 3:</label></td>
+    <td><label>En concepto de</label></td>
+    <td>
+      <%= concepto_de3_form_column(@record, "record[concepto_de3]") %>
+      <%= concepto3_form_column(@record, "record[concepto3]") %>
+    </td>
+    <td><label>Importe</label></td>
+    <td><%= importe3_form_column(@record, "record[importe3]") %></td>
+  </tr>
+  <tr>
+    <td><label style="font-weight: bold;">Registro 4:</label></td>
+    <td><label>En concepto de</label></td>
+    <td>
+      <%= concepto_de4_form_column(@record, "record[concepto_de4]") %>
+      <%= concepto4_form_column(@record, "record[concepto4]") %>
+    </td>
+    <td><label>Importe</label></td>
+    <td><%= importe4_form_column(@record, "record[importe4]") %></td>
+  </tr>
+  <tr>
+    <td><label style="font-weight: bold;">Registro 5:</label></td>
+    <td><label>En concepto de</label></td>
+    <td>
+      <%= concepto_de5_form_column(@record, "record[concepto_de5]") %>
+      <%= concepto5_form_column(@record, "record[concepto5]") %>
+    </td>
+    <td><label>Importe</label></td>
+    <td><%= importe5_form_column(@record, "record[importe5]") %></td>
+  </tr>
+  <tr>
+    <td colspan="3">&nbsp;</td>
+    <td><label>Total</label></td>
+    <td><%= importe_total_form_column(@record, "record[importe_total]") %></td>
+  </tr>
+</table>
+
+<script>
+function actualizar_importe_total(){
+  val = parseFloat($('record_importe').value.gsub('.', '').gsub(',', '.') || 0.0) +
+        parseFloat($('record_importe1').value.gsub('.', '').gsub(',', '.') || 0.0) +
+        parseFloat($('record_importe2').value.gsub('.', '').gsub(',', '.') || 0.0) +
+        parseFloat($('record_importe3').value.gsub('.', '').gsub(',', '.') || 0.0) +
+        parseFloat($('record_importe4').value.gsub('.', '').gsub(',', '.') || 0.0) +
+        parseFloat($('record_importe5').value.gsub('.', '').gsub(',', '.') || 0.0);
+  $('record_importe_total').value = val.toFixed(2);
+  jQuery('#record_importe_total').setMask();
+}
+</script>

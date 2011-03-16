@@ -1,0 +1,12 @@
+es:
+  activerecord:
+    attributes:
+      curso_coordinador:
+        nombre: Nombre
+        apellido1: Apellido 1º
+        apellido2: Apellido 2º
+        nif: Nif
+  active_scaffold:
+    curso_coordinadores:
+      label: Coordinadores
+      create_new: Añadir

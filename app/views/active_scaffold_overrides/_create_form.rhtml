@@ -1,0 +1,67 @@
+<% url_options = params_for(:action => :create).reject{|k,v| k != "remix_pid" and k.include?('remix')} -%>
+<%=
+if request.xhr?
+  if active_scaffold_config.create.multipart? # file_uploads
+    form_remote_upload_tag url_options.merge({:iframe => true}),
+                           :onsubmit => onsubmit,
+                           :id => element_form_id(:action => :create),
+                           :class => 'create'
+  else
+    form_remote_tag :url => url_options,
+                    :after => "$('#{loading_indicator_id(:action => :create, :id => params[:id])}').style.visibility = 'visible'; Form.disable('#{element_form_id(:action => :create)}');",
+                    :complete => "$('#{loading_indicator_id(:action => :create, :id => params[:id])}').style.visibility = 'hidden'; Form.enable('#{element_form_id(:action => :create)}');",
+                    :failure => "ActiveScaffold.report_500_response('#{active_scaffold_id}')",
+                    :html => {
+                      :href => url_for(url_options),
+                      :onsubmit => onsubmit,
+                      :id => element_form_id(:action => :create),
+                      :class => 'create'
+                    }
+  end
+else
+  form_tag url_options,
+           :onsubmit => onsubmit,
+           :id => element_form_id(:action => :create),
+           :multipart => active_scaffold_config.create.multipart?,
+           :class => 'create'
+end -%>
+
+  <% create_label = active_scaffold_config.create.label %>
+  <% if not create_label.blank? %>
+    <h4><%= create_label -%></h4>
+  <% end %>
+
+  <% unless @record.nil? %>
+  <div id="<%= element_messages_id(:action => :create) %>">
+    <%= error_messages_for 'record' %>
+  </div>
+  <% end %>
+
+  <%= render :partial => 'form', :locals => { :columns => active_scaffold_config.create.columns } %>
+  
+  <%= render :partial => 'create_form_buttons' %>
+
+</form>
+<script type="text/javascript">
+  //Form.focusFirstElement('<%= element_form_id(:action => :create) -%>');
+  disableEnter('<%= element_form_id(:action => :create) -%>');
+  jQuery(function($) {
+    $("form[id*='-create-']").bind('submit', function() {
+      $('input:text').each(function() {
+        if (/decimal/.test(this.alt)) {
+          var chars = $.mask.options.fixedChars.replace(/[-+,]/g, '');
+          this.value = this.value.replace(new RegExp(chars), '').replace(/,/, '.');
+        } else if (this.alt == 'integer') {
+          this.value = this.value.replace(new RegExp($.mask.options.fixedChars), '');
+        }
+      });
+      return true;
+    });
+  });
+</script>
+
+<%=
+    if params[:after_create_handler]
+        hidden_field_tag :after_create_handler, params[:after_create_handler]
+    end
+%>

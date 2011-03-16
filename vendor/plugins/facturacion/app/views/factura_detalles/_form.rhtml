@@ -1,0 +1,8 @@
+<% cols = columns.instance_variable_get("@columns") %>
+<%= 
+  active_scaffold_form_layout("Detalle factura") do
+    [row([ cols[:numero], cols[:concepto], cols[:descripcion], cols[:cantidad], cols[:precio], cols[:impuesto], cols[:total] ])
+    ]
+  end
+%>
+

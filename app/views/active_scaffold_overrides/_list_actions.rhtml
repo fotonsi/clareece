@@ -1,0 +1,23 @@
+<table cellpadding="0" cellspacing="0">
+  <tr>
+    <td class="indicator-container">
+      <%= loading_indicator_tag(:action => :record, :id => record.id) %>
+    </td>
+    <% active_scaffold_config.action_links.each :record do |link| -%>
+
+    <% 
+    if controller.respond_to? link.security_method and (controller.method(link.security_method).arity == 1 ? !controller.send(link.security_method, record) : !controller.send(link.security_method)) 
+      disabled = true
+    else
+      disabled = false
+    end
+    authorized = disabled ? false : record.authorized_for?(:action => link.crud_type)
+    %>
+      <%# next if controller.respond_to? link.security_method and (controller.method(link.security_method).arity == 1 ? !controller.send(link.security_method, record) : !controller.send(link.security_method)) -%>
+      <td>
+        <%#= record.authorized_for?(:action => link.crud_type) ? render_action_link(link, url_options) : image_tag(link.icon[:image], :class => 'disabled', :title => link.icon[:title]) -%>
+        <%= authorized ? render_action_link(link, url_options) : image_tag(link.icon[:image], :class => 'disabled', :title => link.icon[:title]) -%>
+      </td>
+    <% end -%>
+  </tr>
+</table>

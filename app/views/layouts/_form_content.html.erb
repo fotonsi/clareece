@@ -1,0 +1,16 @@
+<div id="form-content">
+  <div id="lateral-menu">
+    <%= respond_to?(:layout_actions) ? layout_actions(@record) : "" %>
+  </div>
+  
+  <div id="content">
+    <div id="locator">
+      <%= locator(session[:user][:menu_options]) if controller.current_user %> 
+    </div>
+
+    <div id="main">
+      <%= render :partial => 'application/flash_messages' %>
+      <%= yield %>
+    </div>
+  </div>
+</div>

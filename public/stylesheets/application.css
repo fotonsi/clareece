@@ -1,0 +1,275 @@
+/* flash messages */
+div.flash-notice, 
+div.flash-error,
+div.flash-warning {
+    background-repeat: no-repeat;
+    background-position: center left;
+    border-width: 1px;
+    border-style: solid;
+    /*-moz-border-radius: 5px;*/
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 40px;
+    margin-bottom: 5px;
+    line-height: 20px;
+    min-height: 20px;
+    font-size: 13px;
+}
+
+div.flash-notice {
+    background-color: #ddddff;
+    background-image: url(../images/layout/flash/info.png);
+    border-color: #88f;
+}
+
+div.flash-error {
+    background-color: #ffd6d6;
+    background-image: url(../images/layout/flash/error.png);
+    border-color: #f88;
+}
+
+div.flash-warning {
+    background-color: #feffd5;
+    background-image: url(../images/layout/flash/warning.png);
+    border-color: #ffb864;
+}
+
+div.flash-warning ul {
+    padding-left: 1em;
+}
+
+.boton {
+    background-color: white;
+    border: 1px solid black;
+    font-size: 12px;
+    color: green;
+    padding: 1px 5px 2px !important;
+    cursor: pointer;
+}
+
+.submit {
+    background-color: white;
+    border: 1px solid black;
+    font-size: 12px;
+    color: green;
+    padding: 1px;
+}
+
+.cancel {
+    background-color: white;
+    border: 1px solid black;
+    font-size: 12px;
+    color: black;
+    padding-top: 1px;
+}
+
+.readonly-input, .disabled-input {
+  border: 1px solid #888;
+  /*padding: 4px;*/
+  background-color: #ccc !important;
+  color: #444 !important;
+}
+
+input.widget_date_box {
+  text-align: center;
+  width: 8em;
+}
+
+/* En general no interesa tener un borde alrededor de la imagen en un enlace */
+a img  { border: 0 }
+
+/************************/
+/* Control de ausencias */
+/************************/
+table#lista_alumnos {
+  border: 1px solid #ccc;
+  -moz-border-radius: 5px;
+  font-size: 10px;
+}
+
+table#lista_alumnos tr#cabecera_alumnos {
+}
+
+table#lista_alumnos tr#cuerpo_alumnos td.elemento_alumnos,
+table#lista_alumnos tr#cabecera_alumnos th.elemento_alumnos {
+  width: 15em;
+  margin-right: 1em;
+  margin-left: 1em;
+}
+
+table#lista_alumnos tr#cabecera_alumnos td.elemento_alumnos,
+table#lista_alumnos tr#cabecera_alumnos th.elemento_fechas {
+  color: #2A5685;
+  font-weight: bold;
+}
+
+table#lista_alumnos tr#cuerpo_alumnos {
+}
+
+table#lista_alumnos tr#cuerpo_alumnos td.elemento_fechas,
+table#lista_alumnos tr#cabecera_alumnos th.elemento_fechas {
+  text-align: center;
+  width: 10em;
+}
+
+table#lista_alumnos tr#cabecera_alumnos td.impar,
+table#lista_alumnos tr#cuerpo_alumnos td.impar {
+  background-color: #F3FFE4;
+}
+
+table#lista_alumnos tr#cabecera_alumnos td.par,
+table#lista_alumnos tr#cuerpo_alumnos td.par {
+  background-color: #E4E7FF;
+}
+
+/* Evitar el width: 100% de AS en TinyMCE */
+.active-scaffold td.mceToolbar table {
+  width: auto;
+}
+
+option.undefined {
+    font-style: italic;
+    color: #555;
+}
+
+/**********************************/
+/* Estilos para botones de acción */
+/**********************************/
+.active-scaffold-header div.actions a.asistencia {
+  padding-left: 19px;
+  background-position: 1px 50%;
+  background-repeat: no-repeat;
+  background-image: url(../images/actions/cursos/asistencia.png);
+}
+
+.active-scaffold-header div.actions a.crear_existente {
+  padding-left: 19px;
+  background-position: 1px 50%;
+  background-repeat: no-repeat;
+  background-image: url(../images/actions/gestiones_documentales/crear_existente.gif);
+}
+
+.active-scaffold-header div.actions a.new_general,
+.active-scaffold-header div.actions a.new_individual,
+.active-scaffold-header div.actions a.new_individual_saldar_deuda {
+  padding-left: 19px;
+  background-position: 1px 50%;
+  background-repeat: no-repeat;
+  background-image: url(../images/active_scaffold/default/add.gif);
+}
+
+/* Estilos de filas personalizados */
+.active-scaffold table tbody.records tr.record td {
+  /*background-color: #DBE1FF;*/
+}
+
+.active-scaffold table tbody.records tr.even-record td {
+  background-color: #DDD; /*#F0F3FF;*/
+}
+
+.active-scaffold table tbody.records tr:hover td {
+  background-color: #EADB8A;
+}
+
+.active-scaffold table.no-hover tbody tr td {
+  background-color: transparent !important;
+  border: none!important;
+}
+
+.active-scaffold table tbody.records tr.mov-anulado td {
+  text-decoration: line-through;
+}
+
+.active-scaffold table tbody.records tr td.centrado {
+  text-align: center;
+}
+
+/* Spinner del listado de AS */
+.active-scaffold div.list-spinner {
+  background-image: url(../images/shared/list_spinner.gif);
+  background-repeat: no-repeat;
+  background-position: center left;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  height: 5%;
+  width: 5%;
+}
+
+.active-scaffold td.tl-column input.telefonos-input {
+  width: 23em;
+}
+
+div.autocomplete {
+  position:absolute;
+  width:250px;
+  background-color:#AAA;
+  border:1px solid #888;
+  margin:0;
+  padding:0;
+}
+div.autocomplete ul {
+  list-style-type:none;
+  margin:0;
+  padding:0;
+}
+div.autocomplete ul li.selected {
+  background-color: #333;
+  color: white;
+}
+div.autocomplete ul li {
+  list-style-type:none;
+  display:block;
+  margin:0;
+  padding:2px;
+  height:1.1em;
+  font-size: 1.1em;
+  cursor:pointer;
+}
+
+.fieldWithErrors {
+  display: inline;
+}
+
+input.num_cuenta-input,
+input.email-input,
+input.telefonos-input,
+input.direccion-input {
+  width: 13em;
+}
+
+input.hora_ini-input,
+input.hora_fin-input {
+  width: 4em;
+  text-align: center;
+}
+
+li.informe {
+  padding: 2px;
+  font-size: 1.2em;
+}
+
+tr.rw_header th {
+  cursor: pointer;
+}
+
+ul.smart_autocomplete_container {
+  padding:0;
+  position:absolute!important;
+}
+
+ul.smart_autocomplete_container li {
+  list-style: none;
+  cursor: pointer;
+  margin: 0 0;
+  padding: 5px;
+  background-color: #E3EBBC;
+}
+
+ul.smart_autocomplete_container li.smart_autocomplete_highlight {
+  background-color: #C1CE84;
+}
+
+ul.smart_autocomplete_container li span {
+  display: none!important;
+}

@@ -1,0 +1,21 @@
+<% url_options = params_for(:action => :update) -%>
+<%=
+  form_tag url_options,
+           :onsubmit => onsubmit,
+           :id => element_form_id(:action => :update),
+           :multipart => active_scaffold_config.update.multipart?,
+           :class => 'update',
+           :method => :put
+%>
+
+  <h4><%= @record.to_label.nil? ? active_scaffold_config.update.label : as_(:update_model, :model => clean_column_value(@record.to_label)) %></h4>
+  <div id="<%= element_messages_id(:action => :update) %>" class="messages-container"><%= error_messages_for :record %></div>
+
+  <%= render :partial => 'form', :locals => { :columns => active_scaffold_config.update.columns } %>
+
+  <p class="form-footer">
+    <%= submit_tag as_(:update), :class => "submit" %>
+    <%= loading_indicator_tag(:action => :update, :id => params[:id]) %>
+  </p>
+
+</form>

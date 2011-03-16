@@ -1,0 +1,5 @@
+<% if @record.new_record? %>
+<%= render :partial => 'active_scaffold/form', :locals => {:columns => columns} %>
+<% else %>
+<%= render :partial => 'form_update' %>
+<% end %>

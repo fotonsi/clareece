@@ -1,0 +1,4 @@
+<br />
+<%= render :active_scaffold => 'movimientos', 
+           :constraints => {:origen_id => @record.id, :origen_type => @record.class.name},
+           :params => {:embedded => 'recibos'} %>

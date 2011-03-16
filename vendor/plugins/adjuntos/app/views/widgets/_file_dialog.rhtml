@@ -1,0 +1,31 @@
+<% if widget.value %>
+  <div class="column-row" style="width: 40%;">
+    <%= link_to widget.record.filename, {:controller => 'adjuntos', :action => 'download', :id => widget.record.id}, 
+          :title => widget.record.filename %>
+    <%= hidden_field_tag widget.fields[:id], widget.record.id %>
+  </div>
+  <div class="column-row" style="width: 25%;">
+    <%= widget.record.created_at.strftime("%d/%m/%Y") %>
+  </div>
+  <div class="column-row" style="width: 20%;">
+    <!-- attachment_fu guarda en bytes -->
+    <%= (widget.record.size.to_f / (2**10)).round %>
+  </div>
+  <div class="column-action" style="width: 5%;">
+    <%= link_to image_tag('plugin_adjuntos/download.png', :title => 'Descargar Adjunto', :alt => 'Descargar Adjunto'), 
+        {:controller => 'adjuntos', :action => 'download', :id => widget.record.id}, :title => widget.record.filename %>
+  </div>
+<% else %>
+  <div class="column-row" style="width: 85%; padding-right: 2px;">
+    <%= file_field_tag(widget.fields[:uploaded_data]) %>
+  </div>
+  <div class="column-action" style="width: 5%;">&nbsp;</div>
+<% end %>
+<div class="column-action" style="width: 5%;">
+  <% unless widget.parent.read_only %>
+    <%= link_to_function image_tag('plugin_adjuntos/delete.png', :title => "Quitar Adjunto", :alt => "Quitar Adjunto"), 
+      "if (!confirm('Va a eliminar este elemento. ¿Seguro que lo quiere eliminar?')) return false; "+ widget.parent.js_object + 
+      ".remove_item(#{widget.name.to_json})", :style => "vertical-align: buttom;" %>
+  <% end %>
+</div>
+<div style="clear: both"></div>

@@ -1,0 +1,4 @@
+<%= render :active_scaffold => 'movimientos',  
+           :conditions => ["(origen_type = ? and origen_id in (?)) or (origen_type = ? and origen_id = ?)",
+                           'Formacion', @record.formaciones.map{|i| i.id}, 'Curso', @record.id],
+           :params => {:embedded => 'cursos', :defaults => {:origen_id => @record.id, :origen_type => @record.class.name}} %>

@@ -1,0 +1,18 @@
+es:
+  activerecord:
+    attributes:
+      colegio:
+        recargo_bancario: Recargo por devolución bancaria (€)
+        dia_trans_deuda: Día del mes en el que se genera la transacción de cobro de deuda
+        codigo: Código
+        direccion: Dirección
+        telefono: Teléfono
+        entidad: Cuenta bancaria
+        propio: Entidad propia
+        cuota_colegiacion: Cuota de ingreso
+        cuota_colegiacion_num_plazos: Nº de plazos cuota de ingreso
+  view:
+    colegio:
+      group:
+        datos: Datos
+        configuracion: Configuración

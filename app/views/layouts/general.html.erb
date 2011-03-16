@@ -1,0 +1,24 @@
+<body class="general">
+  <div id="title">
+    <%= image_tag("layout/title/logo.png", :alt => "Logo", :id => 'logo') %>
+    <%= NOMBRE_COLEGIO %>
+  </div>
+  
+  <%# if Usuario.logged_in? %>
+    <div id="header">
+      <div id="menu" style="float: left;"> 
+        <%= render :partial => 'layouts/menu' %>
+      </div>
+    </div>
+  <%# end %>
+
+  <% if instance_variables.include? "@record" %>
+    <%= render :partial => "layouts/form_content" %>
+  <% else %>
+    <%= render :partial => "layouts/list_content" %>
+  <% end %>
+  
+  <div id="foot" style="clear: both;">
+    <%= NOMBRE_COLEGIO %> &nbsp;&nbsp;|&nbsp; Aplicación en Desarrollo (Fot&oacute;n Sistemas Inteligentes) &nbsp;| &nbsp; <%= Date.today.strftime("%d/%m/%Y") %> &nbsp; | &nbsp; Desarrollada para Mozilla Firefox/Google Chrome
+  </div>
+</body>

@@ -1,0 +1,4 @@
+<%= render :active_scaffold => 'notas', 
+           :constraints => {:origen_id => @record.id, :origen_type => @record.class.name}, 
+           :params => {:embedded => 'expedientes'}, 
+           :label => 'Notas del expediente' %>

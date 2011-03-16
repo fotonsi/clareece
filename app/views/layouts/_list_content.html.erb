@@ -1,0 +1,10 @@
+<div id="locator" style="clear: both;">
+  <%= locator(session[:user][:menu_options]) if controller.current_user %> 
+</div>
+
+<div id="content">
+  <div id="main">
+    <%= show_flash unless ['list', 'index'].include?(params[:action]) %>
+    <%= yield %>
+  </div>
+</div>

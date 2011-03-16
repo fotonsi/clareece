@@ -1,0 +1,24 @@
+es:
+  activerecord:
+    attributes:
+      remesa:
+        id: Nº
+        created_at: Fecha
+  view:
+    remesa:
+      tipo:
+        general: General 
+        individual: Individual
+      estado:
+        sin_generar: Sin generar
+        generado: Generado
+        entregado: Entregado
+        anulado: Anulado
+      group:
+        conceptos: Conceptos incluidos
+  active_scaffold:
+    remesas:
+      label: Remesas
+      new_general: General 
+      new_individual: Individual
+      new_individual_saldar_deuda: Saldar deuda

@@ -1,0 +1,60 @@
+<p class="form-footer">
+  <% if @record.authorized_for_edit? %>
+    <%= submit_tag as_(:update), :class => "submit" %>
+  <% end %>
+  <% if @record.authorized_for_generar? %>
+    <%= link_to_remote 'Generar', 
+        :url => {:action => 'generar', :id => @record},
+        :submit => element_form_id(:action => 'update'),
+        :method => :post,
+        :class => 'submit',
+        :confirm => "Usted va a GENERAR la remesa. ¿Confirma que desea generar los recibos de la remesa?",
+        :loading => "$('wait_message').toggle();" %>
+  <% end %>
+  <% if @record.authorized_for_entregar? %>
+    <%= link_to_remote 'Entregar', 
+        :url => {:action => 'entregar', :id => @record},
+        :submit => element_form_id(:action => 'update'),
+        :method => :post,
+        :class => 'submit',
+        :confirm => "Usted va a ENTREGAR la remesa. ¿Confirma que desea generar los movimientos de los recibos de la remesa?",
+        :loading => "$('wait_message').toggle();" %>
+  <% end %>
+  <% if @record.authorized_for_anular? %>
+    <%= link_to_remote 'Anular', 
+        :url => {:action => 'anular', :id => @record},
+        :method => :post,
+        :class => 'submit',
+        :confirm => "Usted va a ANULAR la remesa. ¿Confirma que desea generar los movimientos de anulación de los recibos de la remesa?",
+        :loading => "$('wait_message').toggle();" %>
+  <% end %>
+  <%= link_to as_(:cancel), params_for(:controller => params[:parent_controller] ? params[:parent_controller] : params[:controller], :action => 'list'), :class => 'cancel' %>
+  <%= loading_indicator_tag(:action => :update, :id => params[:id]) %>
+</p>
+
+
+<%# Mensaje de espera al generar una remesa %>
+<div id="wait_message" style="display: none;">
+  <div style="z-index: 1; position:absolute; top: 0; left: 0; height: 100%; width: 100%; background-color: white; opacity: 0.6; padding: 30%;"></div>
+
+  <div style="z-index: 2; position: absolute; top: 40%; left: 20%; right: 20%; height: 150px; overflow: auto; background-color: white; border: 1px solid #555; color: #555;  font-size: 12px;">
+    <h3 style="text-align: center;">
+      <%  action = if @record.authorized_for_generar?
+            "Generando"
+          elsif @record.authorized_for_entregar?
+            "Entregando"
+          else
+            "Anulando"
+          end %>
+      <%= action %> remesa 
+      <%= image_tag 'shared/spinner.gif', :style => "text-align: center;" %>
+    </h3>
+
+    <ul>
+      <li>Esta tarea puede tardar varios minutos. Por favor, espere.</li>
+      <li>No cierre esta ventana hasta que el proceso finalice.</li>
+      <li>Este cuadro de diálogo se cerrará automáticamente al finalizar el proceso.</li>
+      <li>Para seguir trabajando mientras se termina de generar los recibos puede abrir otra ventana del navegador.</li>
+    </ul>
+  </div>
+</div>

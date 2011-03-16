@@ -1,0 +1,17 @@
+
+<%= form_tag params_for(:action => :enviar_sms), :method => 'post' %>
+  Destinatarios:
+  <div id="destinatarios">
+    <%= render :partial => 'comunicaciones/destinatario' %>
+  </div>
+
+  <%= link_to_remote 'nuevo_destinatario', :url => {:action => 'nuevo_destinatario'} %>
+  <br />
+  <br />
+
+  <textarea name="text" cols="40" rows="4"></textarea>
+
+  <br />
+
+  <%= submit_tag 'Enviar sms' %>
+</form>

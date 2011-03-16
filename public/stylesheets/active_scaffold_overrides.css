@@ -1,0 +1,427 @@
+/* Modificaciones de clases de Active Scaffold */
+
+
+/* Table :: Column Headers
+   ============================= */
+
+.active-scaffold th {
+color: #2A5685;
+background-color: #eee;
+text-align: left;
+}
+
+.active-scaffold th a,
+.active-scaffold th p {
+font: bold 11px arial, sans-serif;
+display: block;
+background-color: #eee;
+}
+
+.active-scaffold th a {
+color: #2A5685;
+padding: 2px 15px 2px 5px;
+}
+
+.active-scaffold th p {
+color: #2A5685;
+padding: 2px 5px;
+}
+
+.active-scaffold th a:hover {
+background-color: #eee;
+color: black;
+}
+
+.active-scaffold th.sorted {
+background-color: #ddd;
+}
+
+.active-scaffold th.asc a,
+.active-scaffold th.asc a:hover {
+background-color: #ddd;
+}
+
+.active-scaffold th.desc a,
+.active-scaffold th.desc a:hover {
+background-color: #ddd;
+}
+.active-scaffold th.loading a,
+.active-scaffold th.loading a:hover {
+background-color: #ddd;
+}
+
+
+/* Table :: Inline Adapter
+   ============================= */
+
+.active-scaffold .view {
+    background-color: #F6F6F6;
+    border: none;
+    padding: 0;
+}
+
+.active-scaffold td.inline-adapter-cell,
+.active-scaffold tbody.records td.inline-adapter-cell {
+    background-color: #F6F6F6 !important;
+    border: 1px solid #AAA !important;
+    padding: 5px;
+}
+.active-scaffold tbody.records td.inline-adapter-cell .view {
+    /*border-top: 1px solid #aaa;*/
+}
+
+.active-scaffold .active-scaffold .active-scaffold-header h2 {
+    text-align: center; 
+    font-size:14px;
+    font-weight:bold;
+}
+
+.active-scaffold .active-scaffold-header h2 {
+    text-align: center; 
+    /*background-color: #A6C3E7;*/
+    /*background-image: url(../images/fondos/cabecera_azul.gif);*/
+    /*border-top: 1px solid #ABC2E0;*/
+    border-bottom: 1px solid #ABC2E0;
+}
+
+.active-scaffold tr.record td.actions a {
+    padding: 0px;
+}
+
+.active-scaffold tr.record td.actions table td .disabled {
+    opacity: 0.4;
+    margin-bottom: 5px;
+    padding:2px;
+}
+
+.active-scaffold .sub-form table td.actions {
+  padding-top: 5px;
+  vertical-align: top;
+}
+
+.active-scaffold-header div.actions a {
+  float: left;
+}
+
+/* Table :: Record Rows
+   ============================= */
+
+.active-scaffold tr.record td {
+padding: 5px 4px;
+color: #333;
+font-family: Verdana, sans-serif;
+font-size: 11px;
+background-color: white;
+border-bottom: none;
+border-left: solid 1px #ddd;
+}
+
+.active-scaffold tr.record td .verde {
+  color: green;
+}
+
+.active-scaffold tr.record td .rojo {
+  color: red;
+}
+
+.active-scaffold tr.even-record td {
+background-color: white;
+border-left: solid 1px #ddd;
+}
+
+.active-scaffold tr.record td.sorted {
+background-color: white;
+border-bottom: none;
+}
+
+.active-scaffold tr.even-record td.sorted {
+background-color: #ddd;
+border-bottom: none;
+}
+
+.active-scaffold tbody.records td.empty {
+color: #999;
+text-align: center;
+}
+
+.active-scaffold td.numeric,
+.active-scaffold-calculations td {
+text-align: right;
+}
+
+.active-scaffold td.no-numeric,
+.active-scaffold-calculations td {
+text-align: left;
+}
+
+.active-scaffold .active-scaffold-footer {
+    border-top: solid 1px #ddd;
+}
+
+.active-scaffold tr.error-line td {
+    background-color: #ffd2d7;
+}
+
+/* Table :: Se añade highlight de las filas
+   ============================= */
+
+.highlight td {
+    /*
+    padding: 5px 4px;
+    color: #333;
+    font-family: Verdana, sans-serif;
+    font-size: 11px;
+    */
+    background-color: #FFFFCC !important;
+    /*
+    border-bottom: solid 1px #C5DBF7;
+    border-left: solid 1px #C5DBF7;
+    */
+}
+
+.selected td {
+    background-color: #fffea2 !important;
+}
+
+
+
+/* Header
+   ======================== */
+
+.active-scaffold-header h2 {
+    padding: 2px 0px;
+    margin: 0;
+    color: #555;
+    font: bold 15px arial, sans-serif;
+}
+
+.active-scaffold-header div.actions {
+    top: 2px;
+}
+
+
+
+/* Form :: Redefición
+   ============================= */
+.active-scaffold form.update, .active-scaffold form.create {
+    /*background-color: #EEEEEE;*/
+    /*border: 1px solid #aaa;*/
+    border: none;
+}
+
+.active-scaffold h4,
+.active-scaffold h5 {
+color: #555;
+}
+
+
+/* Text-input :: Redefición
+   ============================= */
+
+.active-scaffold input.text-input,
+.active-scaffold select {
+background-color: #FFFFFF;
+color: #555;
+font: normal 12px verdana, sans-serif;
+letter-spacing: -1px;
+border: 1px solid #A6C3E7;
+}
+
+.active-scaffold input.text-input {
+padding: 2px;
+}
+
+.active-scaffold .fieldWithErrors input.text-input,
+.active-scaffold .fieldWithErrors select {
+border: solid 1px #f00;
+}
+
+.active-scaffold select:focus,
+.active-scaffold input.text-input:focus,
+.active-scaffold textarea:focus {
+border: solid 1px #A6C3E7;
+color: black;
+background-color: #ffc;
+}
+
+.active-scaffold .sub-form input.text-input,
+.active-scaffold .sub-form select {
+letter-spacing: 0;
+font: normal 12px Verdana, sans-serif;
+}
+
+.active-scaffold textarea {
+width: auto;
+height: auto;
+/*
+background-color: #bbb;
+*/
+color: black;
+font: normal 12px Verdana, sans-serif;
+padding: 1px;
+border: 1px solid #A6C3E7;
+}
+
+/* Form :: Association Sub-Forms
+   ============================== */
+.active-scaffold .sub-form h5 {
+margin-left: -5px;
+font-size: 12px;
+font-weight: normal;
+color: black !important;
+}
+
+.active-scaffold .sub-form .footer input {
+font-weight: normal;
+font-size: 10px;
+padding: 0;
+}
+
+
+/* Botones
+   ============================= */
+
+.active-scaffold p.form-footer {
+    clear: both;
+    /*margin: 10px;*/
+}
+
+.active-scaffold a.cancel,
+.active-scaffold p.form-footer a {
+    font: normal 12px Verdana, sans-serif;
+    letter-spacing: 0;
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    padding: 2px 5px 1px 5px;
+    margin: 7px;
+}
+
+.active-scaffold .submit {
+    border: 1px solid black;
+    font-size: 12px;
+    background-color: #6B7D9D; 
+    color: white;
+    padding-top: 1px;
+    cursor: pointer;
+}
+
+/* Añadimos clase para deshabilitar el botón de submit */
+.active-scaffold .submit-disabled {
+    background-color: white;
+    border: 1px solid black;
+    font-size: 12px;
+    font-weight: bold;
+    color: green;
+    padding: 1px 5px 1px 7px;
+    opacity: 0.3;
+    letter-spacing:0pt;
+    margin:5px 0pt 0pt;
+}
+
+
+
+/* Nested
+   ======================== */
+
+.active-scaffold .active-scaffold td {
+    background-color: #FFFFCC;
+}
+
+.active-scaffold .active-scaffold .form td {
+    background-color: white;
+    border: none;
+}
+
+.active-scaffold .active-scaffold table.widget {
+    border-collapse: collapse;
+} 
+
+.active-scaffold .active-scaffold table.widget td {
+    background-color: white;
+    border: none;
+    border-bottom: 1px solid #eee;
+}
+
+.active-scaffold .active-scaffold table.widget tr.new-line td {
+    background-color: #d7d7d7;
+}
+
+.active-scaffold .active-scaffold table.widget tr.error-line td {
+    background-color: #ffd2d7;
+}
+
+
+
+/* Footer
+   ========================== */
+
+.active-scaffold-calculations td {
+    background-color: #eee !important;
+    border-top: 1px solid #005CB8;
+    border-left: 1px solid #CCC !important;
+    border-bottom: 1px solid #C5DBF7 !important;
+    font: bold 12px arial, sans-serif;
+}
+
+.active-scaffold-calculations td.actions {
+    border-right: 1px solid #CCC;
+}
+
+
+
+/* Messages
+   ========================= */
+
+.active-scaffold .info-message {
+border-left: solid 5px #eee;
+/*background-color: #f3f3f3;*/
+background-color: #bbf;
+}
+
+.active-scaffold .empty-message, .active-scaffold .filtered-message {
+color: #555;
+font-size: 11px;
+/*font-weight: bold;*/
+}
+
+
+/* Association 
+   ========================= */
+
+.active-scaffold .association-record a.destroy {
+font-weight: bold;
+display: block;
+height: 16px;
+padding: 0;
+width: 16px;
+text-indent: -4000px;
+background: url(../../../images/active_scaffold/default/cross.png) 0 0 no-repeat;
+}
+
+
+/* Error Styling
+   ========================== */
+
+.active-scaffold .errorExplanation {
+background-color: #fcc;
+margin: 2px 0;
+border: solid 1px #f66;
+}
+
+.active-scaffold .errorExplanation ul li {
+color: #555;
+font-weight: normal;
+}
+
+/*.active-scaffold .sub-form dl {*/
+/*  float: left;*/
+/*}*/
+
+.active-scaffold .sub-form dd {
+ margin-left: 2px;
+}
+
+.active-scaffold .sub-form label {
+ display: inline;
+}

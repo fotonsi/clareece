@@ -1,0 +1,8 @@
+es:
+    forms:
+        undefined: Sin definir
+        bool:
+            undef: "-- Sin definir --"
+            "true": "Sí"
+            "false": "No"
+        select_empty_option: "-- Sin definir --"

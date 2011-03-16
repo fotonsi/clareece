@@ -1,0 +1,23 @@
+es:
+  activerecord:
+    attributes:
+      gestion_documental:
+        id: Nº
+        created_at: Fecha
+        doc: Documento
+        descripcion: Descripción
+        documento_id: ""
+        uploaded_data: Documento
+  active_scaffold:
+    gestiones_documentales:
+      label: Gestión Documental
+      create_new: Nueva Entrada/Salida
+      crear_existente: Asociar existente
+      new_salida_confirm: ¿Quiere generar una salida para este documento?
+      quitar_asociacion_expediente_confirm: ¿Quitar este documento del expediente?
+  view:
+    gestion_documental:
+      tipo:
+        entrada: Entrada
+        salida: Salida
+ 

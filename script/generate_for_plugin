@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+require File.dirname(__FILE__) + '/../config/boot'
+require "#{RAILS_ROOT}/config/environment"
+require 'rails_generator'
+require 'rails_generator/scripts/generate'
+
+# El primer argumento es el nombre del plugin. Lo único que cambiamos
+# con respecto al generador normal es el directorio de destino
+DOGMATIX_PLUGIN_NAME = ARGV.shift
+if DOGMATIX_PLUGIN_NAME.blank?
+    STDERR.puts "Hay que indicar el nombre del plugin como primer argumento."
+    STDERR.puts "El resto de la línea de órdenes es igual que la llamada de script/generate"
+    exit 1
+end
+
+DOGMATIX_PLUGIN_ROOT = File.join(RAILS_ROOT, "vendor", "plugins", DOGMATIX_PLUGIN_NAME)
+
+if not File.directory?(DOGMATIX_PLUGIN_ROOT)
+    STDERR.puts "No se encuentra la raíz del plugin #{DOGMATIX_PLUGIN_NAME}"
+    exit 1
+end
+
+
+ARGV.shift if ['--help', '-h'].include?(ARGV[0])
+Rails::Generator::Scripts::Generate.new.run(ARGV, :destination => DOGMATIX_PLUGIN_ROOT)
+

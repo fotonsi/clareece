@@ -1,0 +1,30 @@
+<table class='no-hover'>
+  <tr>
+    <td><label>Fecha</label></td>
+    <td><%= fecha_form_column @record, "record[fecha]" %></td>
+    <td><label>Tipo</label></td>
+    <td><%= tipo_form_column @record, nil %></td>
+  </tr>
+  <% if (!params[:nested] || params[:parent_model] != 'Formacion') && (!params[:embedded] || params[:embedded] != 'colegiados') %>
+    <tr>
+      <td><label>Titular</label></td>
+      <td><%= check_box_tag :titular_colegio, nil, @record.titular.kind_of?(Colegio), :onchange => 'cambia_tipo_titular()' %>(titular no colegiado)</td>
+      <td colspan="2">
+        <span id="colegiados_span"<%= ' style="display: none;"' if @record.titular.kind_of?(Colegio) %>><%= colegiado_id_form_column @record, "record[colegiado_id]" %></span>
+        <span id="a_favor_de_span"<%= ' style="display: none;"' unless @record.titular.kind_of?(Colegio) %>><label id='a_favor_de_lbl'>A favor de</label>&nbsp;&nbsp;&nbsp;&nbsp;<%= a_favor_de_form_column @record, "record[a_favor_de]" %></span>
+      </td>
+    </tr>
+  <% end %>
+  <tr>
+    <td><label>En concepto de</label></td>
+    <td><%= concepto_de_form_column @record, "record[concepto_de]" %></td>
+    <td><label>Concepto</label></td>
+    <td><%= concepto_form_column @record, "record[concepto]" %></td>
+  </tr>
+  <tr>
+    <td><label>Forma de pago</label></td>
+    <td><%= forma_pago_form_column @record, "record[forma_pago]" %></td>
+    <td><label>Importe</label></td>
+    <td><%= importe_form_column @record, "record[importe]" %></td>
+  </tr>
+</table>

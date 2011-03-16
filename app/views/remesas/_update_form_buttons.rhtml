@@ -1,0 +1,18 @@
+<p id="form-footer" class="form-footer">
+  <%= submit_tag as_(:update), :class => "submit" %>
+  <% if @record.authorized_for_generar? && !@record.generacion_programada? %>
+    <%= link_to 'Generar', {:action => 'generar', :id => @record}, :onclick => %|return confirm_disable_buttons("Se va a generar a mano la remesa, si ha hecho cambios guarde primero. ¿Desea seguir con la generación?", 'form-footer', '#{loading_indicator_id(:action => :update, :id => params[:id])}' )| %>
+  <% end %>
+  <% if @record.authorized_for_entregar? %>
+    <%= link_to 'Borrar recibos', {:action => 'borrar_recibos', :id => @record}, :onclick => %|return confirm_disable_buttons('¿Está seguro que desea borrar los recibos generados y volver a dejar la remesa como no entregada?', 'form-footer', '#{loading_indicator_id(:action => :update, :id => params[:id])}' )|%>
+    <%= link_to 'Fichero bancario', {:action => 'fichero_bancario', :id => @record}, :onclick => %|return confirm_disable_buttons("Se va a generar el fichero bancario, si ha hecho cambios guarde primero. ¿Desea seguir con la generación?", 'form-footer', '#{loading_indicator_id(:action => :update, :id => params[:id])}' )| %>
+  <% end %>
+  <% if @record.authorized_for_entregar? && !@record.entrega_programada? %>
+    <%= link_to 'Entregar', {:action => 'entregar', :id => @record}, :onclick => %|return confirm_disable_buttons("Se va a entregar a mano la remesa, si ha hecho cambios guarde primero. ¿Desea seguir con la entrega?", 'form-footer', '#{loading_indicator_id(:action => :update, :id => params[:id])}' )| %>
+  <% end %>
+  <% if @record.authorized_for_anular? && !@record.anulacion_programada? %>
+    <%= link_to 'Anular', {:action => 'anular', :id => @record}, :onclick => %|return confirm_disable_buttons("¿Confirma que quiere ANULAR la remesa?. Se generarán los movimientos de anulación de los recibos de la remesa.", 'form-footer', '#{loading_indicator_id(:action => :update, :id => params[:id])}' )| %>
+  <% end %>
+  <%= link_to as_(:cancel), params_for(:controller => params[:parent_controller] ? params[:parent_controller] : params[:controller], :action => 'list'), :class => 'cancel' %>
+</p>
+<%= loading_indicator_tag(:action => :update, :id => params[:id]) %>

@@ -1,0 +1,39 @@
+<h2>Remesa Individual para saldar deuda</h2>
+
+<%= form_tag url_for(:controller => 'remesas', :action => 'new_individual_saldar_deuda'), :id => 'form_saldar_deuda', :method => 'post' %>
+  <table style="width: 85%;">
+    <tr>
+      <td><label>Fecha cobro</label></td>
+      <td><%= fecha_cobro_form_column(@record, "record[fecha_cobro]") %></td>
+    </tr>
+    <tr>
+      <td><label>En concepto de</label></td>
+      <td>
+        <%= concepto_de_form_column(@record, "record[concepto_de]") %>
+        <%= concepto_form_column(@record, "record[concepto]") %>
+      </td>
+    </tr>
+    <tr>
+      <td><label>Importe</label></td>
+      <td><%= importe_form_column(@record, "record[importe]") %>&nbsp;(si lo deja a 0,00 se calculará el plazo en función de la deuda pendiente del colegiado)</td>
+    </tr>
+  </table>
+  <%= submit_tag 'Crear' %>
+  <%= link_to 'Cancelar', :action => :list %>
+</form>
+
+<script type="text/javascript">
+  jQuery(function($) {
+    $("#form_saldar_deuda").live('submit', function() {
+      $('input:text').each(function() {
+        if (/decimal/.test(this.alt)) {
+          var chars = $.mask.options.fixedChars.replace(/[-+,]/g, '');
+          this.value = this.value.replace(new RegExp(chars), '').replace(/,/, '.');
+        } else if (this.alt == 'integer') {
+          this.value = this.value.replace(new RegExp($.mask.options.fixedChars), '');
+        }
+      });
+      return true;
+    });
+  });
+</script>

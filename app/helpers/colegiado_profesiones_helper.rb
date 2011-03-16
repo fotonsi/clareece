@@ -1,0 +1,2 @@
+module ColegiadoProfesionesHelper
+end

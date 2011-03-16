@@ -1,0 +1,18 @@
+<table>
+  <tr>
+    <td><label>Titular</label></td>
+    <td colspan="3"><%= titular_search_column @record, "search[titular]" %>&nbsp;(Puede buscar por partes del nombre completo o del nif o por el número de colegiado precediéndolo de #)</td>
+  </tr>
+  <tr>
+    <td><label>Fecha</label></td>
+    <td><%= created_at_search_column @record, "search[created_at]" %></td>
+    <td><label>En concepto de</label></td>
+    <td><%= concepto_de_search_column @record, "search[concepto_de]" %> <%= concepto_search_column @record, "search[concepto]" %></td>
+  </tr>
+  <tr>
+    <td><label>Estado</label></td>
+    <td><%= estado_search_column @record, "search[estado]" %></td>
+    <td><label>Importe</label></td>
+    <td><%= importe_search_column @record, "search[importe]" %></td>
+  </tr>
+</table>

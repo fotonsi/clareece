@@ -1,0 +1,16 @@
+es:
+  activerecord:
+    attributes:
+      expediente:
+        id: Nº
+        titulo: Título
+        descripcion: Descripción
+  view:
+    expediente:
+      group:
+        datos: Datos
+  active_scaffold:
+    expedientes:
+      label: Expedientes
+      crear_existente: Asociar existente
+      quitar_relacion_expediente_confirm: ¿Dejar de relacionar este expediente?

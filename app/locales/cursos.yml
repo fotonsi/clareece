@@ -1,0 +1,33 @@
+es:
+  activerecord:
+    attributes:
+      curso:
+        id: Código
+        nombre: Curso 
+        lugar: Lugar celebración
+        fecha_ini: Fecha inicio
+        fecha_fin: Fecha fin
+        fecha_hora_limite_matricula: Fecha límite matrícula
+        fecha_hora_limite_devolucion: Fecha límite devolución
+        horarios: Horario
+        precio_matricula: Precio matrícula/Depósito(€)
+        temario: Temario
+        descripcion: Descripción
+        num_plazas_min: Aforo mínimo
+        num_plazas_max: Aforo máximo
+        porc_asistencia_minima: % asistencia mínima obligatoria
+        num_horas_presenciales: Nº horas presenciales
+        num_horas_virtuales: Nº horas virtuales
+  view:
+    curso:
+      group:
+        curso: Datos curso
+      estado:
+        sin_iniciar: Sin iniciar
+        activo: Activo
+        finalizado: Finalizado
+        cancelado: Cancelado
+        acta: Acta realizada
+  active_scaffold:
+    cursos:
+      label: Cursos

@@ -1,0 +1,70 @@
+es:
+  notificador:
+    firma: "<p>Correo enviado por #{NOMBRE_COLEGIO} (aplicación de gestión)</p>"
+    transaccion:
+      asunto: "#{NOMBRE_COLEGIO}. Nueva transacción"
+      success: "<h1>Transacción generada con éxito ({{fecha_generacion}})<h1>
+        <h2>Datos de la transacción</h2>
+        <label>Número:</label> {{id}}<br />
+        <label>Fecha cobro:</label> {{fecha_cobro}}<br />
+        <label>Concepto:</label> {{concepto}}<br />
+        <label>Importe:</label> {{importe}} &euro;<br />
+        <h3>Resumen</h3>
+        <label>Movimientos generados:</label> {{num_movimientos}}<br />
+        <label>Importe total:</label> {{importe_final}} &euro;"
+      error: "<h1>ERROR. Transacción no generada ({{fecha_generacion}})</h1>
+        <h2>Datos de la transacción</h2>
+        <label>Número:</label> {{id}}<br />
+        <label>Fecha cobro:</label> {{fecha_cobro}}<br />
+        <label>Concepto:</label> {{concepto}}<br />
+        <label>Importe:</label> {{importe}} &euro;"
+
+    remesa:
+      generar:
+        asunto: "#{NOMBRE_COLEGIO}. Generación de remesa"
+        success: "<h1>Recibos de la remesa generados con éxito ({{fecha_generacion}})<h1>
+          <h2>Datos de la remesa</h2>
+          <label>Número:</label> {{id}}<br />
+          <label>Fecha cobro:</label> {{fecha_cobro}}<br />
+          <label>Concepto:</label> {{concepto}}<br />
+          <label>Importe:</label> {{importe}} &euro;<br />
+          <h3>Resumen</h3>
+          <label>Recibos generados:</label> {{num_recibos}}<br />
+          <label>Importe total:</label> {{importe_final}} &euro;"
+        error: "<h1>ERROR. Remesa no generada ({{fecha_generacion}})</h1>
+          <h2>Datos de la remesa</h2>
+          <label>Número:</label> {{id}}<br />
+          <label>Fecha cobro:</label> {{fecha_cobro}}<br />
+          <label>Concepto:</label> {{concepto}}<br />
+          <label>Importe:</label> {{importe}} &euro;"
+      entregar:
+        asunto: "#{NOMBRE_COLEGIO}. Entrega de remesa"
+        success: "<h1>Movimientos de la remesa generados con éxito ({{fecha_entrega}})<h1>
+          <h2>Datos de la remesa</h2>
+          <label>Número:</label> {{id}}<br />
+          <label>Fecha cobro:</label> {{fecha_cobro}}<br />
+          <label>Concepto:</label> {{concepto}}<br />
+          <label>Importe:</label> {{importe}} &euro;<br />
+          <h3>Resumen</h3>
+          <label>Movimientos generados:</label> {{num_movimientos}}<br />
+          <label>Importe total:</label> {{importe_final}} &euro;"
+        error: "<h1>ERROR. Remesa no entregada ({{fecha_entrega}})</h1>
+          <h2>Datos de la remesa</h2>
+          <label>Número:</label> {{id}}<br />
+          <label>Fecha cobro:</label> {{fecha_cobro}}<br />
+          <label>Concepto:</label> {{concepto}}<br />
+          <label>Importe:</label> {{importe}} &euro;"
+      anular:
+        asunto: "#{NOMBRE_COLEGIO}. Anulación de remesa"
+        success: "<h1>Remesa anulada con éxito ({{fecha_anulacion}})<h1>
+          <h2>Datos de la remesa</h2>
+          <label>Número:</label> {{id}}<br />
+          <label>Fecha cobro:</label> {{fecha_cobro}}<br />
+          <label>Concepto:</label> {{concepto}}<br />
+          <label>Importe:</label> {{importe}} &euro;<br />"
+        error: "<h1>ERROR. Remesa no anulada ({{fecha_anulacion}})</h1>
+          <h2>Datos de la remesa</h2>
+          <label>Número:</label> {{id}}<br />
+          <label>Fecha cobro:</label> {{fecha_cobro}}<br />
+          <label>Concepto:</label> {{concepto}}<br />
+          <label>Importe:</label> {{importe}} &euro;"

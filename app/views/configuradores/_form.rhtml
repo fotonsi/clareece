@@ -1,0 +1,12 @@
+<div class="view-item">
+<%
+  view_group "view.configurador.group.datos" do |group|
+    table_layout do |layout|
+      layout.row do |row|
+        row.column {as_field(:record, :recargo_bancario)}
+        row.column {as_field(:record, :dia_trans_deuda)}
+      end
+    end
+  end
+%>
+</div>

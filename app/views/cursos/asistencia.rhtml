@@ -1,0 +1,42 @@
+<h4>Control de asistencia</h4>
+<div id="<%= element_messages_id(:action => :asistencia) %>" class="messages-container"><%= error_messages_for :table %></div>
+<% url_options = params_for(:action => 'asistencia') %>
+<%= form_remote_tag :url => url_options, 
+                    :after => "$('#{loading_indicator_id(:action => :asistencia)}').style.visibility = 'visible'; Form.disable('#{element_form_id(:action => :asistencia)}');",
+                    :complete => "$('#{loading_indicator_id(:action => :asistencia)}').style.visibility = 'hidden'; Form.enable('#{element_form_id(:action => :asistencia)}');",
+                    :failure => "ActiveScaffold.report_500_response('#{active_scaffold_id}')",
+                    :html => {
+                      :href => url_for(url_options),
+                      :onsubmit => onsubmit,
+                      :id => element_form_id(:action => :asistencia),
+                      :class => 'update',
+                      :method => :post
+                    }
+%>
+  <%= hidden_field_tag 'curso_id', @curso_id %>
+  <table id="lista_alumnos">
+    <tr id="cabecera_alumnos">
+      <th class="elemento_alumnos">Alumno</th>
+      <% dia = "impar"; @turnos.each_with_index do |t,i| %>
+        <% dia = (dia == "impar" ? "par" : "impar") if @turnos[i-1][0] != t[0] %>
+        <th class="elemento_fechas <%= dia %>"><%= "#{t[0]}<br />(#{t[1][0]}-#{t[1][1]})" %></th>
+      <% end %>
+    </tr>
+    <% @formaciones.each do |formacion| %>
+      <tr id="cuerpo_alumnos">
+        <td class="elemento_alumnos"><%= formacion.nombre_completo %></td>
+        <% dia = "impar"; @turnos.each_with_index do |t,i|
+          dia = (dia == "impar" ? "par" : "impar") if @turnos[i-1][0] != t[0]
+          checked = formacion.curso.ausencias.detect {|a| a.curso_id == @curso_id.to_i && a.alumno == formacion.alumno && a.fecha == t[0] && a.turno == t[1][0]}.nil? %>
+          <td class="elemento_fechas <%= dia %>"><%= check_box_tag("seleccionado[#{formacion.alumno_id}_#{formacion.alumno_type}][#{t[0]}][#{t[1][0]}]", "1", checked) %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+  <br />
+  <div style="clear: both;">
+    <%= submit_tag as_(:update), :class => "submit" %>
+    <%= loading_indicator_tag(:action => :asistencia) %>
+  </div>
+</form>
+

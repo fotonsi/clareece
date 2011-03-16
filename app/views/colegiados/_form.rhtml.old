@@ -1,0 +1,33 @@
+<% cols = columns.instance_variable_get("@columns") %>
+<%= 
+  active_scaffold_form_layout("Datos personales") do
+    [row([ cols[:nombre], cols[:apellido1], cols[:apellido2] ]),
+     row([ cols[:nif], cols[:sexo], cols[:fecha_nacimiento] ]),
+     row([
+       {:label => 'Direccion', :column => cols[:direccion], :width => '33%'},
+       {:label => 'Localidad', :column => cols[:localidad_id], :width => '67%'},
+     ]),
+     row([ cols[:telefono1], cols[:telefono2], cols[:fax] ]),
+    ]
+  end
+%>
+<%=
+  active_scaffold_form_layout("Datos profesionales") do
+    [row([ {:column => cols[:colegiado_profesiones], :label => nil}, {:column => cols[:colegiado_especialidades], :label => nil}]),
+     row([ cols[:grado_carrera], cols[:situacion_profesional], cols[:ejercicio_profesional] ]),
+     row([ cols[:centro_id], cols[:telefono_trabajo], cols[:email] ]),
+     row([ {:column => cols[:fecha_ingreso]},
+           {:column => cols[:fecha_baja]},
+           {:column => cols[:no_ejerciente]},
+     ]),
+     row([ cols[:procedencia], cols[:destino], cols[:ref_historial] ]),
+     row([ {:column => cols[:observaciones], :width => '100%'} ]),
+    ]
+  end
+%>
+<%= 
+  active_scaffold_form_layout("Datos bancarios") do
+    [row([ cols[:banco_id], cols[:num_cuenta], cols[:titular_cuenta] ]),
+  ]
+  end
+%>

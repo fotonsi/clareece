@@ -1,0 +1,7 @@
+<% label ||= nil %>
+<div id="<%= recibos_list_id @record %>">
+  <%= render :active_scaffold => 'recibos', 
+             :constraints => {:remesa_id => @record.id},
+             :params => {:embedded => 'remesas'},
+             :label => label || 'Recibos' %> 
+</div>

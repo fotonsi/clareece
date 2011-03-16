@@ -1,0 +1,12 @@
+es:
+  activerecord:
+    attributes:
+      informe:
+        created_at: Creación
+        uploaded_data: Plantilla
+        updated_at: Últ. actualización
+        filename: Plantilla
+  active_scaffold:
+    informes:
+      label: Plantillas de informes
+      create_new: Nueva plantilla de informe

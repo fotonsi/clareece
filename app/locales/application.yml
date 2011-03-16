@@ -1,0 +1,4 @@
+es:
+  application:
+    logout: "Salir"
+    action_error: "No se pudo realizar la operación solicitada"

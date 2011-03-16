@@ -1,0 +1,5 @@
+<%= render :active_scaffold => 'expedientes', 
+           :conditions => ["expedientes.id in (?)", @record.expediente_relacionado_ids],
+           :params => {:embedded => 'expedientes', :expediente_id => @record.id, 
+                       :parent_url => {:controller => 'expedientes', :action => 'listar_expedientes', :id => @record.id}}, 
+           :label => 'Expedientes relacionados' %>

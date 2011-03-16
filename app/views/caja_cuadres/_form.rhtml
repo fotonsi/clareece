@@ -1,0 +1,183 @@
+<div class="view-item">
+<%
+  view_group "view.caja_cuadre.group.arqueo_de_caja" do |group|
+    table_layout do |layout|
+      layout.row do |row|
+        row.column {as_field(:record, :fecha)}
+        row.column(:colspan => 2) {as_field(:record, :cerrado)}
+      end
+      layout.row do |row|
+        row.column {'<span class="subsection">Ingresos</span>'}
+      end
+      layout.row do |row|
+        row.column {as_field(:record, :saldo_anterior)}
+        row.column {as_field(:record, :ingresos)}
+        row.column {'&nbsp;'}
+        row.column {as_field(:record, :suma_ingresos)}
+      end
+      layout.row do |row|
+        row.column {'<span class="subsection">Pagos</span>'}
+      end
+      layout.row do |row|
+        row.column {as_field(:record, :pagos)}
+        row.column {as_field(:record, :ingresado_bancos)}
+        row.column {as_field(:record, :ingresado_datafono)}
+        row.column {as_field(:record, :suma_pagos)}
+      end
+      layout.row do |row|
+        row.column {'<span class="subsection">Total</span>'}
+      end
+      layout.row do |row|
+        row.column {'&nbsp;'}
+        row.column {'&nbsp;'}
+        row.column {'&nbsp;'}
+        row.column {as_field(:record, :saldo_caja)}
+      end
+    end
+  end
+%>
+<%
+  view_group "view.caja_cuadre.group.detalle" do |group|
+    table_layout do |layout|
+      layout.row do |row|
+        row.column {'<span class="subsection">Billetes</span>'}
+      end
+      layout.row do |row|
+        row.column {as_field(:record, :eur_5)}
+        row.column {as_field(:record, :eur_10)}
+        row.column {as_field(:record, :eur_20)}
+      end
+      layout.row do |row|
+        row.column {as_field(:record, :eur_50)}
+        row.column {as_field(:record, :eur_100)}
+        row.column {as_field(:record, :eur_200)}
+      end
+      layout.row do |row|
+        row.column {as_field(:record, :eur_500)}
+      end
+      layout.row do |row|
+        row.column {'<span class="subsection">Monedas</span>'}
+      end
+      layout.row do |row|
+        row.column {as_field(:record, :cent_1)}
+        row.column {as_field(:record, :cent_2)}
+        row.column {as_field(:record, :cent_5)}
+      end
+      layout.row do |row|
+        row.column {as_field(:record, :cent_10)}
+        row.column {as_field(:record, :cent_20)}
+        row.column {as_field(:record, :cent_50)}
+      end
+      layout.row do |row|
+        row.column {as_field(:record, :eur_1)}
+        row.column {as_field(:record, :eur_2)}
+      end
+      layout.row do |row|
+        row.column {'<span class="subsection"></span>'}
+      end
+      layout.row do |row|
+        row.column {as_field(:record, :efectivo)}
+        row.column {as_field(:record, :vales)}
+        row.column {as_field(:record, :cheques)}
+      end
+    end
+  end
+%>
+<%
+  view_group "view.caja_cuadre.group.totales" do |group|
+    table_layout do |layout|
+      layout.row do |row|
+        row.column {as_field(:record, :saldo_caja2)}
+        row.column {as_field(:record, :total_detalle)}
+        row.column {as_field(:record, :saldo)}
+      end
+    end
+  end
+%>
+</div>
+<script>
+function actualizar_total_ingresos(){
+  val = parseFloat($('record_saldo_anterior').value.gsub('.', '').gsub(',', '.') || 0.0)+
+        parseFloat($('record_ingresos').value.gsub('.', '').gsub(',', '.') || 0.0);
+
+  $('record_suma_ingresos').value = Math.round(val*100)/100;
+  jQuery('#record_suma_ingresos').setMask();
+  actualizar_total_caja();
+}
+
+function actualizar_total_pagos(){
+  val = parseFloat($('record_pagos').value.gsub('.', '').gsub(',', '.') || 0.0)+
+        parseFloat($('record_ingresado_bancos').value.gsub('.', '').gsub(',', '.') || 0.0)+
+        parseFloat($('record_ingresado_datafono').value.gsub('.', '').gsub(',', '.') || 0.0);
+
+  $('record_suma_pagos').value = Math.round(val*100)/100;
+  jQuery('#record_suma_pagos').setMask();
+  actualizar_total_caja();
+}
+
+function actualizar_total_caja(){
+  val = parseFloat($('record_suma_ingresos').value.gsub('.', '').gsub(',', '.') || 0.0)-
+        parseFloat($('record_suma_pagos').value.gsub('.', '').gsub(',', '.') || 0.0);
+
+  if (val < 0) {
+    /*We don't divide here because of meiomask with negative values*/
+    val = -1*Math.round(-val*100);
+  } else {
+    val = Math.round(val*100)/100;
+  }
+
+  $('record_saldo_caja').value = val;
+  jQuery('#record_saldo_caja').setMask();
+  $('record_saldo_caja2').value = val;
+  jQuery('#record_saldo_caja2').setMask();
+  actualizar_total_saldo();
+}
+
+function actualizar_total_detalle(){
+  val = parseFloat($('record_efectivo').value.gsub('.', '').gsub(',', '.') || 0.0)+
+        parseFloat($('record_cheques').value.gsub('.', '').gsub(',', '.') || 0.0)+
+        parseFloat($('record_vales').value.gsub('.', '').gsub(',', '.') || 0.0);
+
+  $('record_total_detalle').value = Math.round(val*100)/100;
+  jQuery('#record_total_detalle').setMask();
+  actualizar_total_saldo();
+}
+
+function actualizar_total_saldo(){
+  val = parseFloat($('record_saldo_caja2').value.gsub('.', '').gsub(',', '.') || 0.0)-
+        parseFloat($('record_total_detalle').value.gsub('.', '').gsub(',', '.') || 0.0);
+
+  if (val < 0) {
+    /*We don't divide here because of meiomask with negative values*/
+    val = -1*Math.round(-val*100);
+  } else {
+    val = Math.round(val*100)/100;
+  }
+
+  $('record_saldo').value = val;
+  jQuery('#record_saldo').setMask();
+}
+
+function actualizar_total_efectivo(){
+  val_cents = parseInt($('record_cent_1').value.gsub('.', '') || 0.0) +
+	parseInt($('record_cent_2').value.gsub('.', '') || 0.0)*2 +
+	parseInt($('record_cent_5').value.gsub('.', '') || 0.0)*5 +
+	parseInt($('record_cent_10').value.gsub('.', '') || 0.0)*10 +
+	parseInt($('record_cent_20').value.gsub('.', '') || 0.0)*20 +
+	parseInt($('record_cent_50').value.gsub('.', '') || 0.0)*50 +
+	parseInt($('record_eur_1').value.gsub('.', '') || 0.0)*100 +
+	parseInt($('record_eur_2').value.gsub('.', '') || 0.0)*2*100 +
+	parseInt($('record_eur_5').value.gsub('.', '') || 0.0)*5*100 +
+	parseInt($('record_eur_10').value.gsub('.', '') || 0.0)*10*100 +
+	parseInt($('record_eur_20').value.gsub('.', '') || 0.0)*20*100 +
+	parseInt($('record_eur_50').value.gsub('.', '') || 0.0)*50*100 +
+	parseInt($('record_eur_100').value.gsub('.', '') || 0.0)*100*100 +
+	parseInt($('record_eur_200').value.gsub('.', '') || 0.0)*200*100 +
+        parseInt($('record_eur_500').value.gsub('.', '') || 0.0)*500*100
+  $('record_efectivo').value = val_cents/100;
+  jQuery('#record_efectivo').setMask();
+  $('record_total_detalle').value = val_cents/100;
+  jQuery('#record_total_detalle').setMask();
+  actualizar_total_detalle();
+}
+</script>

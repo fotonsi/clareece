@@ -1,0 +1,48 @@
+<label style="font-size: 14px; margin-bottom: 5px;">
+  Alumno <%= link_to @record.alumno.nombre_completo, :controller => 'colegiados', :action => 'listar_cursos', :id => @record.alumno %>
+  en el curso <%= link_to @record.curso.nombre, :controller => 'cursos', :action => 'listar_alumnos', :id => @record.curso %>
+</label>
+
+<div style="height: 100px; width: 90px; margin-top: 10px; border: 1px solid black; text-align: center;">
+  <%= foto = @record.alumno.foto
+      img = "../documentos/#{foto.id}/#{foto.filename}" rescue nil
+      image_tag(img, :alt => 'Foto', :height => 100) if img %>
+</div>
+
+<div style="clear: both;">
+  <h5><b>Datos de matrícula</b></h5>
+  <label>Alumno: </label><%= link_to(@record.alumno.to_label, :controller => 'colegiados', :action => 'listar_cursos', :id => @record.alumno) %><br />
+  <label>Curso: </label><%= link_to(@record.curso.titulo, :controller => 'cursos', :action => 'listar_alumnos', :id => @record.curso) %><br />
+  <label>Fecha: </label><%= "#{@record.curso.fecha_ini} - #{@record.curso.fecha_fin}" %><br />
+  <label>Lugar: </label><%= @record.aula.to_label if @record.aula %><br />
+  <label>Créditos: </label><%= @record.curso.acreditaciones.map {|ac| "#{ac.entidad_acreditadora.nombre if ac.entidad_acreditadora}: #{ac.creditos}"}.join(", ") %><br />
+  <label>Estado: </label><%= actions_estado @record %><br />
+  <label>Forma de pago:</label><%= @record.forma_pago.humanize if @record.forma_pago %><br />
+  <label>Fecha de matrícula:</label><%= @record.created_at %>
+</div>
+</div>
+
+<div style="clear: both; padding-top: 15px; margin-bottom: 15px;">
+<h5><b>Resultados</b></h5>
+<label>Nota: </label><%= text_field :record, :nota, :class => 'text-input nota-input', :style => 'width: 2em;' %><br />
+<label>Porc. asistencia </label><%= asistencia = @record.curso.asistencia_de(@record.alumno) %><br />
+<label id="titulo_label_id" style="<%= "display: none;" unless @record.apto? %>">
+  <% titulo = Titulo.find_all_by_formacion_id(@record.id).last
+      if titulo.nil?
+        diplomas = options_for_select([['Seleccione plantilla', nil]]+Informe.find(:all, :conditions => ['objeto = ? and nombre ilike ?', 'diploma', 'diploma%']).map {|td| [td.nombre, td.id]}) %>
+        <%= select_tag(:tipo_diploma, diplomas)+link_to_remote('Generar diploma', :url => {:controller => 'formaciones', :action => 'genera_diploma', :id => @record.id}, :with => '"diploma_id=" + $("tipo_diploma").value') %>
+      <% else %>
+        <%= doc = titulo.gestion_documental.documento rescue nil
+        link_to('Diploma', url_for(:controller => 'gestiones_documentales', :action => 'download', :id => doc.id)) if doc %>
+      <% end %>
+</label><br />
+<label>Apto:</label>
+<%= select :record, :apto, [['Sí', true], ['No', false]] %>
+<%= observe_field :record_apto, :function => "var lab = $('titulo_label_id'); if (value == 'false') {lab.hide()} else {lab.show()} "%>
+<br />
+<label>Núm. registro título: <%= titulo.id if titulo %></label><br />
+<!-- <label>Núm. registro de salida</label><br />
+<label>Tipo de registro de salida</label><br /> -->
+
+<%= as_field :record, :observaciones %>
+

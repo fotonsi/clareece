@@ -1,0 +1,9 @@
+es:
+  activerecord:
+    attributes:
+      curso_horario:
+        fecha_ini: Fecha inicio
+        fecha_fin: Fecha fin
+        hora_ini: Hora inicio
+        hora_fin: Hora fin
+

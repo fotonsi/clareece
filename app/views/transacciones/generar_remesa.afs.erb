@@ -1,0 +1,118 @@
+<%=
+afs = Array.new 
+
+colegio = Colegio.actual
+
+# Registro cabecera de presentador
+a1 = "51" 
+a2 = "80"
+b1 = colegio.codigo.rjust(12, '0')[0..11]
+b2 = Date.today.strftime("%d%m%y")
+b3 = "".rjust(6, ' ') 
+c = colegio.nombre.center(40)[0..39]
+d = "".rjust(20, ' ')
+e1 = colegio.entidad[0..3]
+e2 = colegio.oficina[0..3]
+e3 = "".rjust(12, ' ')
+f = "".rjust(40, ' ')
+g = "".rjust(14, ' ')
+
+afs << a1 + a2 + b1 + b2 + b3 + c + d + e1 + e2 + e3 + f + g
+
+
+# Registro cabecera del ordenante
+a1 = "53" 
+a2 = "80"
+b1 = colegio.codigo.rjust(12, '0')[0..11]
+b2 = Date.today.strftime("%d%m%y") 
+b3 = b2 
+c = colegio.nombre.center(40)[0..39]
+d1 = colegio.entidad[0..3]
+d2 = colegio.oficina[0..3]
+d3 = colegio.dc[0..1]
+d4 = colegio.cuenta[0..9]
+e1 = "".rjust(8, ' ')
+e2 = "01"
+e3 = "".rjust(10, ' ')
+f = "".rjust(40, ' ')
+g = "".rjust(14, ' ')
+
+afs << a1 + a2 + b1 + b2 + b3 + c + d1 + d2 + d3 + d4 + e1 + e2 + e3 + f + g
+
+importe = 0
+num_reg_obligatorios = 0
+@record.movimientos_remesa.each do |mov| 
+  # registro individual obligatorio
+  colegiado = mov.titular
+  a1 = "56"
+  a2 = "80"
+  b1 = colegio.codigo.rjust(12, '0')[0..11]
+  b2 = colegiado.num_colegiado.to_s.ljust(12, ' ')[0..11]
+  c = colegiado.nombre_completo.ljust(40, ' ')[0..39]
+  d1 = colegiado.num_cuenta[0..3] 
+  d2 = colegiado.num_cuenta[4..7]
+  d3 = colegiado.num_cuenta[8..9]
+  d4 = colegiado.num_cuenta[10..-1].rjust(10, '0')[0..9]
+  imp = mov.importe.to_s.split('.')
+  e = imp.first.rjust(8, '0') + imp.last.rjust(2, '0')[0..9]
+  f1 = "".rjust(6, '0')
+  f2 = "".rjust(10, ' ')
+  g = mov.concepto.ljust(40, ' ')[0..39]
+  hh = "".rjust(8, ' ')
+
+  afs << a1 + a2 + b1 + b2 + c + d1 + d2 + d3 + d4 + e + f1 + f2 + g + hh
+  
+  if not colegiado.titular_cuenta?
+    # registro individual sexto opcional
+    a1 = "56"
+    a2 = "86"
+    b1 = colegio.codigo.rjust(12, '0')[0..11]
+    b2 = colegiado.num_colegiado.to_s.ljust(12, ' ')[0..11]
+    c = colegiado.nombre_titular_cuenta.ljust(40, ' ')[0..39]
+    d = colegiado.domicilio_titular_cuenta.ljust(40, ' ')[0..39]
+    e1 = colegiado.plaza_domicilio_titular_cuenta.ljust(35, ' ')[0..34]
+    e2 = colegiado.cp_titular_cuenta.rjust(5, '0')[0..4]
+    f = "".rjust(14, ' ')
+
+    afs << a1 + a2 + b1 + b2 + c + d + e1 + e2 + f
+  end
+  importe += mov.importe
+  num_reg_obligatorios += 1 
+end
+
+# registro total del ordenante
+a1 = "58"
+a2 = "80"
+b1 = colegio.codigo.rjust(12, '0')[0..11]
+b2 = "".rjust(12, ' ')
+c = "".rjust(40, ' ')
+d = "".rjust(20, ' ')
+e1 = ("%.2f" % importe).ljust(10, ' ')[0..9]
+e2 = "".rjust(6, ' ')
+f1 = num_reg_obligatorios.to_s.ljust(10, ' ')[0..9]
+f2 = (num_reg_obligatorios + 2).to_s.ljust(10, ' ')[0..9]
+f3 = "".rjust(20, ' ')
+g = "".rjust(18, ' ')
+
+afs << a1 + a2 + b1 + b2 + c + d + e1 + e2 + f1 + f2 + f3 + g
+
+# registro total general
+a1 = "59"
+a2 = "80"
+b1 = colegio.codigo.rjust(12, '0')[0..11]
+b2 = "".rjust(12, ' ')
+c = "".rjust(40, ' ')
+d1 = "1".ljust(4, ' ')
+d2 = "".rjust(16, ' ')
+e1 = ("%.2f" % importe).ljust(10, ' ')[0..9]
+e2 = "".rjust(6, ' ')
+f1 = num_reg_obligatorios.to_s.ljust(10, ' ')[0..9]
+f2 = (num_reg_obligatorios + 3).to_s.ljust(10, ' ')[0..9]
+f3 = "".rjust(20, ' ')
+g = "".rjust(18, ' ')
+
+afs << a1 + a2 + b1 + b2 + c + d1 + d2 + e1 + e2 + f1 + f2 + f3 + g
+
+
+afs.join("\n")
+%>

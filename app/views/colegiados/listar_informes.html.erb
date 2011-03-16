@@ -1,0 +1,6 @@
+<div id="confirm_register"></div>
+<ul>
+<% @informes.each do |informe| %>
+    <li class='informe'><%= link_to_remote informe.nombre, :url => {:controller => 'informes', :action => 'parsea', :id => informe.id, :objeto_id => @record.id}, :method => 'get', :confirm => "¿Está seguro de que desea lanzar la generación del informe '#{informe.nombre}'?#{'. Tenga en cuenta que se generará registro de salida.' if informe.registro}" %></li>
+<% end %>
+</ul>

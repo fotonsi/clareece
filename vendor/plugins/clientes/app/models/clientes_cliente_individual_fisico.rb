@@ -1,0 +1,2 @@
+class ClientesClienteIndividualFisico < ClientesClienteIndividual
+end

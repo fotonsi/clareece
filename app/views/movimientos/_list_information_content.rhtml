@@ -1,0 +1,16 @@
+<table style="width: 40%; border: 1px solid gray; background-color: white;">
+  <tr>
+    <td><label>&nbsp;</label></td>
+    <td><label>Colegiación</label></td>
+    <td><label>Cursos</label></td>
+    <td><label>Otros</label></td>
+    <td><label>Total</label></td>
+  </tr>
+  <tr>
+    <td><label>Saldo</label></td>
+    <td><label style="<%= 'color:red;' if titular.saldo_cuotas_colegiacion < 0 %>"><%= ExportUtils.value2text(titular.saldo_cuotas_colegiacion) %> &euro;</label></td>
+    <td><label style="<%= 'color:red;' if titular.saldo_cursos < 0 %>"><%= ExportUtils.value2text(titular.saldo_cursos) %> &euro;</label></td>
+    <td><label style="<%= 'color:red;' if titular.saldo_otros < 0 %>"><%= ExportUtils.value2text(titular.saldo_otros) %> &euro;</label></td>
+    <td><label style="<%= 'color:red;' if titular.saldo < 0 %>"><%= ExportUtils.value2text(titular.saldo) %> &euro;</label></td>
+  </tr>
+</table>

@@ -1,0 +1,3 @@
+<%= render :active_scaffold => 'movimientos', 
+           :constraints => {:titular_id => @record.id, :titular_type => @record.class.name},
+           :params => {:embedded => 'colegiados'} %>

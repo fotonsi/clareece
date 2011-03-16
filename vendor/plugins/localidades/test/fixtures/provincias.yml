@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  nombre: MyString
+  pais_id: 1
+
+two:
+  nombre: MyString
+  pais_id: 1

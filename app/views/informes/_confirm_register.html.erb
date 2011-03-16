@@ -1,0 +1,9 @@
+<%= form_remote_tag :url => url_for(:controller => 'informes', :action => 'parsea') -%>
+  <p><%= hidden_field_tag :id, @id %></p>
+  <p><%= hidden_field_tag :objeto_id, @objeto_id %></p>
+  <p>Se va a generar el informe <%= Informe.find(params[:id]).nombre %> con registro de salida, si no lo desea desmarque la casilla</p>
+  <p>Incluir registro de salida: <%= check_box_tag :registro_salida, "1", true %></p>
+  <%= submit_tag 'Generar' %>
+  <%= link_to 'Cancelar', :back %>
+</form>
+<hr />

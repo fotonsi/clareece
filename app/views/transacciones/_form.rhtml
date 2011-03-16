@@ -1,0 +1,34 @@
+<table class="no-hover">
+  <tr>
+    <td><label>En concepto de</label></td>
+    <td><%= concepto_de_form_column @record, "record[concepto_de]" %></td>
+  </tr>
+  <tr>
+    <td><label>Concepto</label></td>
+    <td><%= concepto_form_column @record, "record[concepto]" %></td>
+  </tr>
+  <tr>
+    <td><label>Tipo</label></td>
+    <td><%= tipo_form_column @record, nil %></td>
+  </tr>
+  <tr>
+    <td><label>Importe</label></td>
+    <td><%= importe_form_column @record, "record[importe]" %></td>
+  </tr>
+  <tr>
+    <td><label>Forma de pago</label></td>
+    <td><%= forma_pago_form_column @record, "record[forma_pago]" %></td>
+  </tr>
+  <tr>
+    <td><label>Destinatarios</label></td>
+    <td><%= destinatarios_form_column @reocrd, "record[destinatarios]" %></td>
+  </tr>
+  <tr>
+    <td><label>Fecha de cobro</label></td>
+    <td><%= fecha_cobro_form_column @reocrd, "record[fecha_cobro]" %></td>
+  </tr>
+  <tr>
+    <td><label>Fecha de generaci&oacute;n</label></td>
+    <td><%= fecha_generacion_form_column @reocrd, "record[fecha_generacion]" %></td>
+  </tr>
+</table>

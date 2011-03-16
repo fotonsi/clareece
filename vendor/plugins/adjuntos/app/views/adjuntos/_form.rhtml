@@ -1,0 +1,44 @@
+<%= stylesheet_link_tag 'plugin_adjuntos' %>
+
+<div id="window_adjuntos" class="window">
+  
+  <div class="title">
+    
+    <div class="title-text">
+      Ficheros adjuntos de <b><%= @record.respond_to?('to_label') ? @record.to_label : @record.class.to_s.humanize %></b>
+    </div>
+    
+    <div class="close-button">
+      <%= link_to_function image_tag("plugin_adjuntos/close.gif", :title => "Cerrar"), %|$('window_adjuntos').remove();| %>
+    </div>
+  
+  </div>
+  
+  <div class="content"> 
+    
+    <div class="adjuntos-form">
+      <div class="column-head" style="width: 40%;"><b>Nombre</b></div>
+      <div class="column-head" style="width: 25%;"><b>Fecha creaci&oacute;n</b></div>
+      <div class="column-head" style="width: 20%;"><b>Tama&ntilde;o(KB)</b></div>
+      <div class="column-head" style="width: 15%;">&nbsp;</div>
+      <div style="clear: both;"></div>
+      <%= form_tag url_for(:action => 'adjuntar'), :multipart => true, :target => 'upload_frame' %>
+        <div class="list">
+          <% #Quitar remix (esto no se usa en la apli?) %>
+          <%= widget = remix_widget 'BasicBox', 
+              :child => {:class => FileWidget, :record_class => Adjunto}, 
+              :default_value => @record.adjuntos,
+              :param_name => 'adjuntos' %>
+        </div>
+        <%= link_to_function image_tag('plugin_adjuntos/add.png', :title => "Nuevo adjunto"), "#{widget.js_object}.append_item()" %>
+        <%= hidden_field_tag 'parent_type', @record.class %>
+        <%= hidden_field_tag 'parent_id', @record.id %>
+        <%= hidden_field_tag 'remote_element_id', params[:remote_element_id] %>
+        <div class="actions">
+          <%= submit_tag 'Guardar', :class => 'submit' %>
+        </div>
+      </form>
+      <iframe id='upload_frame' name="upload_frame" style="width:0px;height:0px;border:0px;"></iframe>
+    </div>
+  </div>
+</div>

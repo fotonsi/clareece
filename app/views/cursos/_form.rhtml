@@ -1,0 +1,46 @@
+<div class="view-item">
+<%= form_actions @record %>
+<%
+  view_group "view.curso.group.curso" do |group|
+    table_layout do |layout|
+      layout.row do |row|
+        row.column(:colspan => 3) {as_field(:record, :nombre)}
+        row.column {as_field(:record, :id) unless @record.new_record?}
+      end
+      layout.row do |row|
+        row.column(:colspan => 2) {as_field(:record, :descripcion)}
+        row.column {as_field(:record, :aula_id)}
+        row.column {as_field(:record, :num_plazas_presenciales)}
+      end
+      layout.row do |row|
+        row.column {as_field(:record, :fecha_ini)}
+        row.column {as_field(:record, :fecha_fin)}
+        row.column {as_field(:record, :num_plazas_min)}
+        row.column {as_field(:record, :num_plazas_max)}
+      end
+      layout.row do |row|
+        row.column {as_field(:record, :fecha_inicio_matricula)}
+        row.column {as_field(:record, :fecha_limite_matricula)}
+        row.column {as_field(:record, :precio_matricula)}
+        row.column(:colspan => 2) {as_field(:record, :fecha_limite_devolucion)}
+      end
+      layout.row do |row|
+        row.column(:class => "tl-column border", :colspan => 2) {as_field(:record, :horarios)}
+        row.column {as_field(:record, :num_horas_presenciales)}
+        row.column {as_field(:record, :num_horas_virtuales)}
+      end
+      layout.row do |row|
+        row.column {as_field(:record, :observaciones)}
+      end
+      layout.row do |row|
+        row.column {as_field(:record, :porc_asistencia_minima)}
+      end
+      layout.row do |row|
+        row.column(:class => "tl-column border", :colspan => 5) {as_field(:record, :acreditaciones)}
+      end
+      layout.row do |row|
+        row.column {as_field(:record, :temario)}
+      end
+    end
+  end
+%>

@@ -1,0 +1,55 @@
+<table class="no-hover">
+  <tr>
+    <td><label for="record_tipo">Tipo</label></td>
+    <% if @record.new_record? %>
+      <td><%= tipo_form_column(@record, 'record[tipo]') %></td>
+    <% else %>
+      <td><label><b><%= "#{@record.tipo.humanize} N&ordm; #{@record.num_registro}" %></label></b><%= hidden_field :record, :tipo %></td>
+    <% end %>
+  </tr>
+  <% unless @record.new_record? %>
+    <tr>
+      <td><label for="record_created_at">Fecha</label></td>
+	<td><label><%= @record.created_at %></label></td>
+    </tr>
+  <% end %>
+  <tr>
+    <td><label for="record_remitente">Remitente</label></td>
+    <td><%= remitente_form_column(@record, 'record[remitente]') %></td>
+  <tr id="direccion_remitente_tr" <%= 'style="display: none"' if (@record.tipo || params[:tipo]) == 'salida' %>>
+    <td><label for="record_direccion_remitente">Dirección remitente</label></td>
+    <td><%= direccion_remitente_form_column(@record, 'record[direccion_remitente]') %></td>
+  </tr>
+  <tr>
+    <td><label for="record_destinatario">Destinatario</label></td>
+    <td><%= destinatario_form_column(@record, 'record[destinatario]') %></td>
+  </tr>
+  <tr id="direccion_destinatario_tr" <%= 'style="display: none"' if (@record.tipo || params[:tipo]) != 'salida' %>>
+    <td><label for="record_direccion_destinatario">Dirección destinatario</label></td>
+    <td><%= direccion_destinatario_form_column(@record, 'record[direccion_remitente]') %></td>
+  </tr>
+  <tr>
+    <td><label for="record_texto">Texto resumen</label></td>
+    <td><%= texto_form_column(@record, 'record[texto]') %></td>
+  </tr>
+  <tr>
+    <td><label for="record_observaciones">Observaciones</label></td>
+    <td><%= observaciones_form_column(@record, 'record[observaciones]') %></td>
+  </tr>
+  <% unless @record.new_record? %>
+    <tr>
+      <td><label for="record_etiquetas">Etiquetas</label></td>
+      <td><%= etiquetas_form_column(@record, 'record[etiquetas]') %></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td><small style="font-size: 1.2em;">Introduzca las etiquetas separadas por espacio. Cuando empiece a escribir se le mostrarán las existentes que empiecen con esas letras.<br />Si está editando un documento desde la ficha del expediente y quiere saber todas las etiquetas obligatorias y optativas no usadas todavía introduzca un '#'</small></td>
+    </tr>
+  <% end %>
+  <% if not @record.new_record? %>
+  <tr>
+    <td><label for="record_uploaded_data">Documento</label></td>
+    <td><%= uploaded_data_form_column(@record, 'record[uploaded_data]') %></td>
+  </tr>
+  <% end %>
+</table>

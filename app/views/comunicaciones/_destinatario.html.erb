@@ -1,0 +1,1 @@
+<p><%= nice_smart_auto_field(:record, :colegiado_id, (record.colegiado.to_label rescue nil), {:query_url => url_for(:action => 'colegiado_autocomplete_results'), :class => 'autocomplete text-input', :size => 50, :param_name => "dest[#{generate_temporary_id}][numero]"}) %></p>

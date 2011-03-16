@@ -1,0 +1,103 @@
+
+div.view-item {
+    /*background: #eee;*/
+}
+
+div.view-item div.view-header {
+    font-size: 200%;
+}
+
+div.view-item div.view-header span.type {
+    color: #777;
+}
+
+div.view-item div.view-group {
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    -moz-border-radius: 5px;
+    padding: 4px;
+}
+
+div.view-item div.view-group div.foot {
+    padding-bottom: 10px;
+}
+
+div.view-item div.view-group div.label-group {
+    -moz-border-radius: 5px;
+    position: relative;
+    padding: 0 1em;
+    top: -10px;
+    left: 10px;
+    border: 2px solid #ccc;
+    background: white;
+    display: inline;
+    font-size: 10px;
+}
+
+div.view-item div.view-group div.group-summary {
+    margin-top: 1em;
+    font-weight: bold;
+}
+
+div.view-item div.clear {
+    clear: both;
+}
+
+div.view-item div.enrollments span.date-range {
+    font-size: 90%;
+    color: #aaa;
+}
+
+div.view-item div.group-row div.row-label {
+    float: left;
+    width: 20%;
+    color: #764893;
+    font-weight: bold;
+    text-align: right;
+    margin-right: 1em;
+}
+
+div.view-item div.group-row div.row-label:after {
+    content: ":";
+}
+
+div.view-item div.group-row div.row-content {
+    float: left;
+    width: 70%;
+}
+
+div.view-item a.external {
+    color: #40605c;
+    text-decoration: none;
+    border-bottom: #40605c dotted 1px;
+}
+
+div.view-item div.large-content {
+    max-height: 300px;
+    overflow: auto;
+}
+
+.active-scaffold tr.record td.actions a {
+    color: #764893;
+}
+
+.active-scaffold p.form-footer {
+    margin-bottom: 15px;
+}
+
+
+div#appendixes-box {
+    margin: 5px;
+}
+
+div#appendixes-box p {
+    margin: auto;
+}
+
+div.actions-box {
+    position: absolute;
+    margin-top: 15px;
+    right: 10px;
+}
