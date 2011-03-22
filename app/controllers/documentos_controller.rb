@@ -8,7 +8,7 @@ class DocumentosController < ApplicationController
     config.columns.add :tag_list
     config.update.link.inline = true
     config.update.columns = [:tag_list]
-  end
+  end if Documento.table_exists?
 
   def return_to_main
     redirect_to({'action' => 'edit', 'id' => @record}.merge(active_scaffold_session_storage[:parent_url] || {})) 
