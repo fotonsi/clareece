@@ -7,9 +7,10 @@ module CursosHelper
                    :confirm => "¿Enviar email de notificación de celebración del curso?") if record.sin_iniciar?
 
     if record.finalizado?
-      diplomas = options_for_select([['-- seleccione plantilla --', nil]]+Informe.find_all_by_objeto('diploma').map {|td| [td.nombre, td.id]})
-      out << select_tag(:tipo_diploma, diplomas)+' '+
-      link_to_remote('Generar diplomas', :url => {:controller => 'formaciones', :action => 'genera_diplomas', :curso_id => record.id}, :with => '"diploma_id=" + $("tipo_diploma").value', :class => 'boton')
+      confirm = "Se realizará el registro de títulos para los alumnos con calificación de apto (#{record.aptos.size} en total), ¿desea seguir?"
+      exist = Titulo.find(:all, :conditions => ['formacion_id in (?)', record.formacion_ids])
+      confirm += "\nYa hay títulos registrados anteriormente para este curso (#{exist.size}), si quedó el de algún alumno sin registrar por favor hágalo desde su ficha de matrícula.\n¿Desea continuar de todas formas?"
+      out << link_to_remote('Registrar títulos', :url => {:controller => 'cursos', :action => 'genera_diplomas', :curso_id => record.id}, :class => 'boton', :confirm => confirm)
     end
     out << link_to('Acta', {:action => 'acta_curso', :id => record},
                    :confirm => "¿Realizar el acta del curso?") if record.finalizado?

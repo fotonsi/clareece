@@ -255,8 +255,19 @@ class Curso < ActiveRecord::Base
     return (num_turnos-ausencias_alumno)*100/num_turnos
   end
 
+  def aptos
+    formaciones.select {|f| f.estado == 'matriculado' && f.apto?}
+  end
+
   def genera_diplomas
-    self.formaciones.each {|f| f.genera_diploma if f.apto?}
+    nums = Titulo.last.id rescue 0
+    generados = [nums + 1]
+    self.aptos.each do |formacion|
+      titulo = formacion.genera_diploma
+      nums += 1 if titulo
+    end
+    generados << nums
+    generados
   end
 
   def firma_presidente

@@ -26,23 +26,22 @@
 <h5><b>Resultados</b></h5>
 <label>Nota: </label><%= text_field :record, :nota, :class => 'text-input nota-input', :style => 'width: 2em;' %><br />
 <label>Porc. asistencia </label><%= asistencia = @record.curso.asistencia_de(@record.alumno) %><br />
-<label id="titulo_label_id" style="<%= "display: none;" unless @record.apto? %>">
-  <% titulo = Titulo.find_all_by_formacion_id(@record.id).last
-      if titulo.nil?
-        diplomas = options_for_select([['Seleccione plantilla', nil]]+Informe.find(:all, :conditions => ['objeto = ? and nombre ilike ?', 'diploma', 'diploma%']).map {|td| [td.nombre, td.id]}) %>
-        <%= select_tag(:tipo_diploma, diplomas)+link_to_remote('Generar diploma', :url => {:controller => 'formaciones', :action => 'genera_diploma', :id => @record.id}, :with => '"diploma_id=" + $("tipo_diploma").value') %>
-      <% else %>
-        <%= doc = titulo.gestion_documental.documento rescue nil
-        link_to('Diploma', url_for(:controller => 'gestiones_documentales', :action => 'download', :id => doc.id)) if doc %>
-      <% end %>
-</label><br />
 <label>Apto:</label>
-<%= select :record, :apto, [['Sí', true], ['No', false]] %>
+<%= select :record, :apto, [['Sí', true], ['No', false]], { :include_blank => true } %>
 <%= observe_field :record_apto, :function => "var lab = $('titulo_label_id'); if (value == 'false') {lab.hide()} else {lab.show()} "%>
 <br />
-<label>Núm. registro título: <%= titulo.id if titulo %></label><br />
+<br />
+<label id="titulo_label_id" style="<%= "display: none;" unless @record.apto? %>">
+  <%= copias = Titulo.find_all_by_formacion_id(@record.id)
+      confirm = copias.empty? ? 'Se registrará un nuevo título.' : 'Se registrará una copia del título.'
+      confirm += " El título de este alumno ya ha sido registrado anteriormente #{copias.size} vez/veces, la última con fecha #{copias.last.created_at} y registro número #{copias.last.id}. Si va a realizar una nueva copia es correcto, ¿desea seguir?" if !copias.empty?
+      link_to_remote('Registrar título', :url => {:controller => 'formaciones', :action => 'genera_diploma', :id => @record.id}, :confirm => confirm) %>
+
+</label><br />
+<label>Núm. registro título: <%= "#{copias.last.id} con fecha #{copias.last.created_at} (#{(copias.size - 1)} copias registradas)" unless copias.empty? %></label><br />
 <!-- <label>Núm. registro de salida</label><br />
 <label>Tipo de registro de salida</label><br /> -->
 
+<br />
 <%= as_field :record, :observaciones %>
 

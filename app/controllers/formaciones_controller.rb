@@ -247,42 +247,15 @@ class FormacionesController < ApplicationController
 
   def genera_diplomas
     begin
-      if params[:diploma_id].blank?
-        render :update do |page|
-          page << "alert('Debe seleccionar una plantilla');"
-        end
-        return
-      end
-      informe = Informe.find(params[:diploma_id])
-      if informe.nil?
-        render :update do |page|
-          page << "alert('La plantilla seleccionada no existe (id: #{params[:id]})');"
-        end
-        return
-      end
-      curso = Curso.find(params[:curso_id])
-      curso.formaciones.each do |formacion|
-        gd = informe.obtener_para(Diploma.find(formacion.id))
-        if gd.nil?
-          render :update do |page|
-            page << "alert('Se produjo un error al generar los diplomas');"
-          end
-          return
-        end
-
-        #Usamos un posible existente por si se rehace, para que no coja otro número de título.
-        titulo = Titulo.find_by_formacion_id(formacion.id) || Titulo.new
-        titulo.fecha ||= Date.today
-        titulo.formacion_id ||= formacion.id
-        titulo.gestion_documental_id = gd.id if gd
-        titulo.save
-      end
+      formacion = Formacion.find(params[:id])
+      #En este momento pasamos true porque queremos simplemente imprimirlo
+      titulo = formacion.genera_diploma
       render :update do |page|
-        page << "alert('Se generó #{curso.formaciones.size} título/s')"
+        page << %|alert('Se registró título núm. #{titulo.id}')|
       end
     rescue Exception => e
       render :update do |page|
-        page << %|alert('Se produjo un error al generar los diplomas: #{e.message}');|
+        page << %|alert('Se produjo un error al generar el diploma: #{e.message}');|
       end
     end
   end

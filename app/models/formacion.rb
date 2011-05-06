@@ -161,13 +161,15 @@ class Formacion < ActiveRecord::Base
   end
 
   def genera_diploma
-    require 'pdf_utils'
-    #TODO Meter la condición de aprobado?
-    if self.curso.acreditado?
-      genera_diploma_acreditado
-    else
-      genera_diploma_no_acreditado
-    end
+    #Al generar diploma registramos únicamente el título correspondiente
+    #  Siempre se imprimirán desde combinación de correspondencia, aunque sea 1 sólo.
+    #No asociamos con gestión documental porque ahora se generará salida de un resumen de todos los de un curso.
+    #  En caso de generar uno a posteriori se escanearía y se generaría la salida de el mismo.
+    titulo = Titulo.new
+    titulo.fecha = Date.today
+    titulo.formacion = self
+    titulo.save
+    titulo if titulo.valid?
   end
 
   # virtual methods

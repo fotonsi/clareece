@@ -73,6 +73,20 @@ class CursosController < ApplicationController
     end
   end
  
+  def genera_diplomas
+    begin
+      curso = Curso.find(params[:curso_id])
+      nums = curso.genera_diplomas
+      render :update do |page|
+        page << "alert('Se generó #{nums[1] - nums[0] + 1} título/s (números del #{nums[0]} al #{nums[1]} incluidos)')"
+      end
+    rescue Exception => e
+      render :update do |page|
+        page << %|alert('Se produjo un error al generar los diplomas: #{e.message}');|
+      end
+    end
+  end
+
   include FieldSearch
 
   def self.condition_for_fecha_ini_column(column, value, like_pattern)
