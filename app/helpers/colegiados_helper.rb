@@ -29,7 +29,7 @@ module ColegiadosHelper
       num_provis = ActiveRecord::Base.connection.select_one('select last_value from num_colegiado_seq')["last_value"].to_i + 1
       "Alta de nuevo colegiado (nº colegiado provisional #{num_provis})"
     else
-      record.to_label
+      record.to_label+(record.expediente ? " (exp. #{link_to(record.expediente.id, {:controller => 'expedientes', :action => 'edit', :id => @record.expediente}, :title => 'Acceder al expediente del colegiado')})" : ' (sin exp.)')
     end
   end
 

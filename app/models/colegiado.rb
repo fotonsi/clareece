@@ -307,7 +307,7 @@ class Colegiado < ActiveRecord::Base
     errores = []
     errores << "Debe introducir la fecha efectiva de ingreso así como seleccionar su motivo" if self.fecha_ingreso.nil? || self.motivo_ingreso.nil?
     errores << "Debe seleccionar el destino anterior en caso de ingreso por traslado de expediente" if self.motivo_ingreso && self.motivo_ingreso.nombre == 'traslado_expediente' && self.procedencia.nil?
-    errores << "Debe crear primero el expediente" if !self.expediente
+    errores << "Debe crear primero el expediente. Para ello, deje en blanco la situación colegial, guarde y vuelva a seleccionarla." if !self.expediente
     errores << "El expediente del colegiado tiene algún error" if self.expediente && !self.expediente.valid?
     errores << "Debe abrir el expediente del colegiado introduciendo la fecha" if self.expediente && self.expediente.fecha_apertura.nil? && self.situacion_colegial != 'baja_colegial'
     #No se puede llamar al método completo? del expediente ni al propio de documentos_que_faltan porque consultan la instancia en bbdd del colegiado y no la que estamos validando (en memoria).

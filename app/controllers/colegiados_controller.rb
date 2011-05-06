@@ -53,6 +53,12 @@ class ColegiadosController < ApplicationController
       :inline => false,
       :icon => {:image => "shared/informe.gif", :title => "Informes"}
 
+    config.action_links.add 'expediente', 
+      :action => 'expediente', 
+      :type => :record, 
+      :inline => false,
+      :icon => {:image => "actions/colegiados/expediente.png", :title => "Expediente"}
+
   end if Colegiado.table_exists?
   
   include FieldSearch
@@ -152,6 +158,11 @@ class ColegiadosController < ApplicationController
   def listar_informes
     @record = Colegiado.find(params[:id])
     @informes = Informe.find(:all, :order => 'nombre', :conditions => ['objeto = ?', @record.class.to_s.downcase])
+  end
+
+  def expediente
+    record = Colegiado.find(params[:id])
+    redirect_to :controller => 'expedientes', :action => 'edit', :id => record.expediente if record.expediente
   end
 
   def provincia_cambia
