@@ -25,11 +25,12 @@ Rails::Initializer.run do |config|
   # They can then be installed with "rake gems:install" on new installations.
   # You have to specify the :lib option for libraries, where the Gem name (sqlite3-ruby) differs from the file itself (sqlite3)
   # config.gem "bj"
-  # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
-  config.gem "gdata", :version => '1.1.1'
-  config.gem "ruby-ldap", :lib => 'ldap', :version => '0.9.9'
+  #Gemas necesarias, comentadas por problemas de orden de carga, posiblemente con dessert
+  #config.gem "ruby-pg"
+  #config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
+  #config.gem "ruby-ldap", :lib => 'ldap', :version => '0.9.9'
   #config.gem "xml-simple", :version => '1.0.12'
 
   # Only load the plugins named here, in the order given. By default, all plugins 
