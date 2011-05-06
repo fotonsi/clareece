@@ -6,6 +6,7 @@ class CajaCuadresController < ApplicationController
     config.create.label = "Crear cuadre"
     config.update.label = "Actualizar cuadre"
     config.create.link.page = config.update.link.page = true
+    config.actions.exclude :show
     config.list.columns = [:fecha, :ingresos, :pagos, :saldo_caja, :total_detalle, :saldo, :cerrado]
     #config.create.columns = config.update.columns = [:cent_1, :cent_2, :cent_5, :cent_10, :cent_20, :cent_50, :eur_1, :eur_2, :eur_5, :eur_10, :eur_20, :eur_50, :eur_100, :eur_200, :eur_500, :total_movimientos, :total_caja]
     config.columns.add :descuadre
