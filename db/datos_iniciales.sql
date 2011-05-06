@@ -56054,6 +56054,60 @@ COPY provincias (id, nombre, pais_id, created_at, updated_at) FROM stdin;
 \.
 
 --
+-- Name: tipo_destinos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: entrada
+--
+
+SELECT pg_catalog.setval('tipo_destinos_id_seq', 19, true);
+
+
+--
+-- Name: tipo_procedencias_id_seq; Type: SEQUENCE SET; Schema: public; Owner: entrada
+--
+
+SELECT pg_catalog.setval('tipo_procedencias_id_seq', 5, true);
+
+
+--
+-- Data for Name: tipo_destinos; Type: TABLE DATA; Schema: public; Owner: entrada
+--
+
+COPY tipo_destinos (id, nombre, descripcion, created_at, updated_at) FROM stdin;
+1	baja	Baja	2010-06-30 14:51:19.190262	2010-06-30 14:51:19.190262
+2	baja_temporal	Baja temporal	2010-06-30 14:51:19.230771	2010-06-30 14:51:19.230771
+3	baja_voluntaria	Baja voluntaria	2010-06-30 14:51:19.235654	2010-06-30 14:51:19.235654
+4	cese_en_el_ejercicio	Cese en el ejercicio	2010-06-30 14:51:19.240298	2010-06-30 14:51:19.240298
+5	colegiado_no_ejerciente	Colegiado no ejerciente	2010-06-30 14:51:19.245484	2010-06-30 14:51:19.245484
+6	descolegiacion	Descolegiacion	2010-06-30 14:51:19.249053	2010-06-30 14:51:19.249053
+7	doble_colegiacion	Doble colegiacion	2010-06-30 14:51:19.270767	2010-06-30 14:51:19.270767
+8	enfermedad	Enfermedad	2010-06-30 14:51:19.280695	2010-06-30 14:51:19.280695
+9	error	Error	2010-06-30 14:51:19.285435	2010-06-30 14:51:19.285435
+10	fallecimiento	Fallecimiento	2010-06-30 14:51:19.295203	2010-06-30 14:51:19.295203
+11	falta_de_pago	Falta de pago	2010-06-30 14:51:19.31434	2010-06-30 14:51:19.31434
+12	incapacidad	Incapacidad	2010-06-30 14:51:19.32257	2010-06-30 14:51:19.32257
+13	invalidez	Invalidez	2010-06-30 14:51:19.326412	2010-06-30 14:51:19.326412
+14	jubilacion	Jubilacion	2010-06-30 14:51:19.334103	2010-06-30 14:51:19.334103
+15	no_especifica	No especifica	2010-06-30 14:51:19.338856	2010-06-30 14:51:19.338856
+16	orden_comision_ejecutiva	Orden comision ejecutiva	2010-06-30 14:51:19.347638	2010-06-30 14:51:19.347638
+17	orden_junta_gobierno	Orden junta gobierno	2010-06-30 14:51:19.351143	2010-06-30 14:51:19.351143
+18	peticion_propia	Peticion propia	2010-06-30 14:51:19.354828	2010-06-30 14:51:19.354828
+19	traslado_de_expediente	Traslado de expediente	2010-06-30 14:51:19.370591	2010-06-30 14:51:19.370591
+\.
+
+
+--
+-- Data for Name: tipo_procedencias; Type: TABLE DATA; Schema: public; Owner: entrada
+--
+
+COPY tipo_procedencias (id, nombre, descripcion, created_at, updated_at) FROM stdin;
+1	doble_colegiacion	Doble colegiacion	2010-06-30 14:51:19.253313	2010-06-30 14:51:19.253313
+2	nuevo_ingreso	Nuevo ingreso	2010-06-30 14:51:19.343844	2010-06-30 14:51:19.343844
+3	reingreso	Reingreso	2010-06-30 14:51:19.358331	2010-06-30 14:51:19.358331
+4	reingreso_no_ejerciente	Reingreso no ejerciente	2010-06-30 14:51:19.363222	2010-06-30 14:51:19.363222
+5	traslado_de_expediente	Traslado de expediente	2010-06-30 14:51:19.367075	2010-06-30 14:51:19.367075
+\.
+
+
+--
 -- PostgreSQL database dump complete
 --
 

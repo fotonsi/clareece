@@ -623,14 +623,6 @@ ActiveRecord::Schema.define(:version => 20110309101258) do
     t.date     "fecha_anulacion"
   end
 
-  create_table "remixui_sessiones", :force => true do |t|
-    t.string   "session_id"
-    t.string   "page_id"
-    t.binary   "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "roles", :force => true do |t|
     t.string   "nombre"
     t.string   "descripcion"
