@@ -1,0 +1,15 @@
+= Bienvenidos a iClarice
+== Gestión interna de colegios profesionales
+
+iClarice es una aplicación web, relizada en Ruby On Rails, que facilita la gestión interna de colegios profesionales, altas de colegiados y gestión de expedientes, formación continuada y registros de entrada y salida.
+
+== Comenzando
+
+1. La aplicación se puede instalar haciendo un clone del repositorio e instalando las gemas especificadas en el config/environment.rb (debido a un problema con el orden de la carga, posiblemente por el uso de dessert, da un error si tenemos las líneas activadas en el arranque)
+2. Creamos la bbdd postgres y ejecutamos las migraciones.
+3. Cargamos los datos iniciales del fichero db/datos_iniciales.sql.
+4. Damos de alta el usuario 'admin' (contraseña 'admin'), los roles principales y los permisos con el fichero db/permisos_iniciales.sql
+5. En este momento ya podemos usar la aplicación pero si queremos tener datos iniciales podemos ejecutar script/fake_populate.rb para crear colegiados con datos ficticios.
+6. Arrancamos el servidor con script/server y accedemos a la aplicación en http://localhost:3000/
+
+
