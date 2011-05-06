@@ -73,9 +73,11 @@ class FormacionesController < ApplicationController
    end if Formacion.table_exists?
 
   def before_create_save(record) 
-    record.asociar_movimiento #Se paga sea reserva o matrícula
-    if record.movimientos.empty?
-      flash[:error] = "Falló la creación de los movimientos (error: #{record.errors.full_messages}), por favor introdúzcalos manualmente."
+    if record.curso.precio_matricula > 0
+      record.asociar_movimiento #Se paga sea reserva o matrícula
+      if record.movimientos.empty?
+        flash[:error] = "Falló la creación de los movimientos (error: #{record.errors.full_messages}), por favor introdúzcalos manualmente."
+      end
     end
   end
 
