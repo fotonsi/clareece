@@ -11,7 +11,7 @@ class Informe < ActiveRecord::Base
   end
 
   def full_filename(thumbmail = nil)
-    File.join(RAILS_ROOT, *file_system_path(thumbnail))
+    File.join(RAILS_ROOT, *file_system_path(thumbnail).compact)
   end
 
   def file_system_path(thumbnail = nil)

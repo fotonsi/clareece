@@ -5,7 +5,7 @@ class Documento < ActiveRecord::Base
   acts_as_taggable
 
   def full_filename(thumbnail = nil)
-    File.join(RAILS_ROOT, *file_system_path(thumbnail))
+    File.join(RAILS_ROOT, *file_system_path(thumbnail).compact)
   end
  
   # Ruta interna de cada fichero.

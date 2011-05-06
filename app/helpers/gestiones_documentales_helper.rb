@@ -12,12 +12,12 @@ module GestionesDocumentalesHelper
   end
 
   def texto_column(record)
-    if record.documento
+    if record.documento && File.exists?(record.documento.full_filename)
       link_to((record.texto || '&lt;sin descripci&oacute;n&gt;'),
               {:controller => 'gestiones_documentales', :action => 'download', :id => record.documento}, 
               :title => 'Descargar documento adjunto')
     else
-      record.texto || '&lt;sin descripci&oacute;&gt;'
+      record.texto+' (no existe fichero)' || '&lt;sin descripci&oacute;&gt;'
     end
   end
 
