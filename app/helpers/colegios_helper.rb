@@ -9,6 +9,7 @@ module ColegiosHelper
   end
 
   def localidad_id_form_column(record, input_name)
-    nice_smart_auto_field(:record, :localidad_id, (record.localidad_id.to_label rescue nil), {:query_url => url_for(:action => 'localidad_autocomplete_results'), :class => 'autocomplete text-input', :size => 50})
+    loc = Localidad.find(record.localidad_id).to_label rescue nil
+    nice_smart_auto_field(:record, :localidad_id, loc, {:search_fields => [:cp, :nombre], :model => Localidad, :class => 'autocomplete text-input', :size => 60, :tip => 'especifique términos de búsqueda'})
   end
 end

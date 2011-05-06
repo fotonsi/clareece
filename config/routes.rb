@@ -3,16 +3,13 @@ ActionController::Routing::Routes.draw do |map|
   map.routes_from_plugin(:init)
   Desert::Manager.plugins.each {|plugin| map.routes_from_plugin plugin.name }
 
-  map.connect 'profesores/localidad_autocomplete', :controller => 'profesores', :action => 'localidad_autocomplete_results'
-  map.connect 'coordinadores/localidad_autocomplete', :controller => 'coordinadores', :action => 'localidad_autocomplete_results'
-
   map.resources :bancos, :active_scaffold => true
   map.resources :paises, :active_scaffold => true
   map.resources :centros, :active_scaffold => true
   map.resources :profesiones, :active_scaffold => true
   map.resources :especialidades, :active_scaffold => true
-  map.resources :profesores, :active_scaffold => true
-  map.resources :coordinadores, :active_scaffold => true
+#  map.resources :profesores, :active_scaffold => true
+#  map.resources :coordinadores, :active_scaffold => true
   map.resources :aulas, :active_scaffold => true
   map.resources :entidades_acreditadoras, :active_scaffold => true
   map.resources :tipo_procedencias, :active_scaffold => true

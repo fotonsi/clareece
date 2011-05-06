@@ -254,6 +254,7 @@ tr.rw_header th {
 }
 
 ul.smart_autocomplete_container {
+  margin:0;
   padding:0;
   position:absolute!important;
 }
@@ -264,6 +265,10 @@ ul.smart_autocomplete_container li {
   margin: 0 0;
   padding: 5px;
   background-color: #E3EBBC;
+}
+
+ul.smart_autocomplete_container li.error {
+  background-color: #FFA073;
 }
 
 ul.smart_autocomplete_container li.smart_autocomplete_highlight {

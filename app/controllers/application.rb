@@ -70,49 +70,15 @@ class ApplicationController < ActionController::Base
 
   #Métodos para autocompletado
   include FieldSearch
-  def colegiado_autocomplete_results
+  def autocomplete_results
+    model = params[:model].camelize.constantize
+    fields = params[:fields].split(',')
     cols = if params[:term].blank?
              []
-           elsif params[:term] =~ /#\d+$/
-             Colegiado.find_all_by_num_colegiado(params[:term][1..-1])
+           elsif params[:term] =~/^#/
+             model.find(:all, :conditions => ["#{fields[0]} = ?", params[:term][1..-1]])
            else
-             Colegiado.find(:all, :conditions => ApplicationController.conditions_for_text(params[:term], %w(nombre apellido1 apellido2 doc_identidad)))
-           end
-    cols = {:records => cols.map {|col| {:to_label => (col.respond_to?('to_autocomplete_label') ? col.to_autocomplete_label : col.to_label), :ID => col.id}}}
-    render_json cols.to_json
-  end
-
-  def localidad_autocomplete_results
-    cols = if params[:term].blank?
-             []
-           elsif params[:term] =~ /#\d+$/
-             Localidad.find_all_by_cp(params[:term][1..-1])
-           else
-             Localidad.find(:all, :conditions => ApplicationController.conditions_for_text(params[:term], %w(cp nombre)))
-           end
-    cols = {:records => cols.map {|col| {:to_label => (col.respond_to?('to_autocomplete_label') ? col.to_autocomplete_label : col.to_label), :id => col.id}}}
-    render_json cols.to_json
-  end
-
-  def gestion_documental_autocomplete_results
-    cols = if params[:term].blank?
-             []
-           elsif params[:term] =~ /#\d+$/
-             GestionDocumental.find_all_by_num_registro(params[:term][1..-1], :order => 'created_at DESC')
-           else
-             GestionDocumental.find(:all, :conditions => ApplicationController.conditions_for_text(params[:term], %w(num_registro tipo destinatario remitente texto observaciones)))
-           end
-    cols = {:records => cols.map {|col| {:to_label => (col.respond_to?('to_autocomplete_label') ? col.to_autocomplete_label : col.to_label), :id => col.id}}}
-    render_json cols.to_json
-  end
-
-  def expediente_autocomplete_results
-    cols = if params[:term].blank?
-             []
-           elsif params[:term] =~ /#\d+$/
-             Expediente.find_all_by_id(params[:term][1..-1])
-           else
-             Expediente.find(:all, :conditions => ApplicationController.conditions_for_text(params[:term], %w(titulo tipo)))
+             model.find(:all, :conditions => ApplicationController.conditions_for_text(params[:term], fields))
            end
     cols = {:records => cols.map {|col| {:to_label => (col.respond_to?('to_autocomplete_label') ? col.to_autocomplete_label : col.to_label), :id => col.id}}}
     render_json cols.to_json

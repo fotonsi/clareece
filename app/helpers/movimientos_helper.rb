@@ -102,7 +102,8 @@ module MovimientosHelper
   # Form columns
   
   def colegiado_id_form_column(record, input_name)
-    nice_smart_auto_field(:record, :colegiado_id, (record.colegiado.to_label rescue nil), {:query_url => url_for(:action => 'colegiado_autocomplete_results'), :class => 'autocomplete text-input', :size => 50})
+    col = Colegiado.find(record.colegiado_id).to_label rescue nil
+    nice_smart_auto_field(:record, :colegiado_id, col, {:search_fields => [:num_colegiado, :nombre, :apellido1, :apellido2, :doc_identidad], :model => Colegiado, :class => 'autocomplete text-input', :size => 50, :tip => 'especifique términos de búsqueda'})
   end
 
   def fecha_form_column(record, input_name)

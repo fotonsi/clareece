@@ -17,7 +17,8 @@
                     }
 %>
 
-<%= nice_smart_auto_field(:record, :expediente_relacionado_id, (record.expediente_relacionado.to_label rescue nil), {:query_url => url_for(:action => 'expediente_autocomplete_results'), :class => 'autocomplete text-input', :size => 50, :param_name => "expediente_relacionado_id"}) %>
+<%= exp = Expediente.find(record.expediente_relacionado_id).to_label rescue nil
+    nice_smart_auto_field(:record, :expediente_relacionado_id, exp, {:search_fields => [:id, :titulo, :tipo], :model => Expediente, :class => 'autocomplete text-input', :size => 50, :tip => 'especifique términos de búsqueda'}) %>
 
   <div style="clear: both; margin-top: 10px;">
     <%= submit_tag as_(:create), :class => "submit" %>

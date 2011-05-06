@@ -54,54 +54,76 @@ module NiceFieldsHelper
     #TODO Mostrar una fila avisando de que hay más resultados o con el total, que no se pueda seleccionar.
     #FIXME Hacer que no busque mientras no paramos de escribir durante un tiempo y que muestre bien el buscando.
     #FIXME Cuando seleccionamos valor coge el id que está oculto.
-    url = options.delete(:query_url)
+    url = options.delete(:query_url) || url_for(:action => 'autocomplete_results')
+    tip = options.delete(:tip) || 'specify search terms'
+    hidd_id = options.delete(:id)
     hidd_name = options.delete(:param_name)
-    txt_f = text_field_tag("#{object.to_s}_#{field.to_s}_text", ini_value, options.merge(:texttype => "text", :autocomplete => "off"))+"<ul id='#{object.to_s}_#{field.to_s}_results' class='smart_autocomplete_container'></ul>"
-    hidd_f = hidden_field(object, field, :name => hidd_name)
+    id = hidd_name ? hidd_name.gsub(/[\[\]]/, '_') : object.to_s+'_'+field.to_s
+    model = options.delete(:model) || @record.class.reflections[field].klass
+    search_fields = options.delete(:search_fields).map {|f| f.to_s}.join(',')
+    txt = ini_value
+    val = @record.send(field) if @record
+    txt ||= if val.respond_to?('to_autocomplete_label')
+              val.to_autocomplete_label
+            elsif val.respond_to?('to_label')
+              val.to_label
+            end
+    options[:class] = "#{options[:class] || ''} autocomplete smart_autocomplete_text"
+    options[:class] += ' smart_autocomplete_text_with_help' if txt.blank?
+    txt_f = text_field_tag("#{id}_text", txt || tip, options.merge(:texttype => "text", :autocomplete => "off", :onfocus => 'if (this.hasClassName("smart_autocomplete_text_with_help")) {this.removeClassName("smart_autocomplete_text_with_help"); this.value = "";}'))
+    txt_u = "<ul id='#{id}_results' class='smart_autocomplete_container'></ul>"
+    txt_f += respond_to?('raw') ? raw(txt_u) : txt_u
+    hidd_f = !object.blank? && !field.blank? ? hidden_field(object, field, :name => hidd_name, :id => (hidd_id || id), :value => (val.id if val)) : hidden_field_tag(hidd_name, (val.id if val), :id => (hidd_id || id))
+    txt_f += hidd_f
     js = %|<script type="text/javascript">
           jQuery(function($){
-              $('##{object.to_s}_#{field.to_s}_text').smartAutoComplete({
+              $('##{id}_text').smartAutoComplete({
                 filter: function(term){
-                 return $.Deferred(function(dfd){ 
-                    $.getJSON('#{url}?term=' + escape(term) + "&callback=?")
+                 return $.Deferred(function(dfd){
+                    $.getJSON('#{url}?term=' + escape(term) + "&model=#{model}&fields=#{search_fields}&callback=?")
                       .success( function(data){
-                        dfd.resolve( $.map(data.records, function(r){ return r; }) );          
-                      }); 
-                 }).promise(); 
+                        dfd.resolve( $.map(data.records, function(r){ return r; }) );
+                      });
+                 }).promise();
                 },
-                resultsContainer: "ul##{object.to_s}_#{field.to_s}_results",
+                resultsContainer: "ul##{id}_results",
                 resultFormatter: function(r){ return "<li class='result'>"+r.to_label+'<span display="hidden;">'+r.id+'</span>'+'</li>'},
                 minCharLimit: 3, maxResults: 5, delay: 100, forceSelect: false});
        
-              $("##{object.to_s}_#{field.to_s}_text").bind({
+              $("##{id}_text").bind({
                 keyIn: function(ev){
                   //clear existing results
                   $(this).smartAutoComplete().clearResults();
                   
-                  //$("ul##{object.to_s}_#{field.to_s}_results").html("Cargando...");
-                  $("ul##{object.to_s}_#{field.to_s}_results").show();
+                  //$("ul##{id}_results").html("Cargando...");
+                  $("ul##{id}_results").show();
                 },
        
                 noResults: function(ev){
-                  $("ul##{object.to_s}_#{field.to_s}_results").html("Lo sentimos! No se encontraron resultados");
-                  $("ul##{object.to_s}_#{field.to_s}_results").show();
+                  $("ul##{id}_results").html("<li class='error'>Lo sentimos! No se encontraron resultados</li>");
+                  $("ul##{id}_results").show();
                   ev.preventDefault();
                 },
        
                 //we don't need the default behaviour of following events
                 //showResults: function(ev) {ev.preventDefault(); },
                 itemSelect: function(ev, item){
+                  var txt = '';
+                  var id = '';
                   if (item) {
-                    reg = /<span.*>(.*)<\\/span>/;
-                    id = item.innerHTML.match(reg)[1];
-                  } else {
-                    id = ''
+                    reg = /^(.*)<span.*>(.*)<\\/span>/;
+                    txt = item.innerHTML.match(reg)[1];
+                    id = item.innerHTML.match(reg)[2];
                   }
-                  $('##{object.to_s}_#{field.to_s}').val(id);
+                  $('##{id}').val(id);
+                  $('##{id}_text').val(txt);
+                  $('##{id}_text').trigger('lostFocus');
+                  ev.preventDefault();
                 }
               });
           });
     </script>|
-    txt_f + hidd_f + js
+    txt_f += respond_to?('raw') ? raw(js) : js
+    txt_f
   end
 end

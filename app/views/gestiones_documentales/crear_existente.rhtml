@@ -21,7 +21,8 @@
   <table class="no-hover">
     <tr>
       <td><label>Documento:</label></td>
-      <td><%= nice_smart_auto_field(:record, :gestion_documental_id, (record.gestion_documental_id.to_label rescue nil), {:query_url => url_for(:action => 'gestion_documental_autocomplete_results'), :param_name => 'gestion_documental_id', :class => 'autocomplete text-input', :size => 50}) %></td>
+      <td><%= gd = GestionDocumental.find(record.gestion_documental_id).to_label rescue nil
+    nice_smart_auto_field(:record, :gestion_documental_id, gd, {:search_fields => [:num_registro, :tipo, :destinatario, :remitente, :texto, :observaciones], :model => GestionDocumental, :class => 'autocomplete text-input', :size => 120, :tip => 'especifique términos de búsqueda'}) %></td>
     </tr>
   </table>
 
