@@ -2,7 +2,6 @@ class Profesor < ActiveRecord::Base
   has_many :curso_profesores, :dependent => :destroy
 
   def validate
-    errors.add "num_cuenta", "El número de la cuenta debe ser de la forma EEEE-OOOO-DC-CCCCCCCCCC" if !num_cuenta.blank? && num_cuenta !~ /\d\d\d\d-\d\d\d\d-\d\d-\d\d\d\d\d\d\d\d\d\d/
     errors.add("num_cuenta", "El número de cuenta es incorrecto") if !num_cuenta.blank? && !CustomValidator::SpanishAccount.validate(num_cuenta.gsub(' ', '').gsub('-', ''))
   end
 

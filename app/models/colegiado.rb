@@ -20,6 +20,8 @@ class Colegiado < ActiveRecord::Base
 
   validates_presence_of :num_cuenta, :if => Proc.new {|colegiado| colegiado.situacion_colegial && !colegiado.migrado && colegiado.domiciliar_pagos}, :message => "Si elige domiciliar el pago debe indicar el número de cuenta"
 
+  validates_presence_of :sexo, :colegiado_profesiones, :if => Proc.new {|colegiado| !colegiado.sociedad_profesional}
+
   def validate
     errors.add("domiciliar_pagos", "Domiciliar pagos no puede estar vacío.") if self.situacion_colegial && !self.migrado && self.domiciliar_pagos.nil?
     col = Colegiado.find_by_id(self.id)
@@ -81,8 +83,12 @@ class Colegiado < ActiveRecord::Base
 
     case situacion_colegial
     when 'colegiado'
-      docs = [:solicitud_alta, :documento_identidad, :titulo_profesional]
-      docs << :declaracion_no_inhabilitacion if self.motivo_ingreso && self.motivo_ingreso.nombre == 'nuevo_ingreso'
+      if self.sociedad_profesional
+        docs = [:inscripcion_registro_mercantil]
+      else
+        docs = [:solicitud_alta, :documento_identidad, :titulo_profesional]
+        docs << :declaracion_no_inhabilitacion if self.motivo_ingreso && self.motivo_ingreso.nombre == 'nuevo_ingreso'
+      end
       docs
     when 'baja_colegial'
       if self.motivo_baja && TipoDestino::BAJAS_SOLICITADAS.include?(self.motivo_baja.nombre.to_sym)
