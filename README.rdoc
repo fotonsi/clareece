@@ -1,7 +1,7 @@
 = Bienvenidos a Clareece
 == Gestión interna de colegios profesionales
 
-iClarice es una aplicación web, relizada en Ruby On Rails, que facilita la gestión interna de colegios profesionales, altas de colegiados y gestión de expedientes, formación continuada y registros de entrada y salida.
+Clareece es una aplicación web, relizada en Ruby On Rails, que facilita la gestión interna de colegios profesionales, altas de colegiados y gestión de expedientes, formación continuada y registros de entrada y salida.
 
 == Comenzando
 
