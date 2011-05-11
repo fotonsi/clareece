@@ -8,7 +8,7 @@ class CajaCuadre < ActiveRecord::Base
   end
 
   def saldo_cuadre_anterior
-    cuadre_anterior.saldo_caja if cuadre_anterior
+    cuadre_anterior ? cuadre_anterior.saldo_caja : 0
   end
 
   def fecha_cuadre_anterior
