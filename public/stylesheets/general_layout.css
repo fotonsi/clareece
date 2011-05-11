@@ -62,6 +62,7 @@ body.general div#main {
     /*height: 79%;
     overflow:auto;*/ 
     border: 3px solid gray;
+    width: 96%;
 }
 
 body.general div#form-content {
