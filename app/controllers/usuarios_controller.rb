@@ -25,10 +25,10 @@ class UsuariosController < ApplicationController
           LdapUtil.login(params[:login], params[:password])
         else
           require 'md5'
-          raise LoginError, "Invalid credentials" if user.password != MD5.new(params[:password]).to_s
+          raise LoginError, "Invalid credentials" if !user || user.password != MD5.new(params[:password]).to_s
         end
       rescue Exception => e
-        if (e.class == LDAP::ResultError && e.message == 'Invalid credentials') || e.class == LoginError
+        if (LDAP_LOGIN && e.class == LDAP::ResultError && e.message == 'Invalid credentials') || e.class == LoginError
           flash[:error] = "El usuario o la contraseña son incorrectos."
         else
           flash[:error] = "Error: #{e.message}"
