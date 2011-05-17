@@ -34,11 +34,11 @@ module CajaCuadresHelper
   end
 
   def fecha_form_column(record, input_name)
-    calendar_date_select :record, :fecha, :class => "text-input datetime-input #{'readonly-input' if !record.new_record?}", :alt => 'fechahora', :value => (@record.fecha || Time.now).strftime("%d-%m-%Y %H:%M"), :default_time => (@record.fecha || Time.now)
+    calendar_date_select :record, :fecha, :class => "text-input datetime-input #{'readonly-input' if !record.new_record? && record.cuadre_anterior}", :alt => 'fechahora', :value => (@record.fecha || Time.now).strftime("%d-%m-%Y %H:%M"), :default_time => (@record.fecha || Time.now)
   end
 
   def saldo_anterior_form_column(record, input_name)
-    text_field_tag 'record[saldo_anterior]', record.saldo_cuadre_anterior, :id => 'record_saldo_anterior', :class => 'text-input', :size => 10, :onchange => "actualizar_total_ingresos()", :alt => 'signed-decimal', :readonly => true
+    text_field_tag 'record[saldo_anterior]', record.saldo_cuadre_anterior, :id => 'record_saldo_anterior', :class => 'text-input', :size => 10, :onchange => "actualizar_total_ingresos()", :alt => 'signed-decimal', :readonly => record.cuadre_anterior
   end
 
   def ingresos_form_column(record, input_name)
