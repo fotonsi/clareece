@@ -25,6 +25,9 @@
         row.column(:colspan => 2) {as_field(:record, :fecha_limite_devolucion)}
       end
       layout.row do |row|
+        row.column {as_field(:record, :fecha_registro_titulo)}
+      end
+      layout.row do |row|
         row.column(:class => "tl-column border", :colspan => 2) {as_field(:record, :horarios)}
         row.column {as_field(:record, :num_horas_presenciales)}
         row.column {as_field(:record, :num_horas_virtuales)}

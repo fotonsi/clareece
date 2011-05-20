@@ -8,8 +8,8 @@ module CursosHelper
 
     if record.finalizado?
       confirm = "Se realizará el registro de títulos para los alumnos con calificación de apto (#{record.aptos.size} en total), ¿desea seguir?"
-      exist = Titulo.find(:all, :conditions => ['formacion_id in (?)', record.formacion_ids])
-      confirm += "\nYa hay títulos registrados anteriormente para este curso (#{exist.size}), si quedó el de algún alumno sin registrar por favor hágalo desde su ficha de matrícula.\n¿Desea continuar de todas formas?"
+      exist = Titulo.find(:all, :select => 'distinct formacion_id', :conditions => ['formacion_id in (?)', record.formacion_ids])
+      confirm += "\nYa hay títulos registrados anteriormente para este curso (#{exist.size}), si quedó el de algún alumno sin registrar por favor hágalo desde su ficha de matrícula.\n¿Desea continuar de todas formas?" unless exist.empty?
       out << link_to_remote('Registrar títulos', :url => {:controller => 'cursos', :action => 'genera_diplomas', :curso_id => record.id}, :class => 'boton', :confirm => confirm)
     end
     out << link_to('Acta', {:action => 'acta_curso', :id => record},
@@ -133,6 +133,11 @@ module CursosHelper
     calendar_date_select :record, :fecha_obtencion, :name => input_name, :class => 'text-input fecha_obtencion-input date-input', :alt => 'fecha'
   end
 
+  def fecha_registro_titulo_form_column(record, input_name)
+    #Metemos input_name porque se usan también en sub-forms
+    calendar_date_select :record, :fecha_registro_titulo, :name => input_name, :class => 'text-input fecha_registro_titulo-input date-input', :alt => 'fecha'
+  end
+ 
   def hora_ini_form_column(record, input_name)
     text_field :record, :hora_ini, :class => 'text-input hora_ini-input', :size => 3, :name => input_name, :alt => 'time'
   end

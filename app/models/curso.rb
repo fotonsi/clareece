@@ -263,7 +263,7 @@ class Curso < ActiveRecord::Base
     nums = Titulo.last.id rescue 0
     generados = [nums + 1]
     self.aptos.each do |formacion|
-      titulo = formacion.genera_diploma
+      titulo = formacion.genera_diploma(self.fecha_registro_titulo)
       nums += 1 if titulo
     end
     generados << nums

@@ -32,13 +32,14 @@
 <br />
 <br />
 <label id="titulo_label_id" style="<%= "display: none;" unless @record.apto? %>">
+  <label>Fecha registro título: </label><%= calendar_date_select :record, :fecha_registro_titulo, :class => 'text-input fecha_registro_titulo-input date-input', :style => 'text-align: center; width:6em;', :alt => 'fecha' %><br />
   <%= copias = Titulo.find_all_by_formacion_id(@record.id)
       confirm = copias.empty? ? 'Se registrará un nuevo título.' : 'Se registrará una copia del título.'
-      confirm += " El título de este alumno ya ha sido registrado anteriormente #{copias.size} vez/veces, la última con fecha #{copias.last.created_at} y registro número #{copias.last.id}. Si va a realizar una nueva copia es correcto, ¿desea seguir?" if !copias.empty?
+      confirm += " El título de este alumno ya ha sido registrado anteriormente #{copias.size} vez/veces, la última con fecha #{copias.last.fecha} y registro número #{copias.last.id}. Si va a realizar una nueva copia es correcto, ¿desea seguir?" if !copias.empty?
       link_to_remote('Registrar título', :url => {:controller => 'formaciones', :action => 'genera_diploma', :id => @record.id}, :confirm => confirm) %>
 
 </label><br />
-<label>Núm. registro título: <%= "#{copias.last.id} con fecha #{copias.last.created_at} (#{(copias.size - 1)} copias registradas)" unless copias.empty? %></label><br />
+<label>Núm. registro título: <%= "#{copias.last.id} con fecha #{copias.last.fecha.strftime('%d-%m-%Y')} (#{(copias.size - 1)} copias registradas)" unless copias.empty? %></label><br />
 <!-- <label>Núm. registro de salida</label><br />
 <label>Tipo de registro de salida</label><br /> -->
 
