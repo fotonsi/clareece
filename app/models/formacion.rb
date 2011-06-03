@@ -160,7 +160,8 @@ class Formacion < ActiveRecord::Base
     return PDF::rellenar(plantilla, self)
   end
 
-  def genera_diploma(fecha = self.fecha_registro_titulo || Date.today)
+  def genera_diploma(fecha = nil)
+    fecha = self.fecha_registro_titulo || Date.today
     #Al generar diploma registramos únicamente el título correspondiente
     #  Siempre se imprimirán desde combinación de correspondencia, aunque sea 1 sólo.
     #No asociamos con gestión documental porque ahora se generará salida de un resumen de todos los de un curso.

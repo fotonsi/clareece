@@ -54,7 +54,7 @@ class InformesController < ApplicationController
         end
       rescue Exception => e
         render :update do |page|
-          page << %|alert('Se produjo un error al generar el informe "#{informe.nombre}" para el #{informe.objeto} con id #{objeto.id}: #{e.message.to_json}');|
+          page << %|alert('Se produjo un error al generar el informe "#{informe.nombre}" para el #{informe.objeto} con id #{objeto.id}: ' + #{e.message.to_json});|
         end
       end
 #    end

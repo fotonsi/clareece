@@ -82,7 +82,7 @@ class CursosController < ApplicationController
       end
     rescue Exception => e
       render :update do |page|
-        page << %|alert('Se produjo un error al generar los diplomas: #{e.message}');|
+        page << %|alert('Se produjo un error al generar los diplomas: ' + #{e.message.to_json});|
       end
     end
   end

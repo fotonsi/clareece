@@ -242,7 +242,7 @@ class FormacionesController < ApplicationController
       end
     rescue Exception => e
       render :update do |page|
-        page << %|alert('Se produjo un error al generar el contrato para la matrícula con id #{id}: #{e.message}');|
+        page << %|alert('Se produjo un error al generar el contrato para la matrícula con id #{id}: ' + #{e.message.to_json});|
       end
     end
   end
@@ -257,7 +257,7 @@ class FormacionesController < ApplicationController
       end
     rescue Exception => e
       render :update do |page|
-        page << %|alert('Se produjo un error al generar el diploma: #{e.message}');|
+        page << %|alert('Se produjo un error al generar el diploma: ' + #{e.message.to_json});|
       end
     end
   end
