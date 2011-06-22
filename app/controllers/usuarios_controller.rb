@@ -24,8 +24,7 @@ class UsuariosController < ApplicationController
         if LDAP_LOGIN && user.origen_type == 'ldap'
           LdapUtil.login(params[:login], params[:password])
         else
-          require 'md5'
-          raise LoginError, "Invalid credentials" if !user || user.password != MD5.new(params[:password]).to_s
+          raise LoginError, "Invalid credentials" if !user || user.password != Usuario.encrypt(params[:password])
         end
       rescue Exception => e
         if (LDAP_LOGIN && e.class == LDAP::ResultError && e.message == 'Invalid credentials') || e.class == LoginError
@@ -50,6 +49,10 @@ class UsuariosController < ApplicationController
   def logout
     reset_session
     redirect_to :action => 'login'
+  end
+
+  def before_create_save(record)
+    record.password = Usuario.encrypt(record.password)
   end
 
 end

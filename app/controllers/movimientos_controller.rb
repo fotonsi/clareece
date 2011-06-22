@@ -198,15 +198,27 @@ class MovimientosController < ApplicationController
   # Authorized
 
   def libramiento_authorized?(record)
-    record.authorized_for_libramiento?
+    current_user.tiene_permiso_para?('edit_movimientos') && record.authorized_for_libramiento?
   end
 
   def recibo_cuota_authorized?(record)
-    record.authorized_for_recibo_cuota?
+    current_user.tiene_permiso_para?('edit_movimientos') && record.authorized_for_recibo_cuota?
   end
 
   def devolucion_authorized?(record)
-    record.authorized_for_devolucion?
+    current_user.tiene_permiso_para?('edit_movimientos') && record.authorized_for_devolucion?
+  end
+
+  def anular_authorized?(record)
+    current_user.tiene_permiso_para?('edit_movimientos')
+  end
+
+  def recibo_devuelto_authorized?(record)
+    current_user.tiene_permiso_para?('edit_movimientos')
+  end
+
+  def update_authorized?(record)
+    current_user.tiene_permiso_para?('edit_movimientos') || (current_user.tiene_permiso_para?('edit_mis_datos_colegiados') && record.titular_id == current_user.origen_id)
   end
 
 end

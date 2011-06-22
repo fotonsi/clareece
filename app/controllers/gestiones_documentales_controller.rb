@@ -204,4 +204,20 @@ class GestionesDocumentalesController < ApplicationController
     record.authorized_for_create_salida?
   end
 
+  def crear_existente_authorized?
+    current_user.tiene_permiso_para?('new_gestiones_documentales')
+  end
+
+  def quitar_asociacion_expediente_authorized?(record)
+    current_user.tiene_permiso_para?('edit_gestiones_documentales')
+  end
+
+  def update_authorized?
+    current_user.tiene_permiso_para?('edit_gestiones_documentales')
+  end
+
+  def create_authorized?
+    current_user.tiene_permiso_para?('new_gestiones_documentales')
+  end
+
 end

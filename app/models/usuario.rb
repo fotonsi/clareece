@@ -73,14 +73,16 @@ class Usuario < ActiveRecord::Base
     end
   end
 
-  def tiene_permiso_para?(nombre)
+  def tiene_permiso_para?(nombre, params_id = nil)
     #Miramos si la lista de permisos de este rol contiene el nombre de la acción que nos pasan
     # (si empieza por list lo cambiamos por index para sólo tener que dar de alta uno de los dos permisos)
-    self.roles.map {|r| r.permisos.map {|per| per.nombre} }.flatten.include?(nombre.gsub('list', 'index'))
+    #TODO Hacer mejor el permiso de edición para dejar sólo acceso a la ficha del usuario.
+    permisos = self.roles.map {|r| r.permisos.map {|per| per.nombre} }.flatten
+    permisos.include?(nombre.gsub('list', 'index'))
   end
 
   def self.encrypt(password)
-    Digest::SHA1.hexdigest("--#{password}--")
+    Digest::SHA1.hexdigest(password)
   end
 
   def caja

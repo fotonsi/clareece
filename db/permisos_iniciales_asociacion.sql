@@ -14,14 +14,14 @@ SET search_path = public, pg_catalog;
 -- Name: permisos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: entrada
 --
 
-SELECT pg_catalog.setval('permisos_id_seq', 297, true);
+SELECT pg_catalog.setval('permisos_id_seq', 298, true);
 
 
 --
 -- Name: roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: entrada
 --
 
-SELECT pg_catalog.setval('roles_id_seq', 4, true);
+SELECT pg_catalog.setval('roles_id_seq', 6, true);
 
 
 --
@@ -39,9 +39,6 @@ COPY permisos (id, nombre, descripcion, created_at, updated_at) FROM stdin;
 141	new_colegiados	Crear nuevo colegiado	2010-02-12 17:33:03.859543	2010-02-12 17:33:03.859543
 142	edit_colegiados	Modificar datos de colegiado	2010-02-12 17:33:03.877908	2010-02-12 17:33:03.877908
 144	index_colegiados	Listar colegiados	2010-02-12 17:33:03.887418	2010-02-12 17:33:03.887418
-145	new_cursos	Crear nuevo curso	2010-02-12 17:33:03.890671	2010-02-12 17:33:03.890671
-146	edit_cursos	Modificar datos de curso	2010-02-12 17:33:03.897195	2010-02-12 17:33:03.897195
-148	index_cursos	Listar cursos	2010-02-12 17:33:03.904016	2010-02-12 17:33:03.904016
 149	new_expedientes	Crear nuevo expediente	2010-02-12 17:33:03.907217	2010-02-12 17:33:03.907217
 150	edit_expedientes	Modificar datos de expediente	2010-02-12 17:33:03.910358	2010-02-12 17:33:03.910358
 152	index_expedientes	Listar expedientes	2010-02-12 17:33:03.919948	2010-02-12 17:33:03.919948
@@ -90,9 +87,6 @@ COPY permisos (id, nombre, descripcion, created_at, updated_at) FROM stdin;
 209	new_colegiados	Crear nuevo colegiado	2010-03-05 11:16:01.759633	2010-03-05 11:16:01.759633
 210	edit_colegiados	Modificar datos de colegiado	2010-03-05 11:16:01.799921	2010-03-05 11:16:01.799921
 212	index_colegiados	Listar colegiados	2010-03-05 11:16:01.804534	2010-03-05 11:16:01.804534
-213	new_cursos	Crear nuevo curso	2010-03-05 11:16:01.806626	2010-03-05 11:16:01.806626
-214	edit_cursos	Modificar datos de curso	2010-03-05 11:16:01.809484	2010-03-05 11:16:01.809484
-216	index_cursos	Listar cursos	2010-03-05 11:16:01.813766	2010-03-05 11:16:01.813766
 217	new_expedientes	Crear nuevo expediente	2010-03-05 11:16:01.815827	2010-03-05 11:16:01.815827
 218	edit_expedientes	Modificar datos de expediente	2010-03-05 11:16:01.819942	2010-03-05 11:16:01.819942
 220	index_expedientes	Listar expedientes	2010-03-05 11:16:01.82412	2010-03-05 11:16:01.82412
@@ -120,23 +114,6 @@ COPY permisos (id, nombre, descripcion, created_at, updated_at) FROM stdin;
 250	index_caja_cuadres	Cuadres de caja	2010-06-17 12:34:17.772543	2010-06-17 12:34:17.772543
 251	edit_caja_cuadres	Modificar cuadres de caja	2010-06-17 12:34:40.228922	2010-06-17 12:34:40.228922
 252	new_caja_cuadres	Hacer cuadre de caja	2010-06-17 12:34:54.097904	2010-06-17 12:34:54.097904
-253	new_aulas	Crear aulas	2010-06-18 16:50:21.392224	2010-06-18 16:50:21.392224
-255	index_aulas	Listar aulas	2010-06-18 16:50:44.326258	2010-06-18 16:50:44.326258
-256	edit_aulas	Modificar aulas	2010-06-18 16:50:53.401726	2010-06-18 16:50:53.401726
-257	new_coordinadores	Crear coordinadores de cursos	2010-06-23 10:53:55.444943	2010-06-23 10:53:55.444943
-258	new_curso_coordinadores	Asociar coordinadores a cursos	2010-06-23 10:54:13.543509	2010-06-23 10:54:13.543509
-259	index_coordinadores	Listar coordinadores	2010-06-23 10:54:29.966553	2010-06-23 10:54:29.966553
-261	edit_coordinadores	Modificar coordinadores	2010-06-23 11:14:17.991851	2010-06-23 11:14:17.991851
-262	index_profesores	Listar profesores	2010-06-23 11:21:04.002318	2010-06-23 11:21:04.002318
-263	new_profesores	Crear profesores	2010-06-23 11:21:14.803148	2010-06-23 11:21:14.803148
-264	edit_profesores	Modificar profesores	2010-06-23 11:21:28.507524	2010-06-23 11:21:28.507524
-265	new_curso_profesores	Asociar coordinadores a cursos	2010-06-23 11:22:15.105507	2010-06-23 11:22:15.105507
-266	index_entidades_acreditadoras	Listar entidades acreditadoras	2010-06-23 12:25:05.887513	2010-06-23 12:25:05.887513
-267	new_entidades_acreditadoras	Crear entidades acreditadoras	2010-06-23 12:25:48.604941	2010-06-23 12:25:48.604941
-268	edit_entidades_acreditadoras	Modificar entidades acreditadoras	2010-06-23 12:26:10.630405	2010-06-23 12:26:10.630405
-269	index_formaciones	Mostrar alumnos de cursos	2010-06-23 12:47:05.652899	2010-06-23 12:47:05.652899
-270	edit_formaciones	Modificar alumnos de cursos	2010-06-23 12:47:27.882482	2010-06-23 12:47:27.882482
-271	new_formaciones	Añadir alumnos a cursos	2010-06-23 12:48:01.669586	2010-06-23 12:48:01.669586
 272	index_colegios	\N	2011-01-27 12:25:57.782077	2011-01-27 12:25:57.782077
 273	delete_colegios	\N	2011-01-27 12:26:02.693223	2011-01-27 12:26:02.693223
 274	index_colegios	\N	2011-01-27 12:30:48.580487	2011-01-27 12:30:48.580487
@@ -159,6 +136,7 @@ COPY permisos (id, nombre, descripcion, created_at, updated_at) FROM stdin;
 291	delete_notas	\N	2011-01-27 16:10:08.249553	2011-01-27 16:10:08.249553
 292	delete_profesiones	\N	2011-02-02 13:58:38.566918	2011-02-02 13:58:38.566918
 297	delete_especialidades	\N	2011-02-02 14:07:32.186681	2011-02-02 14:07:32.186681
+298	mis_datos_colegiados	Mis datos	2011-06-20 12:39:54.009224	2011-06-20 12:39:54.009224
 \.
 
 
@@ -416,6 +394,8 @@ COPY permisos_roles (permiso_id, rol_id) FROM stdin;
 193	4
 194	4
 297	4
+298	6
+150	6
 \.
 
 
@@ -428,6 +408,7 @@ COPY roles (id, nombre, descripcion, created_at, updated_at) FROM stdin;
 3	contabilidad	Contabilidad	2010-02-11 20:46:21.489829	2010-02-11 20:46:21.489829
 2	administracion	Administración	2010-02-11 20:46:08.261846	2010-02-22 12:04:49.445386
 4	administradores	Administradores	2010-02-22 12:05:36.105436	2010-02-22 12:05:36.105436
+6	usuarios	Usuarios	2011-06-20 12:39:22.884582	2011-06-20 12:39:22.884582
 \.
 
 
@@ -447,7 +428,7 @@ COPY roles_usuarios (rol_id, usuario_id) FROM stdin;
 --
 
 COPY usuarios (id, login, nombre, apellido1, apellido2, rol, created_at, updated_at, origen_type, origen_id, password) FROM stdin;
-1	admin	Administrador	\N	\N	\N	2010-02-04 16:07:13.806316	2010-02-23 10:36:08.854156	ldap	\N	21232f297a57a5a743894a0e4a801fc3
+1	admin	Administrador	\N	\N	\N	2010-02-04 16:07:13.806316	2010-02-23 10:36:08.854156	ldap	\N	d033e22ae348aeb5660fc2140aec35850c4da997
 \.
 
 

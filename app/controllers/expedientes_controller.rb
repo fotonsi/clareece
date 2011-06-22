@@ -49,6 +49,10 @@ class ExpedientesController < ApplicationController
     active_scaffold_session_storage[:parent_url] ||= params[:parent_url]
   end
 
+  def conditions_for_collection
+    ['visible_usuarios is true'] if current_user.tiene_permiso_para?('index_expedientes_usuarios')
+  end
+
   def update_table_config
     if params[:embedded] == "expedientes"
       active_scaffold_config.delete.link.type = false

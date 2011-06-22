@@ -60,6 +60,10 @@ class ColegiadosController < ApplicationController
       :icon => {:image => "actions/colegiados/expediente.png", :title => "Expediente"}
 
   end if Colegiado.table_exists?
+
+  def cursos_authorized?
+    current_user.tiene_permiso_para?('edit_cursos')
+  end
   
   include FieldSearch
 
