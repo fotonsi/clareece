@@ -101,6 +101,11 @@ class ColegiadosController < ApplicationController
   #  }
   #end
 
+  def mis_datos
+    redirect_to :action => 'index' if !current_user.origen_id
+    redirect_to :action => 'edit', :id => current_user.origen_id
+  end
+
   # Editamos tras crear.
   def local_after_create_save(record)
     flash[:notice] = "#{OBJETO_PRINCIPAL.capitalize} creado correctamente"

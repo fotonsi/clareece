@@ -5,6 +5,8 @@ class UsuariosController < ApplicationController
 
   active_scaffold :usuario do |config|
     config.list.columns = [:login, :nombre_completo, :roles]
+    config.create.columns = [:nombre, :apellido1, :apellido2, :login, :password, :roles]
+    config.update.columns = [:nombre, :apellido1, :apellido2, :login, :roles]
   end if Usuario.table_exists?
 
   def login

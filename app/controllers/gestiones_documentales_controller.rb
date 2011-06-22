@@ -15,7 +15,7 @@ class GestionesDocumentalesController < ApplicationController
     form_columns = [:tipo, :created_at, :destinatario, :direccion_destinatario, :remitente, :direccion_remitente, :texto, :uploaded_data, :documento_id, :observaciones, :etiquetas]
 
     # List
-    config.list.columns = [:num_registro, :created_at, :tipo, :texto, :remitente, :destinatario, :etiquetas, :expedientes]
+    config.list.columns = [:num_registro, :created_at, :tipo, :texto, :remitente, :destinatario, :etiquetas]
     config.list.sorting = {:id => :desc}
 
     # Create
@@ -159,7 +159,9 @@ class GestionesDocumentalesController < ApplicationController
   end
   
   def redirect_after_save(id)
-    if params[:expediente_id]
+    if params[:action] == 'create' && params[:embedded] && params[:expediente_id]
+      redirect_to :controller => 'gestiones_documentales', :action => 'edit', :id => id, :expediente_id => params[:expediente_id], :embedded => params[:embedded]
+    elsif params[:expediente_id]
       redirect_to :controller => 'expedientes', :action => 'edit', :id => params[:expediente_id]
     else
       redirect_to :controller => 'gestiones_documentales', :action => 'index'
@@ -168,7 +170,7 @@ class GestionesDocumentalesController < ApplicationController
 
   def crear_existente
     if request.post?
-      if gd = GestionDocumental.find_by_id(params[:gestion_documental_id])
+      if gd = GestionDocumental.find_by_id(params[:record][:gestion_documental_id])
         expediente = Expediente.find(params[:expediente_id]) if params[:expediente_id]
         eg = ExpedienteGestion.create(:gestion_documental => gd, :expediente => expediente)
       end

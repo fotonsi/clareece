@@ -17,7 +17,7 @@ module GestionesDocumentalesHelper
               {:controller => 'gestiones_documentales', :action => 'download', :id => record.documento}, 
               :title => 'Descargar documento adjunto')
     else
-      record.texto+' (no existe fichero)' || '&lt;sin descripci&oacute;&gt;'
+      (record.texto || '')+' (no existe fichero)' || '&lt;sin descripci&oacute;&gt;'
     end
   end
 

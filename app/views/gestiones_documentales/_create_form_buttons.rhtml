@@ -3,6 +3,8 @@
   <% 
     if parent_url = controller.active_scaffold_session_storage[:parent_url]
       url = parent_url.merge(:eid => parent_url[:controller])
+    elsif params[:embedded]
+      url = params_for({:controller => params[:embedded], :action => 'edit', :id => params[params[:embedded].singularize+'_id']})
     else
       url = params_for({:controller => params[:controller], :action => 'list', :eid => params[:eid]})
     end

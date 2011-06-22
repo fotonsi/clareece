@@ -15,6 +15,7 @@
           row.column(:colspan => 2) {as_field(:record, :titulo)}
           row.column {as_field(:record, :fecha_apertura)}
           row.column {as_field(:record, :fecha_cierre)}
+          row.column {as_field(:record, :visible_usuarios)}
         end
         layout.row do |row|
           row.column {as_field(:record, :descripcion)}

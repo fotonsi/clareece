@@ -3,6 +3,8 @@ class RolesController < ApplicationController
   before_filter :access_authorized?
   active_scaffold :rol do |config|
     config.list.columns = [:descripcion, :permisos, :usuarios]
+    config.create.columns.exclude :usuarios
+    config.update.columns.exclude :usuarios
     config.action_links.add 'importar_usuarios_ldap',
 	:label => 'Importar usuarios LDAP',
         :icon => {:image => "shared/personas.png", :title => 'Importa los usuarios de este grupo desde el LDAP'},
