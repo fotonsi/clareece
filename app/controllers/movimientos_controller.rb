@@ -115,7 +115,7 @@ class MovimientosController < ApplicationController
 
   def recibo_cuota
     mov = Movimiento.find(params[:id])
-    nombre_informe = mov.concepto_de == 'cuota_colegiacion' ? 'recibo_cuota' : 'recibo_generico'
+    nombre_informe = mov.concepto_de == DATOS_MOVIMIENTOS[:CONCEPTO_CUOTA_PERIODICA].to_s ? 'recibo_cuota' : 'recibo_generico'
     redirect_to :controller => 'informes', :action => 'parsea', :id => Informe.find_by_objeto(nombre_informe), :objeto_id => params[:id], :sin_registro => true
   end
 

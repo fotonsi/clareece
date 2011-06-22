@@ -15,7 +15,7 @@
     </tr>
     <tr>
       <td><label>Importe</label></td>
-      <td><%= importe_form_column(@record, "record[importe]") %>&nbsp;(si lo deja a 0,00 se calculará el plazo en función de la deuda pendiente del colegiado)</td>
+      <td><%= importe_form_column(@record, "record[importe]") %>&nbsp;(si lo deja a 0,00 se calculará el plazo en función de la deuda pendiente del <%= OBJETO_PRINCIPAL %>)</td>
     </tr>
   </table>
   <%= submit_tag 'Crear' %>

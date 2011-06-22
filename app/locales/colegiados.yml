@@ -20,8 +20,8 @@ es:
         colegiado_destinos: Procedencia
         saldar_deuda: ¿Activar saldar deuda?
         importe_deuda: Importe a saldar en cada remesa (€)
-        situacion_colegial: Situación colegial
-        num_colegiado: "Col. #"
+        situacion_colegial: Estado
+        num_colegiado: "#"
         sociedad_profesional: Soc. profesional
         tipo_doc_identidad: Doc. identidad
         pais_residencia_id: Residencia (País, localidad y cód. postal)
@@ -30,22 +30,43 @@ es:
         cuota_ingreso_forma_pago: Forma de pago de la cuota de ingreso (*)
         exento_pago: Periodo de exención de pagos
         poblacion_banco: Población
+    estados:
+      colegiado: colegiado
+      colegiado_no_ejerciente: colegiado_no_ejerciente
+      baja_colegial: baja_colegial
+      asociado: asociado
+      asociado_exento: asociado_exento
+      baja: baja
   view:
     colegiado:
       group:
-        personal: Datos personales
-        residencia: Datos residencia
-        profesional: Datos profesionales
-        colegiacion: Datos colegiación
-        bancario: Datos bancarios
+        personal: Personales
+        residencia: Residencia
+        profesional: Profesionales
+        colegiacion: Colegiación
+        bancario: Económicos
         observaciones: Observaciones
-        procedencia: Datos procedencia
+        procedencia: Procedencia
       situacion_colegial:
         precolegiado: Precolegiado
         colegiado: Colegiado
         baja_colegial: Baja colegial
         colegiado_no_ejerciente: Col. no ejerciente
+    asociado:
+      group:
+        personal: Personales
+        residencia: Residencia
+        profesional: Profesionales
+        colegiacion: Asociación
+        bancario: Económicos
+        observaciones: Observaciones
+        procedencia: Procedencia
+      situacion_colegial:
+        asociado: Asociado
+        asociado_exento: Asociado exento de pago
+        baja: Baja
   active_scaffold:
     colegiados:
       label: Colegiados
       create_file: Crear expediente
+      create_label: 'Nuevo {{objeto}}'

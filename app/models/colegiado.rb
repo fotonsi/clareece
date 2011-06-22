@@ -16,28 +16,29 @@ class Colegiado < ActiveRecord::Base
 
   #acts_as_audited
 
-  validates_presence_of :nombre, :apellido1, :doc_identidad, :tipo_doc_identidad, :sexo, :fecha_nacimiento, :pais, :direccion, :localidad, :fecha_ingreso, :colegiado_profesiones, :banco_id, :if => Proc.new {|colegiado| colegiado.situacion_colegial && !colegiado.migrado}
+  validates_presence_of :nombre, :apellido1, :doc_identidad, :tipo_doc_identidad, :fecha_nacimiento, :pais, :direccion, :localidad, :fecha_ingreso, :if => Proc.new {|colegiado| colegiado.situacion_colegial && !colegiado.migrado}
 
-  validates_presence_of :num_cuenta, :if => Proc.new {|colegiado| colegiado.situacion_colegial && !colegiado.migrado && colegiado.domiciliar_pagos}, :message => "Si elige domiciliar el pago debe indicar el número de cuenta"
+  validates_presence_of :num_cuenta, :banco_id, :if => Proc.new {|colegiado| colegiado.situacion_colegial && !colegiado.migrado && colegiado.domiciliar_pagos}, :message => "Si elige domiciliar el pago debe indicar el banco y el número de cuenta"
 
-  validates_presence_of :sexo, :colegiado_profesiones, :if => Proc.new {|colegiado| !colegiado.sociedad_profesional}
+  validates_presence_of :sexo, :if => Proc.new {|colegiado| colegiado.situacion_colegial && !colegiado.migrado && !colegiado.sociedad_profesional}
 
   def validate
     errors.add("domiciliar_pagos", "Domiciliar pagos no puede estar vacío.") if self.situacion_colegial && !self.migrado && self.domiciliar_pagos.nil?
     col = Colegiado.find_by_id(self.id)
-    errors.add("situacion_colegial", "El registro sólo puede pasar a estado 'colegiado'") if (!col || !col.situacion_colegial) && self.situacion_colegial && self.situacion_colegial != 'colegiado'
-    if self.situacion_colegial == 'colegiado' && !self.migrado && !(errores_alta = revisar_condiciones_alta).blank?
+    errors.add("situacion_colegial", "El registro sólo puede pasar a estado '#{DATOS_OBJETO_PRINCIPAL[:ESTADO_ACTIVO]}'") if (!col || !col.situacion_colegial) && self.situacion_colegial && self.situacion_colegial != DATOS_OBJETO_PRINCIPAL[:ESTADO_ACTIVO].to_s
+    if self.situacion_colegial == DATOS_OBJETO_PRINCIPAL[:ESTADO_ACTIVO].to_s && !self.migrado && !(errores_alta = revisar_condiciones_alta).blank?
       errors.add("situacion_colegial", errores_alta) 
     end
-    if self.situacion_colegial == 'baja_colegial' && !(errores_baja = revisar_condiciones_baja).blank?
+    if self.situacion_colegial == DATOS_OBJETO_PRINCIPAL[:ESTADO_BAJA].to_s && !(errores_baja = revisar_condiciones_baja).blank?
       errors.add("situacion_colegial", errores_baja)
     end
-    if self.situacion_colegial == 'colegiado_no_ejerciente' && !(errores_cambio = revisar_condiciones_no_ejerciente).blank?
+    if self.situacion_colegial == DATOS_OBJETO_PRINCIPAL[:ESTADO_EXENTO].to_s && !(errores_cambio = revisar_condiciones_no_ejerciente).blank?
       errors.add("situacion_colegial", errores_cambio)
     end
     errors.add("cuota_ingreso_forma_pago", "Debe indicar la forma de pago de la cuota de ingreso.") if self.motivo_ingreso == TipoProcedencia.find_by_nombre("nuevo_ingreso") && !self.migrado && self.cuota_ingreso_forma_pago.nil?
     errors.add("num_cuenta", "El número de cuenta es incorrecto") if !num_cuenta.blank? && !CustomValidator::SpanishAccount.validate(num_cuenta.gsub(' ', '').gsub('-', ''))
     errors.add("doc_identidad", "El documento de identidad es incorrecto") if tipo_doc_identidad && tipo_doc_identidad == 'nif' && doc_identidad && !CustomValidator::SpanishVAT.validate(doc_identidad.gsub('-', ''))
+    errors.add("colegiado_profesiones", "Debe seleccionar al menos una titulación") if colegiado_profesiones.empty? && OBJETO_PRINCIPAL == 'colegiado'
   end
 
   after_create :crear_expediente
@@ -45,80 +46,35 @@ class Colegiado < ActiveRecord::Base
   def crear_expediente
     if !self.expediente
       Colegiado.transaction do
-        e = Expediente.create(:titulo => "Expediente #{'provisional ' if !self.num_colegiado || self.num_colegiado == 0}del colegiado #{self.num_colegiado if (self.num_colegiado && self.num_colegiado != 0)}", :tipo => 'colegiado')
+        e = Expediente.create(:titulo => "Expediente #{'provisional ' if !self.num_colegiado || self.num_colegiado == 0}del #{OBJETO_PRINCIPAL} #{self.num_colegiado if (self.num_colegiado && self.num_colegiado != 0)}", :tipo => OBJETO_PRINCIPAL)
         self.expediente = e
         self.save false #Estamos en after_save luego podemos guardar sin validación
       end
     end
   end
 
-  EJERCICIOS_PROFESIONALES = {
-    'AUTONOMO' => 'Autónomo',
-    'CUENTA_AJENA_PUBLICO_SS' => 'Cta. ajena público - Servicio Salud',
-    'CUENTA_AJENA_PUBLICO_OTRAS_ADMS' => 'Cta. ajena público - Otras adms.',
-    'CUENTA_AJENA_PRIVADO' => 'Cta. ajena privado',
-    'CUENTA_AJENA_CONCERTADO' => 'Cta. ajena concertado'
-  }
+  EJERCICIOS_PROFESIONALES = DATOS_OBJETO_PRINCIPAL[:EJERCICIOS_PROFESIONALES]
 
-  SITUACIONES_PROFESIONALES = {
-    'NO_ACTIVO_DESEMPLEO' => 'No activo - Desempleado',
-    'NO_ACTIVO_OTRAS' => 'No activo - Otras situaciones adms.',
-    'NO_ACTIVO_JUBILADO' => 'No activo - Jubilado',
-    'ACTIVO_FIJO' => 'Activo - Fijo',
-    'ACTIVO_TEMPORAL' => 'Activo - Temporal'
-  }
+  SITUACIONES_PROFESIONALES = DATOS_OBJETO_PRINCIPAL[:SITUACIONES_PROFESIONALES]
 
-  SITUACIONES_COLEGIALES = [:colegiado, :colegiado_no_ejerciente, :baja_colegial]
+  SITUACIONES_COLEGIALES = DATOS_OBJETO_PRINCIPAL[:ESTADOS]
 
-  GRADOS_CARRERA = {
-    'GRADO1' => 'Grado 1',
-    'GRADO2' => 'Grado 2',
-    'GRADO3' => 'Grado 3',
-    'GRADO4' => 'Grado 4',
-  }
+  GRADOS_CARRERA = DATOS_OBJETO_PRINCIPAL[:GRADOS_CARRERA]
 
   def etiquetas_obligatorias(todas = false)
-    return [:solicitud_alta, :documento_identidad, :declaracion_no_inhabilitacion, :titulo_profesional, :solicitud_baja, :resolucion_baja, :solicitud_no_ejerciente, :resolucion_no_ejerciente] if todas
+    return DATOS_OBJETO_PRINCIPAL[:ETIQUETAS_OBLIGATORIAS].map {|et| et[:etiqs]}.flatten.uniq if todas
     return [] unless situacion_colegial
 
-    case situacion_colegial
-    when 'colegiado'
-      if self.sociedad_profesional
-        docs = [:inscripcion_registro_mercantil]
-      else
-        docs = [:solicitud_alta, :documento_identidad, :titulo_profesional]
-        docs << :declaracion_no_inhabilitacion if self.motivo_ingreso && self.motivo_ingreso.nombre == 'nuevo_ingreso'
-      end
-      docs
-    when 'baja_colegial'
-      if self.motivo_baja && TipoDestino::BAJAS_SOLICITADAS.include?(self.motivo_baja.nombre.to_sym)
-        [:solicitud_baja]
-      elsif self.motivo_baja && TipoDestino::BAJAS_RESOLUCION_COLEGIAL.include?(self.motivo_baja.nombre.to_sym)
-        [:resolucion_baja]
-      else
-        []
-      end
-    when 'colegiado_no_ejerciente'
-      if self.motivo_baja && TipoDestino::BAJAS_SOLICITADAS.include?(self.motivo_baja.nombre.to_sym)
-        [:solicitud_no_ejerciente]
-      elsif self.motivo_baja && TipoDestino::BAJAS_RESOLUCION_COLEGIAL.include?(self.motivo_baja.nombre.to_sym)
-        [:resolucion_no_ejerciente]
-      else
-        []
-      end
-    end
+    e = DATOS_OBJETO_PRINCIPAL[:ETIQUETAS_OBLIGATORIAS].detect {|et| et[:cond].call(self)}
+    e ? e[:etiqs] : []
   end
 
   def etiquetas_optativas(todas = false)
-    return [:foto_documento_identidad, :certificado_nacimiento_literal, :recibo_cuota_ingreso] if todas
+    return DATOS_OBJETO_PRINCIPAL[:ETIQUETAS_OPTATIVAS].map {|et| et[:etiqs]}.flatten.uniq if todas
+    return [] unless situacion_colegial
 
-    case situacion_colegial
-    when 'colegiado'
-      etiqs = [:foto_documento_identidad, :certificado_nacimiento_literal, :recibo_cuota_ingreso]
-      etiqs.delete(:recibo_cuota_ingreso) if !migrado && motivo_ingreso != TipoProcedencia.find_by_nombre('nuevo_ingreso') || !Movimiento::FORMAS_PAGO_CAJA.include?(cuota_ingreso_forma_pago.to_sym)
-      etiqs << :autorizacion_domiciliacion if domiciliar_pagos
-      etiqs
-    end
+    e = DATOS_OBJETO_PRINCIPAL[:ETIQUETAS_OPTATIVAS].detect {|et| et[:cond].call(self)}
+    e ? e[:etiqs] : []
   end
 
   def to_label
@@ -161,7 +117,7 @@ class Colegiado < ActiveRecord::Base
   end
 
   def saldo_cuotas_colegiacion
-    saldo ["concepto_de = ?", 'cuota_colegiacion']
+    saldo ["concepto_de = ?", DATOS_MOVIMIENTOS[:CONCEPTO_CUOTA_PERIODICA].to_s]
   end
 
   def saldo_cursos
@@ -183,14 +139,14 @@ class Colegiado < ActiveRecord::Base
   def procesar_alta
     #Buscamos el último número de colegiado
     msg = ""
-    if self.valid? && self.situacion_colegial == 'colegiado' && (self.num_colegiado.nil? || self.num_colegiado == 0)
+    if self.valid? && self.situacion_colegial == DATOS_OBJETO_PRINCIPAL[:ESTADO_ACTIVO].to_s && (self.num_colegiado.nil? || self.num_colegiado == 0)
       Colegiado.transaction do
         sig_num_colegiado = Colegiado.find_by_sql("select nextval('num_colegiado_seq') as sig_num_colegiado;").first['sig_num_colegiado']
         self.num_colegiado = sig_num_colegiado
         self.save false
-        msg += "El número de colegiado es el '#{self.num_colegiado}'."
+        msg += "El número de #{OBJETO_PRINCIPAL} es el '#{self.num_colegiado}'."
         exp = self.expediente || Expediente.new
-        exp.titulo = "Expediente del colegiado #{self.num_colegiado}"
+        exp.titulo = "Expediente del #{OBJETO_PRINCIPAL} #{self.num_colegiado}"
         exp.save
       end
     end
@@ -198,13 +154,13 @@ class Colegiado < ActiveRecord::Base
     cuota = (Colegio.actual.cuota_colegiacion || 0)
     return {:result => true, :msg => msg} if self.motivo_ingreso && self.motivo_ingreso.nombre != 'nuevo_ingreso'
     if cuota == 0
-      msg += "No está definida la cuota de ingreso en los parámetros de la aplicación, deberá generar los movimientos de devengo (y pago en caso de pago al contado) a mano desde los movimientos del colegiado. Recuerde especificar la cantidad de deuda y el plazo y activar el 'saldar deuda' en los datos económicos en caso de cuota de ingreso con pago aplazado."
+      msg += "No está definida la cuota de ingreso en los parámetros de la aplicación, deberá generar los movimientos de devengo (y pago en caso de pago al contado) a mano desde los movimientos del #{OBJETO_PRINCIPAL}. Recuerde especificar la cantidad de deuda y el plazo y activar el 'saldar deuda' en los datos económicos en caso de cuota de ingreso con pago aplazado."
     elsif Movimiento::FORMAS_PAGO_CAJA.include?(self.cuota_ingreso_forma_pago.to_sym)
       Movimiento.transaction do
         fecha = Time.now
         m_d = Movimiento.create(:concepto => "(Devengo) Cuota de ingreso",
                                 :importe => cuota,
-                                :concepto_de => :cuota_colegiacion.to_s,
+                                :concepto_de => DATOS_MOVIMIENTOS[:CONCEPTO_CUOTA_PERIODICA].to_s,
                                 :fecha => (Time.utc(fecha.year, fecha.month, fecha.day, fecha.hour, fecha.min) if fecha),
                                 :titular => self)
 
@@ -212,7 +168,7 @@ class Colegiado < ActiveRecord::Base
         fecha += 60
         m_p = Movimiento.create(:concepto => "(Cobro) Cuota de ingreso",
                                 :importe => (-1*cuota),
-                                :concepto_de => :cuota_colegiacion.to_s,
+                                :concepto_de => DATOS_MOVIMIENTOS[:CONCEPTO_CUOTA_PERIODICA].to_s,
                                 :forma_pago => self.cuota_ingreso_forma_pago,
                                 :caja => (Thread.current[:current_user].caja),
                                 :fecha => (Time.utc(fecha.year, fecha.month, fecha.day, fecha.hour, fecha.min) if fecha),
@@ -224,13 +180,13 @@ class Colegiado < ActiveRecord::Base
         end
       end
     elsif plazos == 0
-        msg += "No está definido el número de plazos para el fraccionamiento de la cuota en los parámetros de la aplicación, se creará el movimiento de devengo pero deberá activar en el colegiado el 'saldar deuda' y definir el valor de importe a saldar en cada remesa sucesiva."
+        msg += "No está definido el número de plazos para el fraccionamiento de la cuota en los parámetros de la aplicación, se creará el movimiento de devengo pero deberá activar en el #{OBJETO_PRINCIPAL} el 'saldar deuda' y definir el valor de importe a saldar en cada remesa sucesiva."
     else
       Movimiento.transaction do
         fecha = Time.now
         m_d = Movimiento.create(:concepto => "(Devengo) Cuota de ingreso",
                                 :importe => cuota,
-                                :concepto_de => :cuota_colegiacion.to_s,
+                                :concepto_de => DATOS_MOVIMIENTOS[:CONCEPTO_CUOTA_PERIODICA].to_s,
                                 :fecha => (Time.utc(fecha.year, fecha.month, fecha.day, fecha.hour, fecha.min) if fecha),
                                 :titular => self)
         if !m_d.valid?
@@ -248,7 +204,7 @@ class Colegiado < ActiveRecord::Base
           self.deuda_a_saldar = cuota
           self.save
           if !self.saldar_deuda || self.importe_deuda != cuota_a_saldar
-            msg += "No se pudo activar el 'saldar deuda' para el cobro aplazado por remesa de la cuota de ingreso, revíselo y hágalo a mano en la ficha del colegiado, indicando el importe periódico."
+            msg += "No se pudo activar el 'saldar deuda' para el cobro aplazado por remesa de la cuota de ingreso, revíselo y hágalo a mano en la ficha del #{OBJETO_PRINCIPAL}, indicando el importe periódico."
           else
             msg += "Se activó el 'saldar deuda' para la cuota de ingreso por el importe aplazado"
           end
@@ -259,22 +215,22 @@ class Colegiado < ActiveRecord::Base
   end
 
   def procesar_no_ejerciente
-    msg = "El colegiado pasa a estar exento de pago, recuerde revisar el estado actual de movimientos."
+    msg = "El #{OBJETO_PRINCIPAL} pasa a estar exento de pago, recuerde revisar el estado actual de movimientos."
     return {:result => true, :msg => msg}
   end
 
   def procesar_baja
-    msg = "Recuerde revisar el estado actual de movimientos del colegiado."
+    msg = "Recuerde revisar el estado actual de movimientos del #{OBJETO_PRINCIPAL}."
     return {:result => true, :msg => msg}
   end
 
   def self.conds_exento_pago
     #Aquí sólo los exentos de pago, los de baja no pagan pero no están exentos.
-    ['(((fecha_ini_exencion_pago is not null or fecha_fin_exencion_pago is not null) and now()::date >= COALESCE(fecha_ini_exencion_pago, ?) and now()::date <= COALESCE(fecha_fin_exencion_pago, ?)) or situacion_colegial = ?)', '1970-01-01'.to_date, '2999-01-01'.to_date, 'colegiado_no_ejerciente']
+    ['(((fecha_ini_exencion_pago is not null or fecha_fin_exencion_pago is not null) and now()::date >= COALESCE(fecha_ini_exencion_pago, ?) and now()::date <= COALESCE(fecha_fin_exencion_pago, ?)) or situacion_colegial = ?)', '1970-01-01'.to_date, '2999-01-01'.to_date, DATOS_OBJETO_PRINCIPAL[:ESTADO_EXENTO].to_s]
   end
 
   def exento_de_pago?
-    ((fecha_ini_exencion_pago || fecha_fin_exencion_pago) && Date.today >= (fecha_ini_exencion_pago || '1970-01-01'.to_date) && Date.today <= (fecha_fin_exencion_pago || '2999-01-01'.to_date)) || situacion_colegial == 'colegiado_no_ejerciente'
+    ((fecha_ini_exencion_pago || fecha_fin_exencion_pago) && Date.today >= (fecha_ini_exencion_pago || '1970-01-01'.to_date) && Date.today <= (fecha_fin_exencion_pago || '2999-01-01'.to_date)) || situacion_colegial == DATOS_OBJETO_PRINCIPAL[:ESTADO_EXENTO].to_s
   end
 
   def documentos
@@ -291,16 +247,16 @@ class Colegiado < ActiveRecord::Base
     messages = []
     return messages if self.new_record?
 
-    messages << "Este colegiado está dado de baja en el colegio." if baja_colegial?
-    messages << "Este colegiado está dado de baja en el colegio pero no está declarado el motivo de la baja." if baja_colegial? && motivo_baja.nil?
-    causa_exencion = situacion_colegial == 'colegiado_no_ejerciente' ? 'No ejerciente' : 'Junta de gobierno'
-    messages << "Este colegiado está exento de pagos (#{causa_exencion})." if exento_de_pago?
-    messages << "Este colegiado no tiene asignada domiciliación de pagos." if !exento_de_pago? && !domiciliar_pagos?
+    messages << "Este #{OBJETO_PRINCIPAL} está dado de baja." if self.send("#{DATOS_OBJETO_PRINCIPAL[:ESTADO_BAJA]}?")
+    messages << "Este #{OBJETO_PRINCIPAL} está dado de baja pero no está declarado el motivo de la misma." if self.send("#{DATOS_OBJETO_PRINCIPAL[:ESTADO_BAJA]}?") && motivo_baja.nil?
+    causa_exencion = self.motivo_baja && self.motivo_baja.descripcion
+    messages << "Este #{OBJETO_PRINCIPAL} está exento de pagos (#{causa_exencion})." if self.send("#{DATOS_OBJETO_PRINCIPAL[:ESTADO_EXENTO]}?")
+    messages << "Este #{OBJETO_PRINCIPAL} no tiene asignada domiciliación de pagos." if !self.send("#{DATOS_OBJETO_PRINCIPAL[:ESTADO_EXENTO]}?") && !domiciliar_pagos?
     messages << "No se ha indicado un número de cuenta." if num_cuenta.blank?
-    messages << "Este colegiado tiene una deuda de #{ExportUtils.value2text(deuda)} €." if deudor?
-    messages << "Este colegiado tiene un saldo positivo de #{ExportUtils.value2text(saldo.abs)} €." if saldo < 0
-    messages << "El expediente de este colegiado no se creó en el momento de darlo de alta, al guardar la ficha se creará automáticamente si no, contacte con el administrador." if !self.expediente
-    messages << "Este colegiado tiene errores generados en la migración desde la aplicación anterior: #{self.err_migracion}" if self.err_migracion
+    messages << "Este #{OBJETO_PRINCIPAL} tiene una deuda de #{ExportUtils.value2text(deuda)} €." if deudor?
+    messages << "Este #{OBJETO_PRINCIPAL} tiene un saldo positivo de #{ExportUtils.value2text(saldo.abs)} €." if saldo < 0
+    messages << "El expediente de este #{OBJETO_PRINCIPAL} no se creó en el momento de darlo de alta, al guardar la ficha se creará automáticamente si no, contacte con el administrador." if !self.expediente
+    messages << "Este #{OBJETO_PRINCIPAL} tiene errores generados en la migración desde la aplicación anterior: #{self.err_migracion}" if self.err_migracion
     docs = []
     docs << "Documentación del expediente incompleta, falta: #{self.documentos_que_faltan.join(', ')}" if self.expediente && !self.documentos_que_faltan.empty?
     docs << "La documentación obligatoria presente en el expediente hasta el momento es: #{self.documentos.join(', ')}"
@@ -313,9 +269,9 @@ class Colegiado < ActiveRecord::Base
     errores = []
     errores << "Debe introducir la fecha efectiva de ingreso así como seleccionar su motivo" if self.fecha_ingreso.nil? || self.motivo_ingreso.nil?
     errores << "Debe seleccionar el destino anterior en caso de ingreso por traslado de expediente" if self.motivo_ingreso && self.motivo_ingreso.nombre == 'traslado_expediente' && self.procedencia.nil?
-    errores << "Debe crear primero el expediente. Para ello, deje en blanco la situación colegial, guarde y vuelva a seleccionarla." if !self.expediente
-    errores << "El expediente del colegiado tiene algún error" if self.expediente && !self.expediente.valid?
-    errores << "Debe abrir el expediente del colegiado introduciendo la fecha" if self.expediente && self.expediente.fecha_apertura.nil? && self.situacion_colegial != 'baja_colegial'
+    errores << "Debe crear primero el expediente. Para ello, deje en blanco el estado, guarde y vuelva a seleccionarlo." if !self.expediente
+    errores << "El expediente del #{OBJETO_PRINCIPAL} tiene algún error" if self.expediente && !self.expediente.valid?
+    errores << "Debe abrir el expediente del #{OBJETO_PRINCIPAL} introduciendo la fecha" if self.expediente && self.expediente.fecha_apertura.nil? && self.situacion_colegial != DATOS_OBJETO_PRINCIPAL[:ESTADO_BAJA].to_s
     #No se puede llamar al método completo? del expediente ni al propio de documentos_que_faltan porque consultan la instancia en bbdd del colegiado y no la que estamos validando (en memoria).
     docs_faltan = self.etiquetas_obligatorias.select {|e| !self.expediente.etiqs_docs_expediente.include?(e.to_sym) }.map {|d| d.to_s.humanize} if self.expediente
     errores << "Documentación del expediente incompleta, falta: #{docs_faltan.join(', ')}" if self.expediente && !docs_faltan.empty?
@@ -326,7 +282,7 @@ class Colegiado < ActiveRecord::Base
     errores = []
     errores << "Debe introducir la fecha efectiva de la baja así como seleccionar su motivo" if self.fecha_baja.nil? || self.motivo_baja.nil?
     errores << "Debe seleccionar el destino en caso de baja por traslado de expediente" if self.motivo_baja && self.motivo_baja.nombre == 'traslado_expediente' && self.destino.nil?
-    errores << "Debe cerrar el expediente del colegiado introduciendo la fecha" if self.expediente && self.expediente.fecha_cierre.nil?
+    errores << "Debe cerrar el expediente del #{OBJETO_PRINCIPAL} introduciendo la fecha" if self.expediente && self.expediente.fecha_cierre.nil?
     if self.motivo_baja && TipoDestino::BAJAS_SOLICITADAS.include?(self.motivo_baja.nombre.to_sym)
       errores << "Debe añadir el documento de solicitud de baja" if self.expediente && !self.expediente.tiene_doc?('solicitud_baja')
     elsif self.motivo_baja && TipoDestino::BAJAS_RESOLUCION_COLEGIAL.include?(self.motivo_baja.nombre.to_sym)
@@ -337,7 +293,7 @@ class Colegiado < ActiveRecord::Base
 
   def revisar_condiciones_no_ejerciente
     errores = []
-    errores << "Debe añadir el documento de solicitud del colegiado o en su caso de resolución de la junta para el cese de ejercicio" if self.expediente && !(self.expediente.tiene_doc?('solicitud_no_ejerciente') || self.expediente.tiene_doc?('resolucion_no_ejerciente'))
-    return "Ha habido errores al procesar el cese de ejercicio del colegiado: #{errores.join('; ')}." unless errores.empty?
+    errores << "Debe añadir el documento de solicitud del #{OBJETO_PRINCIPAL} o en su caso de resolución de la junta para el cese de ejercicio" if self.expediente && !(self.expediente.tiene_doc?('solicitud_no_ejerciente') || self.expediente.tiene_doc?('resolucion_no_ejerciente'))
+    return "Ha habido errores al procesar el cese de ejercicio del #{OBJETO_PRINCIPAL}: #{errores.join('; ')}." unless errores.empty?
   end
 end

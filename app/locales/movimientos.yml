@@ -30,6 +30,7 @@ es:
         transferencia: Transf. bancaria
         empty: "-"
       concepto:
-        cuota_colegiacion: Cuotas colegiación
+        cuota_colegiacion: Cuotas
+        cuota_asociacion: Cuotas
         curso: Cursos
         otro: Otros

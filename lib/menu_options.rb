@@ -1,9 +1,10 @@
 module MenuOptions
   TOTAL = [
-    {:label => 'Colegiados', :image => "menu/colegiados.png", 
+    {:label => "#{OBJETO_PRINCIPAL.capitalize.pluralize}", :image => "menu/colegiados.png", 
       :submenu => [
+        {:label => 'Mis datos', :url => {:controller => "colegiados", :action => "mis_datos"}},
         {:label => 'Listado', :url => {:controller => "colegiados", :action => "index"}},
-        {:label => 'Nuevo colegiado', :url => {:controller => "colegiados", :action => "new"}}
+        {:label => "Nuevo #{OBJETO_PRINCIPAL}", :url => {:controller => "colegiados", :action => "new"}}
       ] 
     }, 
     {:label => 'Expedientes', :image => "menu/expedientes.png", 
@@ -39,7 +40,7 @@ module MenuOptions
     {:label => 'Configuración', :image => "menu/conf.png", 
       :submenu => [
         #{:label => 'Datos del colegio', :url => {:controller => 'colegios', :action => 'edit', :id => (Colegio.actual)}},
-        {:label => 'Colegios profesionales',  :url => {:controller => 'colegios', :action => 'index'}},
+        {:label => "#{TIPO_OBJETO.pluralize.capitalize}",  :url => {:controller => 'colegios', :action => 'index'}},
         {:label => '----------',  :url => {}},
         {:label => 'Usuarios',  :url => {:controller => 'usuarios', :action => 'index'}},
         {:label => 'Roles',  :url => {:controller => 'roles', :action => 'index'}},

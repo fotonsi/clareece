@@ -45,11 +45,11 @@ module GestionesDocumentalesHelper
               $('direccion_destinatario_tr').toggle();
               $('direccion_remitente_tr').toggle();
               $('record_remitente').value = ''
-              $('record_destinatario').value = 'Colegio'
+              $('record_destinatario').value = '#{TIPO_OBJETO.capitalize}'
           } else {
               $('direccion_destinatario_tr').toggle();
               $('direccion_remitente_tr').toggle();
-              $('record_remitente').value = 'Colegio'
+              $('record_remitente').value = '#{TIPO_OBJETO.capitalize}'
               $('record_destinatario').value = ''
           }
           $('record_tipo_gd').value = $('record_tipo_sel').value;
@@ -70,7 +70,7 @@ module GestionesDocumentalesHelper
   end
 
   def destinatario_form_column(record, input_name)
-    text_field_tag("record[destinatario]", (record.destinatario || 'Colegio'), :id => 'record_destinatario', :class => 'text-input', :size => '40')
+    text_field_tag("record[destinatario]", (record.destinatario || TIPO_OBJETO.capitalize), :id => 'record_destinatario', :class => 'text-input', :size => '40')
   end
 
   def direccion_destinatario_form_column(record, input_name)

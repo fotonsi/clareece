@@ -1,7 +1,7 @@
 module ColegiadosHelper
 
   def situacion_colegial_label(sc)
-    I18n.t "view.colegiado.situacion_colegial.#{sc}" if !sc.blank?
+    I18n.t "view.#{OBJETO_PRINCIPAL}.situacion_colegial.#{sc}" if !sc.blank?
   end
 
   def forma_pago_label(forma_pago)
@@ -14,12 +14,10 @@ module ColegiadosHelper
   def layout_actions(record)
     actions = []
     if not record.new_record?
-      actions += [
-        {:label => t('layout_action.colegiados'), :image => "actions/colegiados/datos.png", :url => {:action => 'edit', :id => @record, :mode => params[:mode]}},
-        {:label => t('layout_action.cursos'), :image => "actions/colegiados/cursos.png", :url => {:action => 'listar_cursos', :id => @record, :mode => params[:mode]}},
-        {:label => t('layout_action.movimientos'), :image => "actions/colegiados/movimientos.png", :url => {:action => 'listar_movimientos', :id => @record, :mode => params[:mode]}},
-        {:label => t('layout_action.informes'), :image => "shared/informe.gif", :url => {:action => 'listar_informes', :id => @record, :mode => params[:mode]}}
-      ]
+      actions << {:label => t("layout_action.#{OBJETO_PRINCIPAL}s"), :image => "actions/colegiados/datos.png", :url => {:action => 'edit', :id => @record, :mode => params[:mode]}}
+      actions << {:label => t('layout_action.cursos'), :image => "actions/colegiados/cursos.png", :url => {:action => 'listar_cursos', :id => @record, :mode => params[:mode]}} if TIPO_OBJETO == 'colegio'
+      actions << {:label => t('layout_action.movimientos'), :image => "actions/colegiados/movimientos.png", :url => {:action => 'listar_movimientos', :id => @record, :mode => params[:mode]}}
+      actions << {:label => t('layout_action.informes'), :image => "shared/informe.gif", :url => {:action => 'listar_informes', :id => @record, :mode => params[:mode]}}
     end
     render_layout_actions actions 
   end
@@ -27,9 +25,9 @@ module ColegiadosHelper
   def layout_title(record)
     if record.new_record? || record.num_colegiado == 0
       num_provis = ActiveRecord::Base.connection.select_one('select last_value from num_colegiado_seq')["last_value"].to_i + 1
-      "Alta de nuevo colegiado (nº colegiado provisional #{num_provis})"
+      "Alta de nuevo #{OBJETO_PRINCIPAL} (nº #{OBJETO_PRINCIPAL} provisional #{num_provis})"
     else
-      record.to_label+(record.expediente ? " (exp. #{link_to(record.expediente.id, {:controller => 'expedientes', :action => 'edit', :id => @record.expediente}, :title => 'Acceder al expediente del colegiado')})" : ' (sin exp.)')
+      record.to_label+(record.expediente ? " (exp. #{link_to(record.expediente.id, {:controller => 'expedientes', :action => 'edit', :id => @record.expediente}, :title => "Acceder al expediente del #{OBJETO_PRINCIPAL}")})" : ' (sin exp.)')
     end
   end
 

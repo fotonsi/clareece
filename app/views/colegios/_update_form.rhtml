@@ -8,7 +8,7 @@
            :method => :put
 %>
 
-  <h4>Configuración de datos del colegio</h4>
+  <h4>Configuración datos <%= TIPO_OBJETO %></h4>
   <div id="<%= element_messages_id(:action => :update) %>" class="messages-container"><%= error_messages_for :record %></div>
 
   <%= render :partial => 'form', :locals => { :columns => active_scaffold_config.update.columns } %>

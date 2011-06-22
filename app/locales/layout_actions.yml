@@ -1,6 +1,7 @@
 es:
   layout_action:
     colegiados: Coleg
+    asociados: Asoc
     movimientos: Movim
     cursos: Cursos
     expedientes: Exped

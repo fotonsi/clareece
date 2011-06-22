@@ -21,4 +21,5 @@ ActiveSupport::Inflector.inflections do |inflect|  # Obtenidas de http://buscon.
   inflect.irregular 'entidad_acreditadora', 'entidades_acreditadoras'
   inflect.irregular 'CajaCuadre', 'CajaCuadres'
   inflect.irregular 'caja_cuadre', 'caja_cuadres'
+  inflect.irregular 'asociacion', 'asociaciones'
 end

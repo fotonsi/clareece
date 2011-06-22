@@ -1,5 +1,3 @@
-NOMBRE_COLEGIO="Colegio Profesional de 'Prueba'"
-
 # Development
 WORK_IN_LOCAL = false
 RECIBOS_REMESA_A_GENERAR = 500

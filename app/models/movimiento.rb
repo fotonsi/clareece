@@ -8,7 +8,7 @@ class Movimiento < ActiveRecord::Base
   FORMAS_PAGO_CAJA = [:efectivo, :paypal, :tarjeta, :transferencia]
 
   module Concepto
-    TIPOS = [:cuota_colegiacion, :curso, :otro]
+    TIPOS = DATOS_MOVIMIENTOS[:CONCEPTOS]
     def self.label(concepto)
       I18n.t "view.movimiento.concepto.#{concepto}"
     end

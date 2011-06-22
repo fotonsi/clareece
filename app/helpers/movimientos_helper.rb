@@ -48,7 +48,7 @@ module MovimientosHelper
       if titular.kind_of?(Colegiado)
         link_to titular.to_label, 
                 {:controller => 'colegiados', :action => 'listar_movimientos', :id => titular},
-               :title => 'Ir a movimientos del colegiado' 
+               :title => "Ir a movimientos del #{OBJETO_PRINCIPAL}" 
       elsif titular.kind_of?(Colegio)
         "#{record.a_favor_de}"
       end

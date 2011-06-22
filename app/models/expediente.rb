@@ -5,7 +5,7 @@ class Expediente < ActiveRecord::Base
   has_many :notas, :as => :origen, :dependent => :destroy, :order => 'id'
   has_and_belongs_to_many :expedientes, :association_foreign_key => 'expediente_relacion_id', :order => 'id'
 
-  TIPOS = [:colegiado, :otro]
+  TIPOS = TIPOS_EXPEDIENTES
 
   def to_label
     out = "Expediente"
@@ -41,7 +41,7 @@ class Expediente < ActiveRecord::Base
 
   def de
     #TODO hacerlo con una relación polimórfica. Ahora mismo colegiado tiene la clave externa
-    tipo.to_s.titleize.constantize.find_by_expediente_id(self.id) rescue nil
+    (tipo == OBJETO_PRINCIPAL ? 'colegiado' : tipo).to_s.titleize.constantize.find_by_expediente_id(self.id) rescue nil
   end
 
   def etiquetas_obligatorias(todas = false)

@@ -29,7 +29,7 @@ class ColegiadosController < ApplicationController
 
     # Create
     config.create.link.page = true
-    config.create.link.label = "Nuevo colegiado"
+    config.create.link.label = I18n.t("active_scaffold.colegiados.create_label", :objeto => OBJETO_PRINCIPAL)
 
     # Update
     config.update.label = ""
@@ -99,7 +99,7 @@ class ColegiadosController < ApplicationController
 
   # Editamos tras crear.
   def local_after_create_save(record)
-    flash[:notice] = "Colegiado creado correctamente"
+    flash[:notice] = "#{OBJETO_PRINCIPAL.capitalize} creado correctamente"
     local_after_update_save(record)
     #redirect_to :action => 'edit', :id => record
   end
@@ -113,24 +113,24 @@ class ColegiadosController < ApplicationController
     #PONER AQUÍ LA LLAMADA A colegiado.procesar_alta o colegiado.procesar_baja comparando con situacion_colegial_orig
     begin
       if params['record_situacion_colegial_orig'] != params['record']['situacion_colegial']
-        if params['record']['situacion_colegial'] == 'colegiado'
+        if params['record']['situacion_colegial'] == I18n.t("activerecord.estados.#{DATOS_OBJETO_PRINCIPAL[:ESTADO_ACTIVO]}")
           result = record.procesar_alta
           msg = "Proceso de alta completado"
-        elsif params['record']['situacion_colegial'] == 'colegiado_no_ejerciente'
+        elsif params['record']['situacion_colegial'] == I18n.t("activerecord.estados.#{DATOS_OBJETO_PRINCIPAL[:ESTADO_EXENTO]}")
           result = record.procesar_no_ejerciente
-          msg = "Colegiado cambiado a 'No ejerciente'"
-        elsif params['record']['situacion_colegial'] == 'baja_colegial'
+          msg = "Colegiado cambiado a #{I18n.t("activerecord.estados.#{DATOS_OBJETO_PRINCIPAL[:ESTADO_EXENTO]}")}"
+        elsif params['record']['situacion_colegial'] == I18n.t("activerecord.estados.#{DATOS_OBJETO_PRINCIPAL[:ESTADO_BAJA]}")
           result = record.procesar_baja
           msg = "Proceso de baja completado"
         end
         flash[:notice] = "#{msg}#{' ('+result[:msg]+')' unless result[:msg].blank?}"
       else
-        msg = "Colegiado actualizado correctamente"
+        msg = "#{OBJETO_PRINCIPAL.capitalize} actualizado correctamente"
         flash[:notice] = msg
       end
     rescue Exception => e
-      if msg == "Colegiado actualizado correctamente"
-        msg = "Ocurrió algún problema al actualizar el colegiado"
+      if msg == "#{OBJETO_PRINCIPAL.capitalize} actualizado correctamente"
+        msg = "Ocurrió algún problema al actualizar el #{OBJETO_PRINCIPAL}"
       else
         msg.gsub!("completado", "con errores") if msg
       end

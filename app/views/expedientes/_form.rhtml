@@ -1,8 +1,8 @@
 <% if not @record.colegiado.nil? %> 
 <%# Enlace al colegiado del expediente %>
-<label style="font-size: 14px;">Expediente del colegiado 
+<label style="font-size: 14px;">Expediente del <%= OBJETO_PRINCIPAL %> 
   <%= link_to(@record.colegiado.nombre_completo, {:controller => 'colegiados', :action => 'edit', :id => @record.colegiado},
-      :title => 'Acceder a la ficha del colegiado de este expediente') %>
+      :title => "Acceder a la ficha del #{OBJETO_PRINCIPAL} de este expediente") %>
 </label>
 <% end %>
 <div class="view-item" style="margin-top: 20px;">

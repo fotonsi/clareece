@@ -92,7 +92,7 @@ class Remesa < ActiveRecord::Base
     a_generar_hoy.each {|t| t.generar!}
   end
 
-  def self.generar_individual_saldar_deuda(fecha_cobro = Date.today, concepto_de = :cuota_colegiacion.to_s, concepto = '(Cobro) Deuda aplazada', importe_ini = nil)
+  def self.generar_individual_saldar_deuda(fecha_cobro = Date.today, concepto_de = DATOS_MOVIMIENTOS[:CONCEPTO_CUOTA_PERIODICA].to_s, concepto = '(Cobro) Deuda aplazada', importe_ini = nil)
     Remesa.transaction do
       r = Remesa.new(:fecha_cobro => fecha_cobro, :tipo => :individual.to_s)
       Colegiado.find(:all, :conditions => ['saldar_deuda is true and importe_deuda > 0']).each do |col|

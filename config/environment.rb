@@ -79,5 +79,7 @@ Rails::Initializer.run do |config|
   # Activate observers that should always be running
   # Please note that observers generated using script/generate observer need to have an _observer suffix
   # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
+  #Se pone esto aquí ya que la configuración de objeto hace falta en el menú y éste tiene que ser cargado lo primero.
+  require 'config/local.rb'
   require 'menu'
 end

@@ -63,6 +63,17 @@ function setFieldMode(field_id, mode) {
     }
 }
 
+function cambia_tipo_titular(){
+  if ($('titular_colegio').checked) {
+    $('colegiados_span').value='';
+    $('colegiados_span').hide();
+    $('a_favor_de_span').show();
+  } else {
+    $('a_favor_de_span').hide();
+    $('colegiados_span').show();
+  }
+}
+
 function cambia_mascara_doc_identidad(tipo) {
   (function($) {
     var doc_id = $('#record_doc_identidad');
@@ -84,35 +95,6 @@ function muestra_periodo_exento_pago(value) {
     $('record_fecha_ini_exencion_pago').value = '';
     $('record_fecha_fin_exencion_pago').value = '';
   }
-}
-
-function cambia_tipo_titular(){
-  if ($('titular_colegio').checked) {
-    $('colegiados_span').value='';
-    $('colegiados_span').hide();
-    $('a_favor_de_span').show();
-  } else {
-    $('a_favor_de_span').hide();
-    $('colegiados_span').show();
-  }
-}
-
-function cambia_situacion_colegial(){
-  var situac_orig = $('record_situacion_colegial_orig');
-  var situac = $('record_situacion_colegial');
-  var mensaje_cambio = '¿Está seguro que desea cambiar la situación colegial?, se comprobarán los requisitos al guardar la ficha del colegiado.'
-  if (situac_orig.value == 'baja_colegial' || situac_orig.value == '') { mensaje_cambio = mensaje_cambio + ' Se va a realizar un alta, debe rellenar la fecha y el motivo del reingreso.'}
-  if (situac.value == 'baja_colegial') { mensaje_cambio = mensaje_cambio + ' Se va a dar de baja el colegiado, debe rellenar la fecha y el motivo de la misma.'}
-  if (situac.value != situac_orig.value && !confirm(mensaje_cambio)) situac.setValue(situac_orig.value);
-    if (situac_orig.value == 'baja_colegial') {
-      setFieldMode('record_fecha_ingreso', 'enabled');
-      $('record_fecha_ingreso').value = '';
-      setFieldMode('record_motivo_ingreso_id', 'enabled');
-      $('record_motivo_ingreso_id').selectedIndex = 0;
-    } else if (situac.value == 'baja_colegial') {
-      $('record_fecha_baja').value = '';
-      $('record_motivo_baja_id').value = '';
-    }
 }
 
 function form_init($){

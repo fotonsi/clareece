@@ -43,7 +43,12 @@
     </tr>
     <tr>
       <td>&nbsp;</td>
-      <td><small style="font-size: 1.2em;">Introduzca las etiquetas separadas por espacio. Cuando empiece a escribir se le mostrarán las existentes que empiecen con esas letras.<br />Si está editando un documento desde la ficha del expediente y quiere saber todas las etiquetas obligatorias y optativas no usadas todavía introduzca un '#'</small></td>
+      <td><small style="font-size: 1.2em;">Introduzca las etiquetas separadas por espacio (las etiquetas se asociarán al documento por lo que debe seleccionarlo a continuación). Cuando empiece a escribir se le mostrarán las existentes que empiecen con esas letras.<br />Si está editando un documento desde la ficha del expediente y quiere saber todas las etiquetas obligatorias y optativas no usadas todavía introduzca un '#'</small></td>
+    </tr>
+  <% else %>
+    <tr>
+      <td>&nbsp;</td>
+      <td><small style="font-size: 1.2em;">Introduzca los datos y guarde para crear el registro, luego deberá asociar el documento.</small></td>
     </tr>
   <% end %>
   <% if not @record.new_record? %>

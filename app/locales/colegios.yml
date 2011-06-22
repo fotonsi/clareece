@@ -16,3 +16,6 @@ es:
       group:
         datos: Datos
         configuracion: Configuración
+  active_scaffold:
+    colegio:
+      actualizado: Colegio actualizado correctamente

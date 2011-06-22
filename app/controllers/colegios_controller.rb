@@ -19,7 +19,7 @@ class ColegiosController < ApplicationController
   end if Colegio.table_exists?
 
   def after_update_save(record)
-    flash[:notice] = "Datos del colegio actualizados correctamente"
+    flash[:notice] = I18n.t("active_scaffold.colegio.actualizado")
     redirect_to :action => 'edit', :id => record
   end
 end

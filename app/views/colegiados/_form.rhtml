@@ -2,10 +2,10 @@
   <%# Enlace al expediente del colegiado %>
   <%= link_to(image_tag('actions/colegiados/expediente.png') + ' Expediente', 
       {:controller => 'expedientes', :action => 'edit', :id => @record.expediente},
-      :title => 'Acceder al expediente del colegiado') if not @record.expediente.nil? %>
+      :title => "Acceder al expediente del #{OBJETO_PRINCIPAL}") if not @record.expediente.nil? %>
 <%
 tabbed_layout(:id => "colegiados_tab") do |t_layout|
-  t_layout.tab(:title => "Personales") do
+  t_layout.tab(:title => I18n.t("view.#{OBJETO_PRINCIPAL}.group.personal")) do
     #view_group "view.colegiado.group.personal" do |group|
       table_layout do |layout|
         layout.row do |row|
@@ -34,7 +34,7 @@ tabbed_layout(:id => "colegiados_tab") do |t_layout|
       end
     #end
   end
-  t_layout.tab(:title => "Colegiación") do
+  t_layout.tab(:title => I18n.t("view.#{OBJETO_PRINCIPAL}.group.colegiacion")) do
     #view_group("view.colegiado.group.colegiacion") do |group|
       table_layout do |layout|
         layout.row do |row|
@@ -53,7 +53,7 @@ tabbed_layout(:id => "colegiados_tab") do |t_layout|
       end
     #end 
   end
-  t_layout.tab(:title => "Profesionales") do
+  t_layout.tab(:title => I18n.t("view.#{OBJETO_PRINCIPAL}.group.profesional")) do
     #view_group "view.colegiado.group.profesional" do |group|
       table_layout do |layout|
         layout.row do |row|
@@ -72,7 +72,7 @@ tabbed_layout(:id => "colegiados_tab") do |t_layout|
       end
     #end
   end
-  t_layout.tab(:title => "Económicos") do |group|
+  t_layout.tab(:title => I18n.t("view.#{OBJETO_PRINCIPAL}.group.bancario")) do |group|
     #view_group("view.colegiado.group.bancario") do |group|
       table_layout do |layout|
         layout.row do |row|
@@ -118,20 +118,41 @@ tabbed_layout(:id => "colegiados_tab") do |t_layout|
 end
 %>
 
-<% if !@record.new_record? && Colegiado.find(@record.id).situacion_colegial == 'baja_colegial' %>
+<% if !@record.new_record? && (Colegiado.find(@record.id).situacion_colegial == DATOS_OBJETO_PRINCIPAL[:ESTADO_BAJA] || (!controller.current_user.tiene_permiso_para?('edit_colegiados') && !controller.current_user.tiene_permiso_para?('edit_mis_datos_colegiados'))) %>
   <!-- Se muestra los campos deshabilitados -->
   <script type="text/javascript">
     $$('input,select,textarea').each(function(field) {
       setFieldMode(field, 'disabled');
     });
-    setFieldMode('record_situacion_colegial', 'enabled');
-    setFieldMode('record_situacion_colegial_orig', 'enabled');
-    if ($('record_situacion_colegial').value != 'baja_colegial') {
-      setFieldMode('record_fecha_ingreso', 'enabled');
-      setFieldMode('record_motivo_ingreso_id', 'enabled');
-    }
+    <% if controller.current_user.tiene_permiso_para?('edit_colegiados') %>
+      setFieldMode('record_situacion_colegial', 'enabled');
+      setFieldMode('record_situacion_colegial_orig', 'enabled');
+      if ($('record_situacion_colegial').value != 'baja_colegial') {
+        setFieldMode('record_fecha_ingreso', 'enabled');
+        setFieldMode('record_motivo_ingreso_id', 'enabled');
+      }
+    <% end %>
   </script>
 <% end %>
 <script type="text/javascript">
     setFieldMode('record_observaciones', 'disabled');
+
+    function cambia_situacion_colegial(){
+      var situac_orig = $('record_situacion_colegial_orig');
+      var situac = $('record_situacion_colegial');
+      var mensaje_cambio = '¿Está seguro que desea cambiar el estado?, se comprobarán los requisitos al guardar la ficha del <%= OBJETO_PRINCIPAL %>.'
+      if (situac_orig.value == '<%= DATOS_OBJETO_PRINCIPAL[:ESTADO_BAJA] %>' || situac_orig.value == '') { mensaje_cambio = mensaje_cambio + ' Se va a realizar un alta, debe rellenar la fecha y el motivo del reingreso.'}
+      if (situac.value == '<%= DATOS_OBJETO_PRINCIPAL[:ESTADO_BAJA] %>') { mensaje_cambio = mensaje_cambio + ' Se va a dar de baja el <%= OBJETO_PRINCIPAL %>, debe rellenar la fecha y el motivo de la misma.'}
+      if (situac.value != situac_orig.value && !confirm(mensaje_cambio)) situac.setValue(situac_orig.value);
+        if (situac_orig.value == '<%= DATOS_OBJETO_PRINCIPAL[:ESTADO_BAJA] %>') {
+          setFieldMode('record_fecha_ingreso', 'enabled');
+          $('record_fecha_ingreso').value = '';
+          setFieldMode('record_motivo_ingreso_id', 'enabled');
+          $('record_motivo_ingreso_id').selectedIndex = 0;
+        } else if (situac.value == '<%= DATOS_OBJETO_PRINCIPAL[:ESTADO_BAJA] %>') {
+          $('record_fecha_baja').value = '';
+          $('record_motivo_baja_id').value = '';
+        }
+    }
+
 </script>
