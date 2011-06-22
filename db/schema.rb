@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110309101258) do
+ActiveRecord::Schema.define(:version => 20110622160934) do
 
   create_table "adjuntos", :force => true do |t|
     t.integer  "size"
@@ -324,6 +324,7 @@ ActiveRecord::Schema.define(:version => 20110309101258) do
     t.float    "num_horas_presenciales"
     t.float    "num_horas_virtuales"
     t.integer  "num_plazas_presenciales"
+    t.date     "fecha_registro_titulo"
   end
 
   add_index "cursos", ["aula_id"], :name => "index_cursos_on_aula_id"
@@ -367,6 +368,7 @@ ActiveRecord::Schema.define(:version => 20110309101258) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "tipo"
+    t.boolean  "visible_usuarios"
   end
 
   create_table "expedientes_expedientes", :id => false, :force => true do |t|
@@ -408,7 +410,8 @@ ActiveRecord::Schema.define(:version => 20110309101258) do
     t.datetime "updated_at"
     t.float    "nota"
     t.string   "forma_pago"
-    t.boolean  "apto",          :default => true
+    t.boolean  "apto",                  :default => true
+    t.date     "fecha_registro_titulo"
   end
 
   add_index "formaciones", ["alumno_id", "alumno_type"], :name => "index_formaciones_on_alumno_id_and_alumno_type"
